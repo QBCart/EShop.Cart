@@ -16,7 +16,7 @@
   },
   "author": "QBCart Inc.",
   "contributors": [
-    "Allan Mobley", 
+    "Allan Mobley",
     "Michael Shea"
   ],
   "bugs": {
@@ -32,5 +32,13 @@
     "tag": "npm version major",
     "tag:alpha": "npm version prerelease --preid=alpha",
     "tag:beta": "npm version prerelease --preid=beta"
+  },
+  "dependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0"
   }
 }
