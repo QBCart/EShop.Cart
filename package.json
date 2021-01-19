@@ -27,6 +27,8 @@
     "registry": "https://npm.pkg.github.com/"
   },
   "scripts": {
+    "start": "snowpack dev",
+    "build": "snowpack build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "test:ci": "echo \"All Good\" && exit 0",
     "tag": "npm version major",

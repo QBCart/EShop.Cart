@@ -8,6 +8,7 @@ module.exports = {
     },
     buildOptions: {
       clean: true,
+      metaUrlPath: ".",
     },
     plugins: [
       ['@snowpack/plugin-sass', { compilerOptions: { loadPath: 'node_modules'}}]
