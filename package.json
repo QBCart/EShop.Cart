@@ -1,0 +1,32 @@
+{
+  "name": "@qbcart/qbc-eshop-cart",
+  "version": "1.0.0-alpha.0",
+  "description": "<img align=\"center\" src=\"https://avatars2.githubusercontent.com/u/45455933\" width=\"96\" height=\"96\" />",
+  "keywords": [
+    "qbcart",
+    "web-component",
+    "lit-temp",
+    "typescript"
+  ],
+  "main": "index.js",
+  "module": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/QBCart/QBC.EShop.Cart.git"
+  },
+  "author": "QBCart Inc.",
+  "contributors": [
+    "Allan Mobley", 
+    "Michael Shea"
+  ],
+  "bugs": {
+    "url": "https://github.com/QBCart/QBC.EShop.Cart/issues"
+  },
+  "homepage": "https://github.com/QBCart/QBC.EShop.Cart#readme",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
