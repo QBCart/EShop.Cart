@@ -27,6 +27,10 @@
     "registry": "https://npm.pkg.github.com/"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:ci": "echo \"All Good\" && exit 0",
+    "tag": "npm version major",
+    "tag:alpha": "npm version prerelease --preid=alpha",
+    "tag:beta": "npm version prerelease --preid=beta"
   }
 }
