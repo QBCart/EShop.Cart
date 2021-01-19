@@ -6,15 +6,18 @@ import toUSCurrency from './currency';
 
 import ICartContext from './CartContext';
 
-interface Props { };
+interface Props { 
+    modalId?: string;
+};
 
 const CartViewModal: FC<Props> = (props) => {
+    const modalId: string = props?.modalId ?? 'cartViewModal';
 
     const cartContext = useContext<ICartContext>(CartContext);
 
     useEffect(() => {
 
-        $('#cartViewModal').on('shown.bs.modal', function () {
+        $(`#${modalId}`).on('shown.bs.modal', function () {
             cartContext.pullFromLocalStorage();
         });
 
@@ -43,7 +46,7 @@ const CartViewModal: FC<Props> = (props) => {
     };
 
     return (
-        <div className="modal" tabIndex={-1} id="cartViewModal">
+        <div className="modal" tabIndex={-1} id={modalId}>
             <div className="modal-dialog modal-xl modal-lg">
                 <div className="modal-content">
                     <div className="modal-header">

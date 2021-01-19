@@ -9,7 +9,10 @@ import CartState from "./CartState";
 import CartItem from "./CartItem";
 import ICartContext from './CartContext';
 
-interface Props {};
+interface Props {
+    addToCartModalId?: string;
+    cartViewModalId?: string;
+};
 
 export const CartContext = createContext(null);
 
@@ -92,8 +95,8 @@ const Cart: FC<Props> = (props) => {
     return (
         <div>
             <CartContext.Provider value={cartContext}>
-                <CartViewModal />
-                <AddToCartModal />
+                <CartViewModal modalId={props.cartViewModalId}/>
+                <AddToCartModal modalId={props.addToCartModalId} />
                 <ClearCartModal />
                 <ClearItemModal />
             </CartContext.Provider>

@@ -5,17 +5,19 @@ import ICartContext from "./CartContext";
 import CartItem from './CartItem';
 
 
-interface Props { };
+interface Props { 
+    modalId?: string;
+};
 
 const AddToCartModal: FC<Props> = (props) => {
-
+    const modalId: string = props?.modalId ?? 'addToCartModal';
     const cartContext = useContext<ICartContext>(CartContext);
 
     const [item, setItem] = useState<CartItem>(null);
 
     useEffect(() => {
 
-        $('#addToCartModal').on('shown.bs.modal', function (e) {
+        $(`#${modalId}`).on('shown.bs.modal', function (e) {
             //@ts-ignore
             const triggerItem = $(e.relatedTarget).data('item');
 
@@ -41,7 +43,7 @@ const AddToCartModal: FC<Props> = (props) => {
     };
 
     return (
-        <div className="modal" tabIndex={-1} id="addToCartModal">
+        <div className="modal" tabIndex={-1} id={modalId}>
             <div className="modal-dialog modal-xl modal-lg">
                 {
                     item
