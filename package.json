@@ -28,7 +28,7 @@
   },
   "scripts": {
     "start": "snowpack dev --config snowpack.dev.config.js",
-    "build": "snowpack build",
+    "build": "snowpack build && cp package.json build && cp README.md build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "test:ci": "echo \"All Good\" && exit 0",
     "tag": "npm version major",
