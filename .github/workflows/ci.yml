@@ -54,6 +54,7 @@ jobs:
       ################
       - name: Install Deps
         shell: bash
+        run: echo "//npm.pkg.github.com/:_authToken=$QBC_GITHUB_PACKAGES" > ~/.npmrc
         run: npm install
 
       #################
