@@ -54,7 +54,7 @@ jobs:
       ################
       - name: Install Deps
         shell: bash
-        run: npm Install
+        run: npm install
 
       #################
       # Build Project #
