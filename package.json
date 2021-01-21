@@ -37,6 +37,7 @@
     "tag:beta": "npm version prerelease --preid=beta"
   },
   "dependencies": {
+    "@qbcart/qbc-eshop-product-modal": "^1.0.0-alpha.4",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   },

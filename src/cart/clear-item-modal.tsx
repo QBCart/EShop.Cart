@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState, useContext } from 'react';
+import React, { FC, useEffect, useState, useContext } from 'https://cdn.skypack.dev/pin/react@v17.0.1-tOtrZxBRexARODgO0jli/min/react.js';
 
 import { CartContext } from './index';
 

@@ -6,6 +6,9 @@ module.exports = {
     devOptions: {
       open: "none"
     },
+    packageOptions: {
+      source: 'remote'
+    },
     buildOptions: {
       clean: true,
       metaUrlPath: ".",

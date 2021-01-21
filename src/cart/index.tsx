@@ -1,7 +1,7 @@
-import React, { FC, useState, useEffect, createContext } from 'react';
+import React, { FC, useState, useEffect, createContext } from 'https://cdn.skypack.dev/pin/react@v17.0.1-tOtrZxBRexARODgO0jli/min/react.js';
+import ProductModal from '@qbcart/qbc-eshop-product-modal'
 
 import CartViewModal from './cart-view-modal';
-import AddToCartModal from './add-to-cart-modal';
 import ClearCartModal from './clear-cart-modal';
 import ClearItemModal from './clear-item-modal';
 
@@ -96,7 +96,7 @@ const Cart: FC<Props> = (props) => {
         <div>
             <CartContext.Provider value={cartContext}>
                 <CartViewModal modalId={props.cartViewModalId}/>
-                <AddToCartModal modalId={props.addToCartModalId} />
+                <ProductModal triggerId={ props.addToCartModalId } addToCart={ addToCart }/>
                 <ClearCartModal />
                 <ClearItemModal />
             </CartContext.Provider>
