@@ -20,10 +20,6 @@ on:
     tags:
       - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
-env:
-  NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
 ############
 # Set Jobs #
 ############
@@ -56,6 +52,8 @@ jobs:
           node-version: '14'
           registry-url: https://npm.pkg.github.com/
           scope: "@qbcart"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.QBC_GITHUB_PACKAGES }}
           
       ################
       # Install Deps #
@@ -92,5 +90,7 @@ jobs:
           body_path: ./release.md
           draft: false
           prerelease: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
         
