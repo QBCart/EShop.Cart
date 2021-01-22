@@ -42,19 +42,6 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
 
-      ###############
-      # Get Version #
-      ###############
-      - name: Get Version
-        shell: bash
-        run: |
-          pattern="refs/heads/v"
-          ver="${github_ref/$pattern/}"
-          echo $ver
-          echo "{ver}={$ver} >> $GITHUB_ENV"
-        env:
-          github_ref: ${{ github.ref }}
-
       #################
       # Setup Node JS #
       #################
@@ -89,11 +76,13 @@ jobs:
         shell: bash
         run: |
           cd build
+          pattern="refs/heads/v"
+          ver="${github_ref/$pattern/}"
           echo $ver
           npm version $ver
           npm publish
         env:
-          ver: $ver
+          github_ref: ${{ github.ref }}
 
       
       #########################
