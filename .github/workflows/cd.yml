@@ -89,6 +89,7 @@ jobs:
         shell: bash
         run: |
           cd build
+          echo $ver
           npm version $ver
           npm publish
       
