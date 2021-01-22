@@ -90,6 +90,7 @@ jobs:
         run: |
           cd build
           npm version $ver
+          echo 'VER:' $ver
           npm publish
         env:
           ver: ${{ env.ver }}
