@@ -58,9 +58,7 @@ jobs:
       ################
       - name: Install Deps
         shell: bash
-        run: |
-          echo @qbcart:registry=https://npm.pkg.github.com/ >> .npmrc
-          npm install
+        run: npm install
 
       #################
       # Build Project #
