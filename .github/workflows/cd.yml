@@ -16,9 +16,9 @@ name: CD
 ###############################
 on:
   push:
-    # Sequence of patterns matched against refs/tags
-    tags:
-      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+    # Only trigger workflow when a release readme is changed.
+    branches:
+      - 'v*-alpha.*'
 
 ############
 # Set Jobs #
@@ -76,6 +76,7 @@ jobs:
         shell: bash
         run: |
           cd build
+          npm version ${{ github.ref }}
           npm publish
       
       #########################
