@@ -91,6 +91,8 @@ jobs:
           cd build
           npm version $ver
           npm publish
+        env:
+          ver: ${{ env.ver }}
 
       
       #########################
@@ -100,8 +102,8 @@ jobs:
         id: create_release
         uses: actions/create-release@v1
         with:
-          tag_name: $ver
-          release_name: $ver
+          tag_name: ${{ env.ver }}
+          release_name: ${{ env.ver }}
           body_path: ./release.md
           draft: false
           prerelease: true
