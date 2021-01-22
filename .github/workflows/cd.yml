@@ -48,7 +48,7 @@ jobs:
       - name: Get Version
         shell: bash
         run: |
-          pattern="refs/heads/v"
+          pattern="refs/heads/"
           ver="${github_ref/$pattern/}"
           echo $ver
           echo "new_version=$ver" >> $GITHUB_ENV
