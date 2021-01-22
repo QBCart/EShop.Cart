@@ -42,6 +42,19 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
 
+      ###############
+      # Get Version #
+      ###############
+      - name: Get Version
+        shell: bash
+        run: |
+          pattern="refs/heads/v"
+          ver="${github_ref/$pattern/}"
+          echo $ver
+          echo "ver=$ver >> $GITHUB_ENV"
+        env:
+          github_ref: ${{ github.ref }}
+
       #################
       # Setup Node JS #
       #################
@@ -76,13 +89,8 @@ jobs:
         shell: bash
         run: |
           cd build
-          pattern="refs/heads/v"
-          ver="${github_ref/$pattern/}"
-          echo $ver
           npm version $ver
           npm publish
-        env:
-          github_ref: ${{ github.ref }}
 
       
       #########################
@@ -92,8 +100,8 @@ jobs:
         id: create_release
         uses: actions/create-release@v1
         with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
+          tag_name: $ver
+          release_name: $ver
           body_path: ./release.md
           draft: false
           prerelease: true
