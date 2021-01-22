@@ -93,7 +93,7 @@ jobs:
           npm version $ver
           npm publish
         env:
-          ver: ${{ ver }}
+          ver: $ver
 
       
       #########################
