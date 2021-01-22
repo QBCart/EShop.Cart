@@ -89,7 +89,7 @@ jobs:
         shell: bash
         run: |
           cd build
-          npm version ${{ github.ref }}
+          npm version $ver
           npm publish
       
       #########################
