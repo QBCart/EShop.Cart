@@ -3,4 +3,4 @@ node_modules
 # snowpack output
 build
 
-# .npmrc
+.npmrc
