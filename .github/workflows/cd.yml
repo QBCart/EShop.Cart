@@ -51,7 +51,7 @@ jobs:
           pattern="refs/heads/v"
           ver="${github_ref/$pattern/}"
           echo $ver
-          echo "::set-env name=ver::$ver"
+          echo "{ver}={$ver} >> $GITHUB_ENV"
         env:
           github_ref: ${{ github.ref }}
 
