@@ -51,7 +51,7 @@ jobs:
           registry-url: https://npm.pkg.github.com/
           scope: "@qbcart"
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.QBC_GITHUB_PACKAGES }}
       
       ################
       # Install Deps #
