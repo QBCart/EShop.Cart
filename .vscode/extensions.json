@@ -1,0 +1,7 @@
+{
+  "recommendations": [
+    "runem.lit-plugin",
+    "aaron-bond.better-comments",
+    "esbenp.prettier-vscode"
+  ]
+}

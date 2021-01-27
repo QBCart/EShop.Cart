@@ -27,14 +27,13 @@
     "registry": "https://npm.pkg.github.com/"
   },
   "scripts": {
-    "start": "snowpack dev --config snowpack.dev.config.js",
+    "start": "npm run format && snowpack dev --config snowpack.dev.config.js",
     "build": "snowpack build",
     "build:npm": "snowpack build && cp package.json build && cp README.md build",
+    "format": "prettier --write .",
+    "lint": "prettier --check .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "test:ci": "echo \"All Good\" && exit 0",
-    "tag": "npm version major",
-    "tag:alpha": "npm version prerelease --preid=alpha",
-    "tag:beta": "npm version prerelease --preid=beta"
+    "test:ci": "echo \"All Good\" && exit 0"
   },
   "dependencies": {
     "@qbcart/qbc-eshop-product-modal": "^1.0.0-alpha.4",
@@ -46,6 +45,8 @@
     "@types/jquery": "^3.5.5",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "prettier": "^2.2.1",
+    "rimraf": "^3.0.2",
     "snowpack": "^3.0.11"
   }
 }
