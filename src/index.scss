@@ -1,7 +1,8 @@
 @use '@qbcart/qbc-eshop-product-modal';
 
 #cart-body {
-  overflow-y: auto;
+  overflow: visible !important;
+  overflow-y: auto !important;
 }
 
 .cart-row {
