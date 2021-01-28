@@ -25,6 +25,11 @@ const CartViewModal: FC<Props> = (props) => {
     });
   }, []);
 
+  let cartSubtotal = 0;
+  for (let itemId in cartContext.cartState.items) {
+    cartSubtotal += cartContext.cartState.items[itemId].SalesPrice
+  };
+
   const renderItems = () => {
     let itemsArr: JSX.Element[] = [];
     for (let itemId in cartContext.cartState.items) {
@@ -54,6 +59,7 @@ const CartViewModal: FC<Props> = (props) => {
                   type="number"
                   min="1"
                   value={cartContext.cartState.items[itemId].Quantity}
+                  className="quantity-input form-control-sm ml-2 mr-1"
                 ></input>
               </div>
               <div>
@@ -107,24 +113,29 @@ const CartViewModal: FC<Props> = (props) => {
           <div className="modal-body" id="cart-body">
             <div>
               {renderItems()}
-              <button
-                type="button"
-                className="btn btn-primary"
-                data-toggle="modal"
-                data-target="#ClearCartModal"
-              >
-                Clear Cart
-              </button>
             </div>
           </div>
           <div className="modal-footer">
-            <button
-              type="button"
-              className="btn btn-secondary"
-              data-dismiss="modal"
-            >
-              Close
-            </button>
+            <div className="col  d-flex justify-content-start">
+              Subtotal: {toUSCurrency(cartSubtotal)}
+            </div>
+            <div className="col d-flex justify-content-end">
+              <button
+                  type="button"
+                  className="btn btn-primary"
+                  data-toggle="modal"
+                  data-target="#ClearCartModal"
+                >
+                  Clear Cart
+              </button>
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
           </div>
         </div>
       </div>
