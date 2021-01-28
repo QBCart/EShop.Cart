@@ -61,16 +61,21 @@ const CartViewModal: FC<Props> = (props) => {
               <div>Total: {toUSCurrency(
                   cartContext.cartState.items[itemId].SalesPrice *
                     cartContext.cartState.items[itemId].Quantity
-                )}</div>
-              <button
-                type="button"
-                className="btn btn-primary"
-                data-toggle="modal"
-                data-target="#ClearItemModal"
-                data-item={JSON.stringify(cartContext.cartState.items[itemId])}
-              >
-                Clear Item
-              </button>
+                )}
+              </div>
+              <div className="d-flex justify-content-end">
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  data-toggle="modal"
+                  data-target="#ClearItemModal"
+                  data-item={JSON.stringify(cartContext.cartState.items[itemId])}
+                >
+                  <span className="material-icons">
+                    remove_circle_outline
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
