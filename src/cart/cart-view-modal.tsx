@@ -116,24 +116,36 @@ const CartViewModal: FC<Props> = (props) => {
             </div>
           </div>
           <div className="modal-footer">
-            <div className="col  d-flex justify-content-start">
+            <h4 className="col  d-flex justify-content-start">
               Subtotal: {toUSCurrency(cartSubtotal)}
-            </div>
+            </h4>
             <div className="col d-flex justify-content-end">
               <button
                   type="button"
-                  className="btn btn-primary"
+                  className="btn btn-dark"
                   data-toggle="modal"
                   data-target="#ClearCartModal"
                 >
-                  Clear Cart
+                  <span className="material-icons">
+                    remove_shopping_cart
+                  </span>
               </button>
+              <a href="/Checkout">
+                <button
+                    type="button"
+                    className="btn btn-success ml-2 mr-2"
+                  >
+                    <span className="material-icons">
+                      payment
+                    </span>
+                </button>
+              </a>
               <button
                 type="button"
-                className="btn btn-secondary"
+                className="btn btn-danger"
                 data-dismiss="modal"
               >
-                Close
+                <span className="material-icons">close</span>
               </button>
             </div>
           </div>
