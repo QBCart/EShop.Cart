@@ -41,27 +41,27 @@ const CartViewModal: FC<Props> = (props) => {
               />
             </div>
             <div className="col-lg-8">
-              <span>Name: {cartContext.cartState.items[itemId].Name} - </span>
-              <span>Id: {itemId} - </span>
-              <span>
-                Quantity: {cartContext.cartState.items[itemId].Quantity} -{' '}
-              </span>
-              <span>
+              <div>{cartContext.cartState.items[itemId].SalesDesc} - </div>
+              <div>
                 Price:{' '}
                 {toUSCurrency(
+                  cartContext.cartState.items[itemId].SalesPrice
+                )}
+              </div>
+              <div>
+                <label>Quantity: </label>
+                <input
+                  onChange={cartContext.changeItemQuantity}
+                  data-id={itemId}
+                  type="number"
+                  min="1"
+                  value={cartContext.cartState.items[itemId].Quantity}
+                ></input>
+              </div>
+              <div>Total: {toUSCurrency(
                   cartContext.cartState.items[itemId].SalesPrice *
                     cartContext.cartState.items[itemId].Quantity
-                )}
-              </span>
-              <br />
-              <label>Change Quantity: </label>
-              <input
-                onChange={cartContext.changeItemQuantity}
-                data-id={itemId}
-                type="number"
-                min="1"
-                value={cartContext.cartState.items[itemId].Quantity}
-              ></input>
+                )}</div>
               <button
                 type="button"
                 className="btn btn-primary"
