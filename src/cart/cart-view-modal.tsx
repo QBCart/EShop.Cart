@@ -41,12 +41,10 @@ const CartViewModal: FC<Props> = (props) => {
               />
             </div>
             <div className="col-lg-8">
-              <div>{cartContext.cartState.items[itemId].SalesDesc} - </div>
+              <h4>{cartContext.cartState.items[itemId].SalesDesc}</h4>
               <div>
                 Price:{' '}
-                {toUSCurrency(
-                  cartContext.cartState.items[itemId].SalesPrice
-                )}
+                {toUSCurrency(cartContext.cartState.items[itemId].SalesPrice)}
               </div>
               <div>
                 <label>Quantity: </label>
@@ -58,22 +56,29 @@ const CartViewModal: FC<Props> = (props) => {
                   value={cartContext.cartState.items[itemId].Quantity}
                 ></input>
               </div>
-              <div>Total: {toUSCurrency(
+              <div>
+                Total:{' '}
+                {toUSCurrency(
                   cartContext.cartState.items[itemId].SalesPrice *
                     cartContext.cartState.items[itemId].Quantity
                 )}
               </div>
               <div className="d-flex justify-content-end">
+                <a href={cartContext.cartState.items[itemId].Href}>
+                  <button type="button" className="btn btn-secondary mr-1">
+                    <span className="material-icons">find_in_page</span>
+                  </button>
+                </a>
                 <button
                   type="button"
                   className="btn btn-danger"
                   data-toggle="modal"
                   data-target="#ClearItemModal"
-                  data-item={JSON.stringify(cartContext.cartState.items[itemId])}
+                  data-item={JSON.stringify(
+                    cartContext.cartState.items[itemId]
+                  )}
                 >
-                  <span className="material-icons">
-                    remove_circle_outline
-                  </span>
+                  <span className="material-icons">remove_circle_outline</span>
                 </button>
               </div>
             </div>
