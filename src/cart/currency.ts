@@ -5,12 +5,12 @@
  */
 
 const usCurrencyFormatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
+  style: 'currency',
+  currency: 'USD'
 });
 
 function toUSCurrency(num) {
-    return usCurrencyFormatter.format(num);
+  return usCurrencyFormatter.format(num);
 }
 
 export default toUSCurrency;

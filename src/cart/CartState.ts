@@ -1,11 +1,11 @@
 import CartItem from './CartItem';
 
 interface CartItems {
-    [key: string]: CartItem;
-};
+  [key: string]: CartItem;
+}
 
 interface CartState {
-    items: CartItems;
-};
+  items: CartItems;
+}
 
 export default CartState;

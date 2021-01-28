@@ -1,0 +1,10 @@
+@use '@qbcart/qbc-eshop-product-modal';
+
+#cart-body {
+  overflow-y: auto;
+}
+
+.cart-row {
+  border-bottom: 1px solid lightgray;
+  margin: 10px;
+}
