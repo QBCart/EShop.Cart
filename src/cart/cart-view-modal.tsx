@@ -31,7 +31,7 @@ const CartViewModal: FC<Props> = (props) => {
       itemsArr.push(
         <div key={cartContext.cartState.items[itemId].id}>
           <div className="row cart-row">
-            <div className="col">
+            <div className="col-lg-4">
               <img
                 src={
                   'https://qbcstoragemns4oocsxwl6w.z13.web.core.windows.net/images/thumbnail/' +
@@ -40,7 +40,7 @@ const CartViewModal: FC<Props> = (props) => {
                 alt=""
               />
             </div>
-            <div className="col">
+            <div className="col-lg-8">
               <span>Name: {cartContext.cartState.items[itemId].Name} - </span>
               <span>Id: {itemId} - </span>
               <span>
