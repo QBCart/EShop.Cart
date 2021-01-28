@@ -27,8 +27,10 @@ const CartViewModal: FC<Props> = (props) => {
 
   let cartSubtotal = 0;
   for (let itemId in cartContext.cartState.items) {
-    cartSubtotal += cartContext.cartState.items[itemId].SalesPrice
-  };
+    cartSubtotal +=
+      cartContext.cartState.items[itemId].SalesPrice *
+      cartContext.cartState.items[itemId].Quantity;
+  }
 
   const renderItems = () => {
     let itemsArr: JSX.Element[] = [];
@@ -38,6 +40,7 @@ const CartViewModal: FC<Props> = (props) => {
           <div className="row cart-row">
             <div className="col-lg-4">
               <img
+                className="img-fluid cart-row-img"
                 src={
                   'https://qbcstoragemns4oocsxwl6w.z13.web.core.windows.net/images/thumbnail/' +
                   itemId
@@ -45,7 +48,7 @@ const CartViewModal: FC<Props> = (props) => {
                 alt=""
               />
             </div>
-            <div className="col-lg-8">
+            <div className="col-lg-8 cart-row-data">
               <h4>{cartContext.cartState.items[itemId].SalesDesc}</h4>
               <div>
                 Price:{' '}
@@ -71,8 +74,8 @@ const CartViewModal: FC<Props> = (props) => {
               </div>
               <div className="d-flex justify-content-end">
                 <a href={cartContext.cartState.items[itemId].Href}>
-                  <button type="button" className="btn btn-secondary mr-1">
-                    <span className="material-icons">find_in_page</span>
+                  <button type="button" className="btn btn-primary mr-1">
+                    <span className="material-icons">open_in_new</span>
                   </button>
                 </a>
                 <button
@@ -84,7 +87,7 @@ const CartViewModal: FC<Props> = (props) => {
                     cartContext.cartState.items[itemId]
                   )}
                 >
-                  <span className="material-icons">remove_circle_outline</span>
+                  <span className="material-icons">delete</span>
                 </button>
               </div>
             </div>
@@ -99,21 +102,22 @@ const CartViewModal: FC<Props> = (props) => {
     <div className="modal" tabIndex={-1} id={modalId}>
       <div className="modal-dialog modal-dialog-scrollable modal-xl modal-lg">
         <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title">Cart</h5>
+          <div className="modal-header cart-header">
+            <div className="modal-title">
+              <span className="material-icons m-icon-36">shopping_cart</span>
+            </div>
+            <div className="cart-title">Shopping Cart</div>
             <button
               type="button"
-              className="close"
+              className="close cart-header-close"
               data-dismiss="modal"
               aria-label="Close"
             >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div className="modal-body" id="cart-body">
-            <div>
-              {renderItems()}
-            </div>
+          <div className="modal-body">
+            <div>{renderItems()}</div>
           </div>
           <div className="modal-footer">
             <h4 className="col  d-flex justify-content-start">
@@ -121,28 +125,21 @@ const CartViewModal: FC<Props> = (props) => {
             </h4>
             <div className="col d-flex justify-content-end">
               <button
-                  type="button"
-                  className="btn btn-dark"
-                  data-toggle="modal"
-                  data-target="#ClearCartModal"
-                >
-                  <span className="material-icons">
-                    remove_shopping_cart
-                  </span>
+                type="button"
+                className="btn btn-danger"
+                data-toggle="modal"
+                data-target="#ClearCartModal"
+              >
+                <span className="material-icons">delete</span>
               </button>
               <a href="/Checkout">
-                <button
-                    type="button"
-                    className="btn btn-success ml-2 mr-2"
-                  >
-                    <span className="material-icons">
-                      payment
-                    </span>
+                <button type="button" className="btn btn-success ml-2 mr-2">
+                  <span className="material-icons">payment</span>
                 </button>
               </a>
               <button
                 type="button"
-                className="btn btn-danger"
+                className="btn btn-secondary"
                 data-dismiss="modal"
               >
                 <span className="material-icons">close</span>

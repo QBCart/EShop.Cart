@@ -29,6 +29,12 @@ const Cart: FC<Props> = (props) => {
   }, []);
 
   // useEffect(() => {
+  //   if(document.getElementById('user-is-logged-in')) {
+  //     let userInfo = document.getElementById('user-is-logged-in').data
+  //   };
+  // }, []);
+
+  // useEffect(() => {
 
   //     $('#productPageAddToCart').on('click', function (e) {
   //         const triggerItem: CartItem = $(e.relatedTarget).data('item');
