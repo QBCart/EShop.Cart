@@ -35,52 +35,47 @@ const ClearItemModal: FC<Props> = (props) => {
       aria-labelledby="staticBackdropLabel"
       aria-hidden="true"
     >
-      <div className="modal-dialog">
+      <div className="modal-dialog modal-dialog-centered">
         {item ? (
-          <div className="modal-content">
-            <div className="modal-header">
+          <div className="modal-content clear-modal">
+            <div className="modal-header clear-header d-flex justify-content-start">
               <h5 className="modal-title" id="staticBackdropLabel">
-                Modal title
+                <span className="material-icons m-icon-36">delete</span>
               </h5>
-              <button
-                type="button"
-                className="close"
-                data-toggle="modal"
-                data-target="#ClearItemModal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
+              <div className="clear-title">Remove {item.SalesDesc}</div>
             </div>
+
             <div className="modal-body">
-              <img
-                src={
-                  'https://qbcstoragemns4oocsxwl6w.z13.web.core.windows.net/images/thumbnail/' +
-                  item.id
-                }
-                alt=""
-              />
+              <div>
+                <img className="clear-img"
+                  src={
+                    'https://qbcstoragemns4oocsxwl6w.z13.web.core.windows.net/images/thumbnail/' +
+                    item.id
+                  }
+                  alt=""
+                />
+              </div>
               <span>
-                Are you sure you want to clear {item.Name} from your cart?
+                Are you sure you want to remove {item.SalesDesc} from your cart?
               </span>
             </div>
-            <div className="modal-footer">
+            <div className="modal-footer d-flex justify-content-center">
+              <button
+                onClick={() => cartContext.clearItem(item)}
+                type="button"
+                className="btn btn-danger"
+                data-toggle="modal"
+                data-target="#ClearItemModal"
+              >
+                Yes, Remove This Item
+              </button>
               <button
                 type="button"
                 className="btn btn-secondary"
                 data-toggle="modal"
                 data-target="#ClearItemModal"
               >
-                No
-              </button>
-              <button
-                onClick={() => cartContext.clearItem(item)}
-                type="button"
-                className="btn btn-primary"
-                data-toggle="modal"
-                data-target="#ClearItemModal"
-              >
-                Yes
+                No, Keep this Item
               </button>
             </div>
           </div>

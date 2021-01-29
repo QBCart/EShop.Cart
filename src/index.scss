@@ -1,10 +1,5 @@
 @use '@qbcart/qbc-eshop-product-modal';
 
-.cart-title {
-  font-size: 24px;
-  margin-left: 5px;
-}
-
 .m-icon-36 {
   font-size: 32px;
   vertical-align: text-top;
@@ -14,14 +9,14 @@
   padding: 0.5rem 1rem;
 }
 
+.cart-title {
+  font-size: 24px;
+  margin-left: 5px;
+}
+
 .modal-header .cart-header-close {
   margin: -0.75rem -1rem -1rem auto;
 }
-
-// #cart-body {
-//   overflow: visible !important;
-//   overflow-y: auto !important;
-// }
 
 .cart-row {
   border-bottom: 1px solid lightgray;
@@ -35,4 +30,29 @@
 
 .cart-row-data {
   height: 200px;
+}
+
+.clear-modal {
+  border: 2px solid black;
+}
+
+.clear-header {
+  padding: 0.5rem 1rem;
+  color: #dc3545;
+  background-color: darkslategray;
+  border-bottom: 2px solid black;
+  border-top-left-radius: 2px !important;
+  border-top-right-radius: 2px !important;
+}
+
+.clear-title {
+  font-size: 24px;
+  margin-left: 5px;
+  color: lightgray;
+}
+
+.clear-img {
+  display: block;
+  height: 300px;
+  margin: 5px auto;
 }
