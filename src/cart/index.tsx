@@ -17,6 +17,7 @@ import ICartContext from './CartContext';
 interface Props {
   addToCartModalId?: string;
   cartViewModalId?: string;
+  companyStorageUrl: string;
 }
 
 export const CartContext = createContext(null);
@@ -102,13 +103,19 @@ const Cart: FC<Props> = (props) => {
   return (
     <div>
       <CartContext.Provider value={cartContext}>
-        <CartViewModal modalId={props.cartViewModalId} />
+        <CartViewModal
+          modalId={props.cartViewModalId}
+          companyStorageUrl={props.companyStorageUrl} 
+        />
         <ProductModal
           triggerId={props.addToCartModalId}
           addToCart={addToCart}
+          companyStorageUrl={props.companyStorageUrl}
         />
         <ClearCartModal />
-        <ClearItemModal />
+        <ClearItemModal 
+          companyStorageUrl={props.companyStorageUrl}
+        />
       </CartContext.Provider>
     </div>
   );

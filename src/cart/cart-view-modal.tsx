@@ -12,6 +12,7 @@ import ICartContext from './CartContext';
 
 interface Props {
   modalId?: string;
+  companyStorageUrl: string;
 }
 
 const CartViewModal: FC<Props> = (props) => {
@@ -42,7 +43,7 @@ const CartViewModal: FC<Props> = (props) => {
               <img
                 className="img-fluid cart-row-img"
                 src={
-                  'https://qbcstoragemns4oocsxwl6w.z13.web.core.windows.net/images/thumbnail/' +
+                  props.companyStorageUrl + 'images/thumbnail/' +
                   itemId
                 }
                 alt=""

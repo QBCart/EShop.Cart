@@ -10,7 +10,9 @@ import { CartContext } from './index';
 import ICartContext from './CartContext';
 import CartItem from './CartItem';
 
-interface Props {}
+interface Props {
+  companyStorageUrl: string;
+}
 
 const ClearItemModal: FC<Props> = (props) => {
   const cartContext = useContext<ICartContext>(CartContext);
@@ -50,7 +52,7 @@ const ClearItemModal: FC<Props> = (props) => {
                 <img
                   className="clear-img"
                   src={
-                    'https://qbcstoragemns4oocsxwl6w.z13.web.core.windows.net/images/thumbnail/' +
+                    props.companyStorageUrl + 'images/thumbnail/' +
                     item.id
                   }
                   alt=""
