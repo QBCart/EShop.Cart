@@ -25,10 +25,10 @@ const ClearCartModal: FC<Props> = (props) => {
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content clear-modal">
           <div className="modal-header clear-header d-flex justify-content-start">
-              <h5 className="modal-title" id="staticBackdropLabel">
-                <span className="material-icons m-icon-36">delete</span>
-              </h5>
-              <div className="clear-title">Empty Cart</div>
+            <h5 className="modal-title" id="staticBackdropLabel">
+              <span className="material-icons m-icon-36">delete</span>
+            </h5>
+            <div className="clear-title">Empty Cart</div>
           </div>
           <div className="modal-body">
             <div className="d-flex justify-content-center">

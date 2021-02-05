@@ -47,7 +47,8 @@ const ClearItemModal: FC<Props> = (props) => {
 
             <div className="modal-body">
               <div>
-                <img className="clear-img"
+                <img
+                  className="clear-img"
                   src={
                     'https://qbcstoragemns4oocsxwl6w.z13.web.core.windows.net/images/thumbnail/' +
                     item.id
