@@ -62,12 +62,12 @@ const CartViewModal: FC<Props> = (props) => {
                   type="number"
                   min="1"
                   value={cartContext.cartState.items[itemId].inputValue}
-                  className="quantity-input form-control-sm ml-2 mr-1"
+                  className="quantity-input-cart form-control-sm ml-2 mr-1"
                 ></input>
                 {cartContext.cartState.items[itemId].updateReady ? (
                   <button
                     data-id={itemId}
-                    className="btn btn-success"
+                    className="btn btn-success cart-quantity-update"
                     onClick={cartContext.changeItemQuantity}
                   >
                     update
