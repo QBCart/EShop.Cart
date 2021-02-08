@@ -67,10 +67,12 @@ const Cart: FC<Props> = (props) => {
     if (newCart.items[item.id]) {
       newCart.items[item.id].Quantity += item.Quantity;
     } else {
-      item.inputValue = item.Quantity;
-      item.updateReady = false;
       newCart.items[item.id] = item;
     }
+    newCart.items[item.id].inputValue = newCart.items[
+      item.id
+    ].Quantity.toString();
+    newCart.items[item.id].updateReady = false;
     setCart(newCart);
   };
 
@@ -98,9 +100,7 @@ const Cart: FC<Props> = (props) => {
 
   const revertItemInputValue = (e) => {
     const evtId = e.target.dataset.id;
-    if (cart.items[evtId].updateReady) {
-      return null;
-    } else {
+    if (!cart.items[evtId].updateReady) {
       let newCart = { ...cart };
       newCart.items[evtId].inputValue = newCart.items[
         evtId
