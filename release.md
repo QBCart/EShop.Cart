@@ -2,7 +2,8 @@
 
 # New
 
-- Added ProductModal package
+- made cart view quantity input user friendly
+- added support to update cart quantity input
 
 # Fixes
 
