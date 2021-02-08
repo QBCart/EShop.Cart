@@ -2,12 +2,11 @@
 
 # New
 
-- made cart view quantity input user friendly
-- added support to update cart quantity input
+- updated deps
 
 # Fixes
 
-- none
+- new productModal dep no longer crashes on empty specs
 
 # Breaking
 
