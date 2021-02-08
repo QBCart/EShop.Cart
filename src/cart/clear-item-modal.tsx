@@ -51,10 +51,7 @@ const ClearItemModal: FC<Props> = (props) => {
               <div>
                 <img
                   className="clear-img"
-                  src={
-                    props.companyStorageUrl + 'images/thumbnail/' +
-                    item.id
-                  }
+                  src={props.companyStorageUrl + 'images/thumbnail/' + item.id}
                   alt=""
                 />
               </div>

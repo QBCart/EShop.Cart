@@ -17,17 +17,21 @@ import ICartContext from './CartContext';
 interface Props {
   addToCartModalId?: string;
   cartViewModalId?: string;
-  companyStorageUrl: string;
 }
 
 export const CartContext = createContext(null);
 
 const Cart: FC<Props> = (props) => {
-  const [cart, setCart] = useState<CartState>({ items: {} });
+  const [cart, setCart] = useState<CartState>({
+    items: {},
+    companyStorageUrl: document.getElementById('cart').dataset.url
+  });
 
   useEffect(() => {
     pullFromLocalStorage();
   }, []);
+
+  useEffect(() => {}, []);
 
   // useEffect(() => {
   //   if(document.getElementById('user-is-logged-in')) {
@@ -57,12 +61,14 @@ const Cart: FC<Props> = (props) => {
     }
   };
 
-  const addToCart = (item: CartItem) => {
+  const addToCart = (item) => {
     let newCart = { ...cart };
 
     if (newCart.items[item.id]) {
       newCart.items[item.id].Quantity += item.Quantity;
     } else {
+      item.inputValue = item.Quantity;
+      item.updateReady = false;
       newCart.items[item.id] = item;
     }
     setCart(newCart);
@@ -72,12 +78,44 @@ const Cart: FC<Props> = (props) => {
     localStorage.setItem('items', JSON.stringify(cart.items));
   };
 
-  const changeItemQuantity = (e) => {
-    if (e.target.value && parseInt(e.target.value) > 0) {
+  const changeItemInputValue = (e) => {
+    const evtId = e.target.dataset.id;
+    let newCart = { ...cart };
+    newCart.items[evtId].inputValue = e.target.value;
+    const inputValueNum = Number(newCart.items[evtId].inputValue);
+    if (
+      typeof inputValueNum === 'number' &&
+      inputValueNum > 0 &&
+      inputValueNum % 1 === 0 &&
+      inputValueNum !== newCart.items[evtId].Quantity
+    ) {
+      newCart.items[evtId].updateReady = true;
+    } else {
+      newCart.items[evtId].updateReady = false;
+    }
+    setCart(newCart);
+  };
+
+  const revertItemInputValue = (e) => {
+    const evtId = e.target.dataset.id;
+    if (cart.items[evtId].updateReady) {
+      return null;
+    } else {
       let newCart = { ...cart };
-      newCart.items[e.target.dataset.id].Quantity = parseInt(e.target.value);
+      newCart.items[evtId].inputValue = newCart.items[
+        evtId
+      ].Quantity.toString();
+      newCart.items[evtId].updateReady = false;
       setCart(newCart);
     }
+  };
+
+  const changeItemQuantity = (e) => {
+    const evtId = e.target.dataset.id;
+    let newCart = { ...cart };
+    newCart.items[evtId].Quantity = parseInt(newCart.items[evtId].inputValue);
+    newCart.items[evtId].updateReady = false;
+    setCart(newCart);
   };
 
   const clearItem = (item: CartItem) => {
@@ -87,7 +125,10 @@ const Cart: FC<Props> = (props) => {
   };
 
   const clearCart = () => {
-    const newCart: CartState = { items: {} };
+    const newCart: CartState = {
+      items: {},
+      companyStorageUrl: document.getElementById('cart').dataset.url
+    };
     setCart(newCart);
   };
 
@@ -96,6 +137,8 @@ const Cart: FC<Props> = (props) => {
     pullFromLocalStorage: pullFromLocalStorage,
     addToCart: addToCart,
     changeItemQuantity: changeItemQuantity,
+    changeItemInputValue: changeItemInputValue,
+    revertItemInputValue: revertItemInputValue,
     clearItem: clearItem,
     clearCart: clearCart
   };
@@ -105,17 +148,15 @@ const Cart: FC<Props> = (props) => {
       <CartContext.Provider value={cartContext}>
         <CartViewModal
           modalId={props.cartViewModalId}
-          companyStorageUrl={props.companyStorageUrl} 
+          companyStorageUrl={cart.companyStorageUrl}
         />
         <ProductModal
           triggerId={props.addToCartModalId}
           addToCart={addToCart}
-          companyStorageUrl={props.companyStorageUrl}
+          companyStorageUrl={cart.companyStorageUrl}
         />
         <ClearCartModal />
-        <ClearItemModal 
-          companyStorageUrl={props.companyStorageUrl}
-        />
+        <ClearItemModal companyStorageUrl={cart.companyStorageUrl} />
       </CartContext.Provider>
     </div>
   );

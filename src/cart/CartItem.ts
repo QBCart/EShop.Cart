@@ -5,6 +5,8 @@ interface CartItem {
   Name: string;
   SalesPrice: number;
   Quantity: number;
+  inputValue: string;
+  updateReady: boolean;
 }
 
 export default CartItem;

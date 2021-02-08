@@ -9,6 +9,7 @@ import { CartContext } from './index';
 import toUSCurrency from './currency';
 
 import ICartContext from './CartContext';
+import CartItem from './CartItem';
 
 interface Props {
   modalId?: string;
@@ -42,10 +43,7 @@ const CartViewModal: FC<Props> = (props) => {
             <div className="col-lg-4">
               <img
                 className="img-fluid cart-row-img"
-                src={
-                  props.companyStorageUrl + 'images/thumbnail/' +
-                  itemId
-                }
+                src={props.companyStorageUrl + 'images/thumbnail/' + itemId}
                 alt=""
               />
             </div>
@@ -58,13 +56,23 @@ const CartViewModal: FC<Props> = (props) => {
               <div>
                 <label>Quantity: </label>
                 <input
-                  onChange={cartContext.changeItemQuantity}
+                  onChange={cartContext.changeItemInputValue}
                   data-id={itemId}
+                  onBlur={cartContext.revertItemInputValue}
                   type="number"
                   min="1"
-                  value={cartContext.cartState.items[itemId].Quantity}
+                  value={cartContext.cartState.items[itemId].inputValue}
                   className="quantity-input form-control-sm ml-2 mr-1"
                 ></input>
+                {cartContext.cartState.items[itemId].updateReady ? (
+                  <button
+                    data-id={itemId}
+                    className="btn btn-success"
+                    onClick={cartContext.changeItemQuantity}
+                  >
+                    update
+                  </button>
+                ) : null}
               </div>
               <div>
                 Total:{' '}
