@@ -19,6 +19,12 @@ on:
   pull_request:
     branches: [main]
 
+###################
+# Set Global Envs #
+###################
+env:
+  node_version: '14'
+
 ############
 # Set Jobs #
 ############
@@ -39,13 +45,18 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
 
-      ##############
-      # Setup Node #
-      ##############
-      - name: Setup Node
+      #################
+      # Setup Node JS #
+      #################
+      - name: Setup Node JS
+        # Setup .npmrc file to publish to npm
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: ${{ env.node_version }}
+          registry-url: https://npm.pkg.github.com/
+          scope: '@qbcart'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.QBC_GITHUB_PACKAGES }}
 
       ################
       # Install Deps #
