@@ -2,11 +2,11 @@
 
 # New
 
-- updated deps
+- none
 
 # Fixes
 
-- fixed styles on ProductModal image carousel & footer
+- updated cart image styles to allow better image scaling
 
 # Breaking
 
