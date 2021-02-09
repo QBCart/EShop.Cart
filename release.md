@@ -6,7 +6,7 @@
 
 # Fixes
 
-- none
+- fixed styles on ProductModal image carousel & footer
 
 # Breaking
 
