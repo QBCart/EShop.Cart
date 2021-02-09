@@ -6,7 +6,7 @@
 
 # Fixes
 
-- new productModal dep no longer crashes on empty specs
+- none
 
 # Breaking
 
