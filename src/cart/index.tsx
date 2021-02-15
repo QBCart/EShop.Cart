@@ -31,8 +31,6 @@ const Cart: FC<Props> = (props) => {
     pullFromLocalStorage();
   }, []);
 
-  useEffect(() => {}, []);
-
   // useEffect(() => {
   //   if(document.getElementById('user-is-logged-in')) {
   //     let userInfo = document.getElementById('user-is-logged-in').data
