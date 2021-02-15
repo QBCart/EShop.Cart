@@ -7,6 +7,7 @@ interface CartItems {
 interface CartState {
   items: CartItems;
   companyStorageUrl: string;
+  userId: string;
 }
 
 export default CartState;

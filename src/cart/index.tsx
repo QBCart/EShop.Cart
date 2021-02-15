@@ -24,12 +24,15 @@ export const CartContext = createContext(null);
 const Cart: FC<Props> = (props) => {
   const [cart, setCart] = useState<CartState>({
     items: {},
-    companyStorageUrl: document.getElementById('cart').dataset.url
+    companyStorageUrl: document.getElementById('cart').dataset.url,
+    userId: document.getElementById('cart').dataset.userId
   });
 
   useEffect(() => {
     pullFromLocalStorage();
   }, []);
+
+  // fetch url="/cart/get" or "/cart/update" (is a relative path)
 
   // useEffect(() => {
   //   if(document.getElementById('user-is-logged-in')) {
@@ -48,15 +51,28 @@ const Cart: FC<Props> = (props) => {
   // }, []);
 
   useEffect(() => {
-    localStorage.setItem('items', JSON.stringify(cart.items));
+    if ( cart.userId === 'undefined' ) {
+      localStorage.setItem('guestCartItems', JSON.stringify(cart.items));
+    } else {
+      localStorage.setItem('userCartItems', JSON.stringify(cart.items));
+    };
   }, [cart]);
 
   const pullFromLocalStorage = () => {
-    if (localStorage.items) {
+    if ( cart.userId === 'undefined' && localStorage.guestCartItems) {
       let newCart = { ...cart };
-      newCart.items = JSON.parse(localStorage.getItem('items'));
+      newCart.items = JSON.parse(localStorage.getItem('guestCartItems'));
       setCart((prevCart) => (prevCart = newCart));
-    }
+    } else if (cart.userId !== 'undefined' && localStorage.userCartItems) {
+      let newCart = { ...cart };
+      newCart.items = JSON.parse(localStorage.getItem('userCartItems'));
+      setCart((prevCart) => (prevCart = newCart));
+    } else { return };
+    // if (localStorage.items) {
+    //   let newCart = { ...cart };
+    //   newCart.items = JSON.parse(localStorage.getItem('items'));
+    //   setCart((prevCart) => (prevCart = newCart));
+    // }
   };
 
   const addToCart = (item) => {
@@ -75,7 +91,11 @@ const Cart: FC<Props> = (props) => {
   };
 
   const updateLocalStorage = () => {
-    localStorage.setItem('items', JSON.stringify(cart.items));
+    if ( cart.userId === 'undefined' ) {
+      localStorage.setItem('guestCartItems', JSON.stringify(cart.items));
+    } else {
+      localStorage.setItem('userCartItems', JSON.stringify(cart.items));
+    };
   };
 
   const changeItemInputValue = (e) => {
@@ -125,7 +145,8 @@ const Cart: FC<Props> = (props) => {
   const clearCart = () => {
     const newCart: CartState = {
       items: {},
-      companyStorageUrl: document.getElementById('cart').dataset.url
+      companyStorageUrl: document.getElementById('cart').dataset.url,
+      userId: document.getElementById('cart').dataset.userId
     };
     setCart(newCart);
   };
