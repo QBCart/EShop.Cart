@@ -17,19 +17,24 @@ import ICartContext from './CartContext';
 interface Props {
   addToCartModalId?: string;
   cartViewModalId?: string;
+  cartGetAPI: string;
 }
 
 export const CartContext = createContext(null);
 
+const companyStorageUrl = document.getElementById('cart').dataset.url;
+const userLoggedIn = Boolean(
+  document.getElementById('cart').dataset.userLoggedIn
+);
+
 const Cart: FC<Props> = (props) => {
   const [cart, setCart] = useState<CartState>({
     items: {},
-    companyStorageUrl: document.getElementById('cart').dataset.url,
-    userId: document.getElementById('cart').dataset.userId
+    lastUpdated: new Date()
   });
 
   useEffect(() => {
-    pullFromLocalStorage();
+    getCart();
   }, []);
 
   // fetch url="/cart/get" or "/cart/update" (is a relative path)
@@ -51,23 +56,39 @@ const Cart: FC<Props> = (props) => {
   // }, []);
 
   useEffect(() => {
-    if ( cart.userId === 'undefined' ) {
-      localStorage.setItem('guestCartItems', JSON.stringify(cart.items));
+    if (userLoggedIn) {
+      localStorage.setItem('userCart', JSON.stringify(cart));
     } else {
-      localStorage.setItem('userCartItems', JSON.stringify(cart.items));
-    };
+      localStorage.setItem('guestCart', JSON.stringify(cart));
+    }
   }, [cart]);
 
+  const getCart = async () => {
+    if (userLoggedIn) {
+      const res = await fetch(`${props.cartGetAPI || '/cart/get'}`, {
+        credentials: 'include',
+        method: 'POST'
+      });
+      const json = await res.json();
+      let x = '';
+    } else {
+      console.log('logged out');
+    }
+  };
+
   const pullFromLocalStorage = () => {
-    if ( cart.userId === 'undefined' && localStorage.guestCartItems) {
+    if (userLoggedIn && localStorage.guestCartItems) {
       let newCart = { ...cart };
       newCart.items = JSON.parse(localStorage.getItem('guestCartItems'));
       setCart((prevCart) => (prevCart = newCart));
-    } else if (cart.userId !== 'undefined' && localStorage.userCartItems) {
+    } else if (!userLoggedIn && localStorage.userCartItems) {
       let newCart = { ...cart };
       newCart.items = JSON.parse(localStorage.getItem('userCartItems'));
       setCart((prevCart) => (prevCart = newCart));
-    } else { return };
+    } else {
+      return;
+    }
+
     // if (localStorage.items) {
     //   let newCart = { ...cart };
     //   newCart.items = JSON.parse(localStorage.getItem('items'));
@@ -87,15 +108,17 @@ const Cart: FC<Props> = (props) => {
       item.id
     ].Quantity.toString();
     newCart.items[item.id].updateReady = false;
+    newCart.lastUpdated = new Date();
+    console.log(newCart);
     setCart(newCart);
   };
 
   const updateLocalStorage = () => {
-    if ( cart.userId === 'undefined' ) {
+    if (!userLoggedIn) {
       localStorage.setItem('guestCartItems', JSON.stringify(cart.items));
     } else {
       localStorage.setItem('userCartItems', JSON.stringify(cart.items));
-    };
+    }
   };
 
   const changeItemInputValue = (e) => {
@@ -133,21 +156,25 @@ const Cart: FC<Props> = (props) => {
     let newCart = { ...cart };
     newCart.items[evtId].Quantity = parseInt(newCart.items[evtId].inputValue);
     newCart.items[evtId].updateReady = false;
+    newCart.lastUpdated = new Date();
+    console.log(newCart);
     setCart(newCart);
   };
 
   const clearItem = (item: CartItem) => {
     let newCart = { ...cart };
     delete newCart.items[item.id];
+    newCart.lastUpdated = new Date();
+    console.log(newCart);
     setCart(newCart);
   };
 
   const clearCart = () => {
     const newCart: CartState = {
       items: {},
-      companyStorageUrl: document.getElementById('cart').dataset.url,
-      userId: document.getElementById('cart').dataset.userId
+      lastUpdated: new Date()
     };
+    console.log(newCart);
     setCart(newCart);
   };
 
@@ -167,15 +194,15 @@ const Cart: FC<Props> = (props) => {
       <CartContext.Provider value={cartContext}>
         <CartViewModal
           modalId={props.cartViewModalId}
-          companyStorageUrl={cart.companyStorageUrl}
+          companyStorageUrl={companyStorageUrl}
         />
         <ProductModal
           triggerId={props.addToCartModalId}
           addToCart={addToCart}
-          companyStorageUrl={cart.companyStorageUrl}
+          companyStorageUrl={companyStorageUrl}
         />
         <ClearCartModal />
-        <ClearItemModal companyStorageUrl={cart.companyStorageUrl} />
+        <ClearItemModal companyStorageUrl={companyStorageUrl} />
       </CartContext.Provider>
     </div>
   );
