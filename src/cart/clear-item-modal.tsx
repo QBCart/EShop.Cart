@@ -1,22 +1,17 @@
 import React, {
   FC,
   useEffect,
-  useState,
-  useContext
+  useState
 } from 'https://cdn.skypack.dev/pin/react@v17.0.1-tOtrZxBRexARODgO0jli/min/react.js';
 
-import { CartContext } from './index';
-
-import ICartContext from './CartContext';
 import CartItem from './CartItem';
 
 interface Props {
   companyStorageUrl: string;
+  clearItem(item: CartItem): void;
 }
 
 const ClearItemModal: FC<Props> = (props) => {
-  const cartContext = useContext<ICartContext>(CartContext);
-
   const [item, setItem] = useState<CartItem>();
 
   useEffect(() => {
@@ -61,7 +56,7 @@ const ClearItemModal: FC<Props> = (props) => {
             </div>
             <div className="modal-footer d-flex justify-content-center">
               <button
-                onClick={() => cartContext.clearItem(item)}
+                onClick={() => props.clearItem(item)}
                 type="button"
                 className="btn btn-danger"
                 data-toggle="modal"

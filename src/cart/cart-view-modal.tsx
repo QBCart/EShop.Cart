@@ -1,44 +1,43 @@
 import React, {
   FC,
   useEffect,
-  useContext
+  ChangeEvent
 } from 'https://cdn.skypack.dev/pin/react@v17.0.1-tOtrZxBRexARODgO0jli/min/react.js';
 
-import { CartContext } from './index';
-
 import toUSCurrency from './currency';
-
-import ICartContext from './CartContext';
-import CartItem from './CartItem';
+import CartState from './CartState';
 
 interface Props {
   modalId?: string;
   companyStorageUrl: string;
+  cartState: CartState;
+  pullFromLocalStorage(): void;
+  changeItemQuantity(e: any): void;
+  changeItemInputValue(e: ChangeEvent): void;
+  revertItemInputValue(e: ChangeEvent): void;
 }
 
 const CartViewModal: FC<Props> = (props) => {
   const modalId: string = props?.modalId ?? 'cartViewModal';
 
-  const cartContext = useContext<ICartContext>(CartContext);
-
   useEffect(() => {
     $(`#${modalId}`).on('shown.bs.modal', function () {
-      cartContext.pullFromLocalStorage();
+      props.pullFromLocalStorage();
     });
   }, []);
 
   let cartSubtotal = 0;
-  for (let itemId in cartContext.cartState.items) {
+  for (let itemId in props.cartState.items) {
     cartSubtotal +=
-      cartContext.cartState.items[itemId].SalesPrice *
-      cartContext.cartState.items[itemId].Quantity;
+      props.cartState.items[itemId].SalesPrice *
+      props.cartState.items[itemId].Quantity;
   }
 
   const renderItems = () => {
     let itemsArr: JSX.Element[] = [];
-    for (let itemId in cartContext.cartState.items) {
+    for (let itemId in props.cartState.items) {
       itemsArr.push(
-        <div key={cartContext.cartState.items[itemId].id}>
+        <div key={props.cartState.items[itemId].id}>
           <div className="row cart-row">
             <div className="col-lg-4">
               <img
@@ -48,27 +47,26 @@ const CartViewModal: FC<Props> = (props) => {
               />
             </div>
             <div className="col-lg-8 cart-row-data">
-              <h4>{cartContext.cartState.items[itemId].SalesDesc}</h4>
+              <h4>{props.cartState.items[itemId].SalesDesc}</h4>
               <div>
-                Price:{' '}
-                {toUSCurrency(cartContext.cartState.items[itemId].SalesPrice)}
+                Price: {toUSCurrency(props.cartState.items[itemId].SalesPrice)}
               </div>
               <div>
                 <label>Quantity: </label>
                 <input
-                  onChange={cartContext.changeItemInputValue}
+                  onChange={props.changeItemInputValue}
                   data-id={itemId}
-                  onBlur={cartContext.revertItemInputValue}
+                  onBlur={props.revertItemInputValue}
                   type="number"
                   min="1"
-                  value={cartContext.cartState.items[itemId].inputValue}
+                  value={props.cartState.items[itemId].inputValue}
                   className="quantity-input-cart form-control-sm ml-2 mr-1"
                 ></input>
-                {cartContext.cartState.items[itemId].updateReady ? (
+                {props.cartState.items[itemId].updateReady ? (
                   <button
                     data-id={itemId}
                     className="btn btn-success cart-quantity-update"
-                    onClick={cartContext.changeItemQuantity}
+                    onClick={props.changeItemQuantity}
                   >
                     update
                   </button>
@@ -77,12 +75,12 @@ const CartViewModal: FC<Props> = (props) => {
               <div>
                 Total:{' '}
                 {toUSCurrency(
-                  cartContext.cartState.items[itemId].SalesPrice *
-                    cartContext.cartState.items[itemId].Quantity
+                  props.cartState.items[itemId].SalesPrice *
+                    props.cartState.items[itemId].Quantity
                 )}
               </div>
               <div className="d-flex justify-content-end">
-                <a href={cartContext.cartState.items[itemId].Href}>
+                <a href={props.cartState.items[itemId].Href}>
                   <button type="button" className="btn btn-primary mr-1">
                     <span className="material-icons">open_in_new</span>
                   </button>
@@ -92,9 +90,7 @@ const CartViewModal: FC<Props> = (props) => {
                   className="btn btn-danger"
                   data-toggle="modal"
                   data-target="#ClearItemModal"
-                  data-item={JSON.stringify(
-                    cartContext.cartState.items[itemId]
-                  )}
+                  data-item={JSON.stringify(props.cartState.items[itemId])}
                 >
                   <span className="material-icons">delete</span>
                 </button>

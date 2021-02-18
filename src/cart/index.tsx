@@ -1,8 +1,7 @@
 import React, {
   FC,
   useState,
-  useEffect,
-  createContext
+  useEffect
 } from 'https://cdn.skypack.dev/pin/react@v17.0.1-tOtrZxBRexARODgO0jli/min/react.js';
 import ProductModal from '@qbcart/qbc-eshop-product-modal';
 
@@ -12,14 +11,11 @@ import ClearItemModal from './clear-item-modal';
 
 import CartState from './CartState';
 import CartItem from './CartItem';
-import ICartContext from './CartContext';
 
 interface Props {
   cartViewModalId?: string;
   cartGetAPI?: string;
 }
-// @ts-ignore
-export const CartContext = createContext<ICartContext>(null);
 
 const userLoggedIn = Boolean(
   document.getElementById('cart')!.dataset.userLoggedIn
@@ -61,7 +57,7 @@ const Cart: FC<Props> = (props) => {
   const pullFromLocalStorage = () => {
     if (localStorage.items) {
       let newCart = { ...cart };
-      newCart.items = JSON.parse(localStorage.getItem('items'));
+      newCart.items = JSON.parse(localStorage.getItem('items')!);
       setCart((prevCart) => (prevCart = newCart));
     }
   };
@@ -146,31 +142,26 @@ const Cart: FC<Props> = (props) => {
     setCart(newCart);
   };
 
-  const cartContext: ICartContext = {
-    cartState: cart,
-    pullFromLocalStorage: pullFromLocalStorage,
-    addToCart: addToCart,
-    changeItemQuantity: changeItemQuantity,
-    changeItemInputValue: changeItemInputValue,
-    revertItemInputValue: revertItemInputValue,
-    clearItem: clearItem,
-    clearCart: clearCart
-  };
-
   return (
     <div>
-      <CartContext.Provider value={cartContext}>
-        <CartViewModal
-          modalId={props.cartViewModalId}
-          companyStorageUrl={companyStorageUrl}
-        />
-        <ProductModal
-          addToCart={addToCart}
-          companyStorageUrl={companyStorageUrl}
-        />
-        <ClearCartModal />
-        <ClearItemModal companyStorageUrl={companyStorageUrl} />
-      </CartContext.Provider>
+      <CartViewModal
+        modalId={props.cartViewModalId}
+        companyStorageUrl={companyStorageUrl}
+        cartState={cart}
+        pullFromLocalStorage={pullFromLocalStorage}
+        changeItemQuantity={changeItemQuantity}
+        changeItemInputValue={changeItemInputValue}
+        revertItemInputValue={revertItemInputValue}
+      />
+      <ProductModal
+        addToCart={addToCart}
+        companyStorageUrl={companyStorageUrl}
+      />
+      <ClearCartModal clearCart={clearCart} />
+      <ClearItemModal
+        clearItem={clearItem}
+        companyStorageUrl={companyStorageUrl}
+      />
     </div>
   );
 };
