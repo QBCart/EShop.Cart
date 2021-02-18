@@ -1,19 +1,8 @@
----
-######################
-######################
-## GitHub CI Action ##
-######################
-######################
 name: CI
 
-#
-# Documentation:
-# https://help.github.com/en/articles/workflow-syntax-for-github-actions
-#
-
-##############################
-# Start the job on all pulls #
-##############################
+####################
+# Start the job on #
+####################
 on:
   push:
   pull_request:
@@ -23,16 +12,17 @@ on:
 # Set Global Envs #
 ###################
 env:
-  node_version: '14'
+  node_version: '12'
 
 ############
 # Set Jobs #
 ############
 jobs:
-  tests:
-    # Name the Job
+  ##############
+  # Define Job #
+  ##############
+  CI:
     name: CI
-    # Set the agent to run on
     runs-on: ubuntu-latest
 
     ##############
