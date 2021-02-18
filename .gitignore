@@ -4,3 +4,6 @@ node_modules
 build
 
 .npmrc
+
+# Apple Snooping File
+.DS_Store
