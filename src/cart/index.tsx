@@ -17,11 +17,10 @@ interface Props {
   cartGetAPI?: string;
 }
 
-
-
 const Cart: FC<Props> = (props) => {
   const cartNamespaceId = 'qbc-eshop-cart';
-  const companyStorageUrl = document.getElementById(cartNamespaceId)!.dataset.url!;
+  const companyStorageUrl = document.getElementById(cartNamespaceId)!.dataset
+    .url!;
   const [cart, setCart] = useState<CartState>({
     items: {},
     lastUpdated: new Date()
