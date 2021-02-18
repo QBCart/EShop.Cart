@@ -15,7 +15,6 @@ import CartItem from './CartItem';
 import ICartContext from './CartContext';
 
 interface Props {
-  addToCartModalId?: string;
   cartViewModalId?: string;
   cartGetAPI: string;
 }
@@ -197,7 +196,6 @@ const Cart: FC<Props> = (props) => {
           companyStorageUrl={companyStorageUrl}
         />
         <ProductModal
-          triggerId={props.addToCartModalId}
           addToCart={addToCart}
           companyStorageUrl={companyStorageUrl}
         />
