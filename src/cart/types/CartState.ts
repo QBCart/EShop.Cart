@@ -1,8 +1,4 @@
-import CartItem from './CartItem';
-
-interface CartItems {
-  [key: string]: CartItem;
-}
+import CartItems from './CartItems';
 
 interface CartState {
   items: CartItems;

@@ -5,12 +5,12 @@ import React, {
 } from 'https://cdn.skypack.dev/pin/react@v17.0.1-tOtrZxBRexARODgO0jli/min/react.js';
 import ProductModal from '@qbcart/qbc-eshop-product-modal';
 
-import CartViewModal from './cart-view-modal';
-import ClearCartModal from './clear-cart-modal';
-import ClearItemModal from './clear-item-modal';
+import CartViewModal from './components/cart-view-modal';
+import ClearCartModal from './components/clear-cart-modal';
+import ClearItemModal from './components/clear-item-modal';
 
-import CartState from './CartState';
-import CartItem from './CartItem';
+import CartState from './types/CartState';
+import CartItem from './types/CartItem';
 
 interface Props {
   cartViewModalId?: string;

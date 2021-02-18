@@ -4,8 +4,8 @@ import React, {
   ChangeEvent
 } from 'https://cdn.skypack.dev/pin/react@v17.0.1-tOtrZxBRexARODgO0jli/min/react.js';
 
-import toUSCurrency from './currency';
-import CartState from './CartState';
+import toUSCurrency from '../utils/currency';
+import CartState from '../types/CartState';
 
 interface Props {
   modalId?: string;
