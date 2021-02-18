@@ -33,7 +33,7 @@ const Cart: FC<Props> = (props) => {
   });
 
   useEffect(() => {
-    getCart();
+    pullFromLocalStorage();
   }, []);
 
   // fetch url="/cart/get" or "/cart/update" (is a relative path)
@@ -55,44 +55,15 @@ const Cart: FC<Props> = (props) => {
   // }, []);
 
   useEffect(() => {
-    if (userLoggedIn) {
-      localStorage.setItem('userCart', JSON.stringify(cart));
-    } else {
-      localStorage.setItem('guestCart', JSON.stringify(cart));
-    }
+    localStorage.setItem('items', JSON.stringify(cart.items));
   }, [cart]);
 
-  const getCart = async () => {
-    if (userLoggedIn) {
-      const res = await fetch(`${props.cartGetAPI || '/cart/get'}`, {
-        credentials: 'include',
-        method: 'POST'
-      });
-      const json = await res.json();
-      let x = '';
-    } else {
-      console.log('logged out');
-    }
-  };
-
   const pullFromLocalStorage = () => {
-    if (userLoggedIn && localStorage.guestCartItems) {
+    if (localStorage.items) {
       let newCart = { ...cart };
-      newCart.items = JSON.parse(localStorage.getItem('guestCartItems')!);
+      newCart.items = JSON.parse(localStorage.getItem('items'));
       setCart((prevCart) => (prevCart = newCart));
-    } else if (!userLoggedIn && localStorage.userCartItems) {
-      let newCart = { ...cart };
-      newCart.items = JSON.parse(localStorage.getItem('userCartItems')!);
-      setCart((prevCart) => (prevCart = newCart));
-    } else {
-      return;
     }
-
-    // if (localStorage.items) {
-    //   let newCart = { ...cart };
-    //   newCart.items = JSON.parse(localStorage.getItem('items'));
-    //   setCart((prevCart) => (prevCart = newCart));
-    // }
   };
 
   const addToCart = (item: CartItem) => {
@@ -113,11 +84,7 @@ const Cart: FC<Props> = (props) => {
   };
 
   const updateLocalStorage = () => {
-    if (!userLoggedIn) {
-      localStorage.setItem('guestCartItems', JSON.stringify(cart.items));
-    } else {
-      localStorage.setItem('userCartItems', JSON.stringify(cart.items));
-    }
+    localStorage.setItem('items', JSON.stringify(cart.items));
   };
 
   const changeItemInputValue = (e: React.ChangeEvent<Element>) => {
@@ -160,7 +127,6 @@ const Cart: FC<Props> = (props) => {
     newCart.items[evtId].Quantity = parseInt(newCart.items[evtId].inputValue);
     newCart.items[evtId].updateReady = false;
     newCart.lastUpdated = new Date();
-    console.log(newCart);
     setCart(newCart);
   };
 
@@ -168,7 +134,6 @@ const Cart: FC<Props> = (props) => {
     let newCart = { ...cart };
     delete newCart.items[item.id];
     newCart.lastUpdated = new Date();
-    console.log(newCart);
     setCart(newCart);
   };
 
