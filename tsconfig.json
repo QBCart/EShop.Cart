@@ -20,5 +20,5 @@
     "importsNotUsedAsValues": "preserve",
     "jsx": "react-jsx"
   },
-  "exclude": ["**dev**"]
+  "exclude": ["**dev**", "**build**"]
 }
