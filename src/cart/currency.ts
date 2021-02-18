@@ -9,7 +9,7 @@ const usCurrencyFormatter = new Intl.NumberFormat('en-US', {
   currency: 'USD'
 });
 
-function toUSCurrency(num) {
+function toUSCurrency(num: number) {
   return usCurrencyFormatter.format(num);
 }
 
