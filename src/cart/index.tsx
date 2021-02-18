@@ -17,16 +17,19 @@ interface Props {
   cartGetAPI?: string;
 }
 
-const userLoggedIn = Boolean(
-  document.getElementById('cart')!.dataset.userLoggedIn
-);
+
 
 const Cart: FC<Props> = (props) => {
-  const companyStorageUrl = document.getElementById('cart')!.dataset.url!;
+  const cartNamespaceId = 'qbc-eshop-cart';
+  const companyStorageUrl = document.getElementById(cartNamespaceId)!.dataset.url!;
   const [cart, setCart] = useState<CartState>({
     items: {},
     lastUpdated: new Date()
   });
+
+  const userLoggedIn = Boolean(
+    document.getElementById(cartNamespaceId)!.dataset.userLoggedIn
+  );
 
   useEffect(() => {
     pullFromLocalStorage();

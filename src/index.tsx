@@ -5,7 +5,7 @@ import Cart from './cart';
 const mountCart = (cartViewModalId?: string, cartGetAPI?: string) => {
   render(
     <Cart cartViewModalId={cartViewModalId} cartGetAPI={cartGetAPI} />,
-    document.getElementById('cart')
+    document.getElementById('qbc-eshop-cart')
   );
 };
 
