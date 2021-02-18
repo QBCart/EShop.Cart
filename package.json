@@ -30,7 +30,7 @@
     "test:ci": "echo \"All Good\" && exit 0"
   },
   "dependencies": {
-    "@qbcart/qbc-eshop-product-modal": "^1.0.0-beta.8",
+    "@qbcart/qbc-eshop-product-modal": "^1.0.0-beta.9",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   },
