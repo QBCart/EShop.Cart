@@ -22,7 +22,7 @@
   },
   "scripts": {
     "start": "npm run format && snowpack dev --config snowpack.dev.config.js",
-    "build": "npm run format && tsc && snowpack build",
+    "build": "npm run format && snowpack build && tsc",
     "build:npm": "snowpack build && tsc && cp package.json build && cp README.md build",
     "format": "prettier --write .",
     "lint": "prettier --check .",
