@@ -17,7 +17,7 @@ interface Props {
 const ClearItemModal: FC<Props> = (props) => {
   const cartContext = useContext<ICartContext>(CartContext);
 
-  const [item, setItem] = useState<CartItem>(null);
+  const [item, setItem] = useState<CartItem>();
 
   useEffect(() => {
     $('#ClearItemModal').on('shown.bs.modal', function (e) {

@@ -16,17 +16,17 @@ import ICartContext from './CartContext';
 
 interface Props {
   cartViewModalId?: string;
-  cartGetAPI: string;
+  cartGetAPI?: string;
 }
+// @ts-ignore
+export const CartContext = createContext<ICartContext>(null);
 
-export const CartContext = createContext(null);
-
-const companyStorageUrl = document.getElementById('cart').dataset.url;
 const userLoggedIn = Boolean(
-  document.getElementById('cart').dataset.userLoggedIn
+  document.getElementById('cart')!.dataset.userLoggedIn
 );
 
 const Cart: FC<Props> = (props) => {
+  const companyStorageUrl = document.getElementById('cart')!.dataset.url!;
   const [cart, setCart] = useState<CartState>({
     items: {},
     lastUpdated: new Date()
@@ -78,11 +78,11 @@ const Cart: FC<Props> = (props) => {
   const pullFromLocalStorage = () => {
     if (userLoggedIn && localStorage.guestCartItems) {
       let newCart = { ...cart };
-      newCart.items = JSON.parse(localStorage.getItem('guestCartItems'));
+      newCart.items = JSON.parse(localStorage.getItem('guestCartItems')!);
       setCart((prevCart) => (prevCart = newCart));
     } else if (!userLoggedIn && localStorage.userCartItems) {
       let newCart = { ...cart };
-      newCart.items = JSON.parse(localStorage.getItem('userCartItems'));
+      newCart.items = JSON.parse(localStorage.getItem('userCartItems')!);
       setCart((prevCart) => (prevCart = newCart));
     } else {
       return;
@@ -95,7 +95,7 @@ const Cart: FC<Props> = (props) => {
     // }
   };
 
-  const addToCart = (item) => {
+  const addToCart = (item: CartItem) => {
     let newCart = { ...cart };
 
     if (newCart.items[item.id]) {
@@ -120,9 +120,11 @@ const Cart: FC<Props> = (props) => {
     }
   };
 
-  const changeItemInputValue = (e) => {
+  const changeItemInputValue = (e: React.ChangeEvent<Element>) => {
+    // @ts-ignore
     const evtId = e.target.dataset.id;
     let newCart = { ...cart };
+    // @ts-ignore
     newCart.items[evtId].inputValue = e.target.value;
     const inputValueNum = Number(newCart.items[evtId].inputValue);
     if (
@@ -138,7 +140,8 @@ const Cart: FC<Props> = (props) => {
     setCart(newCart);
   };
 
-  const revertItemInputValue = (e) => {
+  const revertItemInputValue = (e: React.ChangeEvent<Element>) => {
+    // @ts-ignore
     const evtId = e.target.dataset.id;
     if (!cart.items[evtId].updateReady) {
       let newCart = { ...cart };
@@ -150,7 +153,8 @@ const Cart: FC<Props> = (props) => {
     }
   };
 
-  const changeItemQuantity = (e) => {
+  const changeItemQuantity = (e: Event) => {
+    // @ts-ignore
     const evtId = e.target.dataset.id;
     let newCart = { ...cart };
     newCart.items[evtId].Quantity = parseInt(newCart.items[evtId].inputValue);
