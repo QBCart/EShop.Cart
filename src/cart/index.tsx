@@ -13,7 +13,6 @@ import CartState from './types/CartState';
 import CartItem from './types/CartItem';
 
 interface Props {
-  cartViewModalId?: string;
   cartGetAPI?: string;
 }
 
@@ -147,7 +146,6 @@ const Cart: FC<Props> = (props) => {
   return (
     <div>
       <CartViewModal
-        modalId={props.cartViewModalId}
         companyStorageUrl={companyStorageUrl}
         cartState={cart}
         pullFromLocalStorage={pullFromLocalStorage}

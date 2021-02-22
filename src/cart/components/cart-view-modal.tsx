@@ -8,7 +8,6 @@ import toUSCurrency from '../utils/currency';
 import CartState from '../types/CartState';
 
 interface Props {
-  modalId?: string;
   companyStorageUrl: string;
   cartState: CartState;
   pullFromLocalStorage(): void;
@@ -18,7 +17,7 @@ interface Props {
 }
 
 const CartViewModal: FC<Props> = (props) => {
-  const modalId: string = props?.modalId ?? 'cartViewModal';
+  const modalId = 'qbc-eshop-cart-view-modal';
 
   useEffect(() => {
     $(`#${modalId}`).on('shown.bs.modal', function () {
