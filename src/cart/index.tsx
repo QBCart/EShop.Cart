@@ -41,16 +41,6 @@ const Cart: FC<Props> = (props) => {
   //   };
   // }, []);
 
-  // useEffect(() => {
-
-  //     $('#productPageAddToCart').on('click', function (e) {
-  //         const triggerItem: CartItem = $(e.relatedTarget).data('item');
-  //         triggerItem.Quantity = $('#productPageQuantity').val() as number;
-  //         addToCart(triggerItem);
-  //     });
-
-  // }, []);
-
   useEffect(() => {
     localStorage.setItem('items', JSON.stringify(cart.items));
   }, [cart]);
