@@ -2,11 +2,12 @@
 
 # New
 
-- none
+- update deps
+- namespaced package
 
 # Fixes
 
-- updated cart image styles to allow better image scaling
+- none
 
 # Breaking
 
