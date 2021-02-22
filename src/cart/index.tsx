@@ -157,7 +157,7 @@ const Cart: FC<Props> = (props) => {
       />
       <ProductModal
         addToCart={addToCart}
-        companyStorageUrl={companyStorageUrl}
+        imagesStorageUrl={companyStorageUrl}
       />
       <ClearCartModal clearCart={clearCart} />
       <ClearItemModal
