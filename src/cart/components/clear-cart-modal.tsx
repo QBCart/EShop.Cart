@@ -7,10 +7,11 @@ interface Props {
 }
 
 const ClearCartModal: FC<Props> = (props) => {
+  const modalId = 'qbc-eshop-cart-clear-cart-modal';
   return (
     <div
       className="modal fade"
-      id="qbc-eshop-cart-clear-cart-modal"
+      id={modalId}
       data-backdrop="static"
       data-keyboard="false"
       tabIndex={-1}
@@ -42,7 +43,7 @@ const ClearCartModal: FC<Props> = (props) => {
               type="button"
               className="btn btn-danger"
               data-toggle="modal"
-              data-target="#qbc-eshop-cart-clear-cart-modal"
+              data-target={`#${modalId}`}
             >
               Yes, Clear My Cart
             </button>
@@ -50,7 +51,7 @@ const ClearCartModal: FC<Props> = (props) => {
               type="button"
               className="btn btn-secondary"
               data-toggle="modal"
-              data-target="#qbc-eshop-cart-clear-cart-modal"
+              data-target={`#${modalId}`}
             >
               No, Keep My Cart
             </button>
