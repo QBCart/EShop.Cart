@@ -1,42 +1,46 @@
 @use '@qbcart/qbc-eshop-product-modal';
 
-.m-icon-36 {
+#qbc-eshop-cart-view-modal .m-icon-36,
+#qbc-eshop-cart-clear-cart-modal .m-icon-36,
+#qbc-eshop-cart-clear-item-modal .m-icon-36 {
   font-size: 32px;
   vertical-align: text-top;
 }
 
-.cart-header {
+#qbc-eshop-cart-view-modal .modal-header {
   padding: 0.5rem 1rem;
 }
 
-.cart-title {
+#qbc-eshop-cart-view-modal .cart-title {
   font-size: 24px;
   margin-left: 5px;
 }
 
-.modal-header .cart-header-close {
+#qbc-eshop-cart-view-modal .modal-header .close {
   margin: -0.75rem -1rem -1rem auto;
 }
 
-.cart-row {
+#qbc-eshop-cart-view-modal .cart-row {
   border-bottom: 1px solid lightgray;
   margin: 10px;
 }
 
-.cart-row-img {
+#qbc-eshop-cart-view-modal .cart-row-img {
   max-height: 200px;
   margin: 10px auto;
 }
 
-.cart-row-data {
+#qbc-eshop-cart-view-modal .cart-row-data {
   height: 200px;
 }
 
-.clear-modal {
+#qbc-eshop-cart-clear-cart-modal .modal-content,
+#qbc-eshop-cart-clear-item-modal .modal-content {
   border: 2px solid black;
 }
 
-.clear-header {
+#qbc-eshop-cart-clear-cart-modal .modal-header,
+#qbc-eshop-cart-clear-item-modal .modal-header {
   padding: 0.5rem 1rem;
   color: #dc3545;
   background-color: darkslategray;
@@ -45,23 +49,24 @@
   border-top-right-radius: 2px !important;
 }
 
-.clear-title {
+#qbc-eshop-cart-clear-cart-modal .clear-title,
+#qbc-eshop-cart-clear-item-modal .clear-title {
   font-size: 24px;
   margin-left: 5px;
   color: lightgray;
 }
 
-.clear-img {
+#qbc-eshop-cart-clear-item-modal .clear-img {
   display: block;
   max-height: 300px;
   margin: 5px auto;
 }
 
-.quantity-input-cart {
+#qbc-eshop-cart-view-modal .quantity-input-cart {
   width: 80px;
 }
 
-.cart-quantity-update {
+#qbc-eshop-cart-view-modal .cart-quantity-update {
   height: 31px;
   width: 64px;
   display: inline-flex;

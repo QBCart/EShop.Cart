@@ -106,14 +106,14 @@ const CartViewModal: FC<Props> = (props) => {
     <div className="modal" tabIndex={-1} id={modalId}>
       <div className="modal-dialog modal-dialog-scrollable modal-xl modal-lg">
         <div className="modal-content">
-          <div className="modal-header cart-header">
+          <div className="modal-header">
             <div className="modal-title">
               <span className="material-icons m-icon-36">shopping_cart</span>
             </div>
             <div className="cart-title">Shopping Cart</div>
             <button
               type="button"
-              className="close cart-header-close"
+              className="close"
               data-dismiss="modal"
               aria-label="Close"
             >

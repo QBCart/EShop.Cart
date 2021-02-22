@@ -35,7 +35,7 @@ const ClearItemModal: FC<Props> = (props) => {
     >
       <div className="modal-dialog modal-dialog-centered">
         {item ? (
-          <div className="modal-content clear-modal">
+          <div className="modal-content">
             <div className="modal-header clear-header d-flex justify-content-start">
               <h5 className="modal-title" id="staticBackdropLabel">
                 <span className="material-icons m-icon-36">delete</span>
