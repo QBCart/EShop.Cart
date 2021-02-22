@@ -88,7 +88,7 @@ const CartViewModal: FC<Props> = (props) => {
                   type="button"
                   className="btn btn-danger"
                   data-toggle="modal"
-                  data-target="#ClearItemModal"
+                  data-target="#qbc-eshop-cart-clear-item-modal"
                   data-item={JSON.stringify(props.cartState.items[itemId])}
                 >
                   <span className="material-icons">delete</span>

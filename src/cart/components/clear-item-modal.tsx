@@ -13,9 +13,10 @@ interface Props {
 
 const ClearItemModal: FC<Props> = (props) => {
   const [item, setItem] = useState<CartItem>();
+  const modalId = 'qbc-eshop-cart-clear-item-modal';
 
   useEffect(() => {
-    $('#ClearItemModal').on('shown.bs.modal', function (e) {
+    $(`#${modalId}`).on('shown.bs.modal', function (e) {
       //@ts-ignore
       const triggerItem: CartItem = $(e.relatedTarget).data('item');
       setItem(triggerItem);
@@ -25,7 +26,7 @@ const ClearItemModal: FC<Props> = (props) => {
   return (
     <div
       className="modal fade"
-      id="ClearItemModal"
+      id={modalId}
       data-backdrop="static"
       data-keyboard="false"
       tabIndex={-1}
@@ -60,7 +61,7 @@ const ClearItemModal: FC<Props> = (props) => {
                 type="button"
                 className="btn btn-danger"
                 data-toggle="modal"
-                data-target="#ClearItemModal"
+                data-target={`#${modalId}`}
               >
                 Yes, Remove This Item
               </button>
@@ -68,7 +69,7 @@ const ClearItemModal: FC<Props> = (props) => {
                 type="button"
                 className="btn btn-secondary"
                 data-toggle="modal"
-                data-target="#ClearItemModal"
+                data-target={`#${modalId}`}
               >
                 No, Keep this Item
               </button>
