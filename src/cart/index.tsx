@@ -23,7 +23,8 @@ const Cart: FC<Props> = (props) => {
 
   const [cart, setCart] = useState<CartState>({
     items: {},
-    lastUpdated: new Date()
+    lastUpdated: new Date(),
+    ignoreGuestCart: false
   });
 
   const userLoggedIn = Boolean(
@@ -34,9 +35,9 @@ const Cart: FC<Props> = (props) => {
     getCart();
   }, []);
 
-  useEffect(() => {
-    pullFromLocalStorage();
-  }, []);
+  // useEffect(() => {
+  //   pullFromLocalStorage();
+  // }, []);
 
   // useEffect(() => {
   //   if (userLoggedIn) {
@@ -62,11 +63,34 @@ const Cart: FC<Props> = (props) => {
 
   const pullFromLocalStorage = () => {
     if (userLoggedIn && localStorage.guestCart) {
-      // let newCart = { ...cart };
-      // newCart = JSON.parse(localStorage.getItem('userCart')!);
-      // setCart(newCart);
-      alert('would you like to merge guest cart to yours?')
-    } else if (!userLoggedIn && localStorage.userCart) {
+      if (localStorage.userCart) {
+        let newCart = { ...cart };
+        newCart = JSON.parse(localStorage.getItem('userCart')!);
+
+        if (newCart.ignoreGuestCart) {
+          console.log('ignore guest cart: ' + newCart.ignoreGuestCart)
+        } else {
+          console.log('would you like to merge guest cart to yours?');
+          newCart.ignoreGuestCart = true;
+          console.log('ignore guest cart: ' + newCart.ignoreGuestCart)
+        };
+
+        setCart(newCart);
+        updateLocalStorage(newCart);
+      }
+
+      // just a demo for what will soon be append guest cart logic
+
+      
+
+      
+    } else if (userLoggedIn && !localStorage.guestCart) {
+      if (localStorage.userCart) {
+        let newCart = { ...cart };
+        newCart = JSON.parse(localStorage.getItem('userCart')!);
+        setCart(newCart);
+      }
+    } else if (!userLoggedIn && localStorage.guestCart) {
       let newCart = { ...cart };
       newCart = JSON.parse(localStorage.getItem('guestCart')!);
       setCart(newCart);
@@ -163,7 +187,8 @@ const Cart: FC<Props> = (props) => {
   const clearCart = () => {
     const newCart: CartState = {
       items: {},
-      lastUpdated: new Date()
+      lastUpdated: new Date(),
+      ignoreGuestCart: cart.ignoreGuestCart
     };
     console.log(newCart);
     setCart(newCart);
@@ -200,7 +225,6 @@ const Cart: FC<Props> = (props) => {
   //     localStorage.setItem('userCartItems', JSON.stringify(cart.items));
   //   }
   // };
-
 
   return (
     <div>
