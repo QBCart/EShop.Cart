@@ -3,7 +3,7 @@ import React, {
   useState,
   useEffect
 } from 'https://cdn.skypack.dev/pin/react@v17.0.1-tOtrZxBRexARODgO0jli/min/react.js';
-import { ProductModal } from '@qbcart/eshop-product-modal';
+import { ProductModal, ProductModalItem } from '@qbcart/eshop-product-modal';
 
 import CartViewModal from './components/cart-view-modal';
 import ClearCartModal from './components/clear-cart-modal';
@@ -53,18 +53,28 @@ const Cart: FC<Props> = (props) => {
     }
   };
 
-  const addToCart = (item: CartItem) => {
+  const addToCart = (item: ProductModalItem) => {
     let newCart = { ...cart };
 
     if (newCart.items[item.id]) {
       newCart.items[item.id].quantity += item.quantity;
+      newCart.items[item.id].inputValue = newCart.items[
+        item.id
+      ].quantity.toString();
+      newCart.items[item.id].updateReady = false;
     } else {
-      newCart.items[item.id] = item;
+      newCart.items[item.id] = {
+        id: item.id,
+        name: item.name,
+        salesDesc: item.salesDesc,
+        salesPrice: item.salesPrice,
+        href: item.href,
+        quantity: item.quantity,
+        inputValue: item.quantity.toString(),
+        updateReady: false
+      };
     }
-    newCart.items[item.id].inputValue = newCart.items[
-      item.id
-    ].quantity.toString();
-    newCart.items[item.id].updateReady = false;
+
     newCart.lastUpdated = new Date();
     setCart(newCart);
   };
