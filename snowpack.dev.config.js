@@ -4,9 +4,7 @@ module.exports = {
     src: { url: '/src', resolve: true, static: false },
     dev: { url: '/', resolve: true, static: false }
   },
-  devOptions: {
-    open: 'none'
-  },
+  devOptions: {},
   buildOptions: {
     clean: true,
     metaUrlPath: '.'
