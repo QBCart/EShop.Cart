@@ -1,7 +1,7 @@
 {
-  "name": "@qbcart/qbc-eshop-cart",
+  "name": "@qbcart/eshop-cart",
   "version": "1.0.0-alpha.3",
-  "description": "<img align=\"center\" src=\"https://avatars2.githubusercontent.com/u/45455933\" width=\"96\" height=\"96\" />",
+  "description": "The cart used in QBC.EShop pages.",
   "author": "QBCart Inc.",
   "contributors": [
     "Allan Mobley",
@@ -11,12 +11,12 @@
   "module": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/QBCart/QBC.EShop.Cart.git"
+    "url": "git+https://github.com/QBCart/EShop.Cart.git"
   },
   "bugs": {
-    "url": "https://github.com/QBCart/QBC.EShop.Cart/issues"
+    "url": "https://github.com/QBCart/EShop.Cart/issues"
   },
-  "homepage": "https://github.com/QBCart/QBC.EShop.Cart#readme",
+  "homepage": "https://github.com/QBCart/EShop.Cart#readme",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
