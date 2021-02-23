@@ -20,6 +20,7 @@ const Cart: FC<Props> = (props) => {
   const cartNamespaceId = 'qbc-eshop-cart';
   const imagesStorageUrl = document.getElementById(cartNamespaceId)!.dataset
     .url!;
+
   const [cart, setCart] = useState<CartState>({
     items: {},
     lastUpdated: new Date()
@@ -33,6 +34,10 @@ const Cart: FC<Props> = (props) => {
     pullFromLocalStorage();
   }, []);
 
+  useEffect(() => {
+    getCart();
+  }, []);
+
   // fetch url="/cart/get" or "/cart/update" (is a relative path)
 
   // useEffect(() => {
@@ -41,15 +46,50 @@ const Cart: FC<Props> = (props) => {
   //   };
   // }, []);
 
+  // useEffect(() => {
+  //   localStorage.setItem('items', JSON.stringify(cart.items));
+  // }, [cart]);
+
   useEffect(() => {
-    localStorage.setItem('items', JSON.stringify(cart.items));
+    if (userLoggedIn) {
+      localStorage.setItem('userCart', JSON.stringify(cart));
+    } else {
+      localStorage.setItem('guestCart', JSON.stringify(cart));
+    }
   }, [cart]);
 
+  const getCart = async () => {
+    if (userLoggedIn) {
+      const res = await fetch(`${props.cartGetAPI || '/cart/get'}`, {
+        credentials: 'include',
+        method: 'POST'
+      });
+      const json = await res.json();
+      let x = '';
+    } else {
+      console.log('logged out');
+    }
+  };
+
+  // const pullFromLocalStorage = () => {
+  //   if (localStorage.items) {
+  //     let newCart = { ...cart };
+  //     newCart.items = JSON.parse(localStorage.getItem('items')!);
+  //     setCart((prevCart) => (prevCart = newCart));
+  //   }
+  // };
+
   const pullFromLocalStorage = () => {
-    if (localStorage.items) {
+    if (userLoggedIn && localStorage.guestCartItems) {
       let newCart = { ...cart };
-      newCart.items = JSON.parse(localStorage.getItem('items')!);
-      setCart((prevCart) => (prevCart = newCart));
+      newCart.items = JSON.parse(localStorage.getItem('guestCartItems')!);
+      setCart(newCart);
+    } else if (!userLoggedIn && localStorage.userCartItems) {
+      let newCart = { ...cart };
+      newCart.items = JSON.parse(localStorage.getItem('userCartItems')!);
+      setCart(newCart);
+    } else {
+      return;
     }
   };
 
@@ -79,9 +119,17 @@ const Cart: FC<Props> = (props) => {
     setCart(newCart);
   };
 
-  const updateLocalStorage = () => {
-    localStorage.setItem('items', JSON.stringify(cart.items));
-  };
+  // const updateLocalStorage = () => {
+  //   localStorage.setItem('items', JSON.stringify(cart.items));
+  // };
+
+  // const updateLocalStorage = () => {
+  //   if (!userLoggedIn) {
+  //     localStorage.setItem('guestCartItems', JSON.stringify(cart.items));
+  //   } else {
+  //     localStorage.setItem('userCartItems', JSON.stringify(cart.items));
+  //   }
+  // };
 
   const changeItemInputValue = (e: React.ChangeEvent<Element>) => {
     // @ts-ignore
