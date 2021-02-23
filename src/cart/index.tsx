@@ -66,7 +66,6 @@ const Cart: FC<Props> = (props) => {
     ].quantity.toString();
     newCart.items[item.id].updateReady = false;
     newCart.lastUpdated = new Date();
-    console.log(newCart);
     setCart(newCart);
   };
 
