@@ -1,7 +1,7 @@
 interface CartItem {
   id: string;
-  salesDesc: string;
   name: string;
+  salesDesc: string;
   salesPrice: number;
   href: string;
   quantity: number;
