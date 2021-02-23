@@ -31,24 +31,12 @@ const Cart: FC<Props> = (props) => {
   );
 
   useEffect(() => {
-    pullFromLocalStorage();
-  }, []);
-
-  useEffect(() => {
     getCart();
   }, []);
 
-  // fetch url="/cart/get" or "/cart/update" (is a relative path)
-
-  // useEffect(() => {
-  //   if(document.getElementById('user-is-logged-in')) {
-  //     let userInfo = document.getElementById('user-is-logged-in').data
-  //   };
-  // }, []);
-
-  // useEffect(() => {
-  //   localStorage.setItem('items', JSON.stringify(cart.items));
-  // }, [cart]);
+  useEffect(() => {
+    pullFromLocalStorage();
+  }, []);
 
   useEffect(() => {
     if (userLoggedIn) {
@@ -68,16 +56,9 @@ const Cart: FC<Props> = (props) => {
       let x = '';
     } else {
       console.log('logged out');
+      localStorage.removeItem('userCart');
     }
   };
-
-  // const pullFromLocalStorage = () => {
-  //   if (localStorage.items) {
-  //     let newCart = { ...cart };
-  //     newCart.items = JSON.parse(localStorage.getItem('items')!);
-  //     setCart((prevCart) => (prevCart = newCart));
-  //   }
-  // };
 
   const pullFromLocalStorage = () => {
     if (userLoggedIn && localStorage.guestCartItems) {
@@ -118,18 +99,6 @@ const Cart: FC<Props> = (props) => {
     newCart.lastUpdated = new Date();
     setCart(newCart);
   };
-
-  // const updateLocalStorage = () => {
-  //   localStorage.setItem('items', JSON.stringify(cart.items));
-  // };
-
-  // const updateLocalStorage = () => {
-  //   if (!userLoggedIn) {
-  //     localStorage.setItem('guestCartItems', JSON.stringify(cart.items));
-  //   } else {
-  //     localStorage.setItem('userCartItems', JSON.stringify(cart.items));
-  //   }
-  // };
 
   const changeItemInputValue = (e: React.ChangeEvent<Element>) => {
     // @ts-ignore
@@ -189,6 +158,39 @@ const Cart: FC<Props> = (props) => {
     console.log(newCart);
     setCart(newCart);
   };
+
+  // fetch url="/cart/get" or "/cart/update" (is a relative path)
+
+  // useEffect(() => {
+  //   if(document.getElementById('user-is-logged-in')) {
+  //     let userInfo = document.getElementById('user-is-logged-in').data
+  //   };
+  // }, []);
+
+  // useEffect(() => {
+  //   localStorage.setItem('items', JSON.stringify(cart.items));
+  // }, [cart]);
+
+  // const pullFromLocalStorage = () => {
+  //   if (localStorage.items) {
+  //     let newCart = { ...cart };
+  //     newCart.items = JSON.parse(localStorage.getItem('items')!);
+  //     setCart((prevCart) => (prevCart = newCart));
+  //   }
+  // };
+
+  // const updateLocalStorage = () => {
+  //   localStorage.setItem('items', JSON.stringify(cart.items));
+  // };
+
+  // const updateLocalStorage = () => {
+  //   if (!userLoggedIn) {
+  //     localStorage.setItem('guestCartItems', JSON.stringify(cart.items));
+  //   } else {
+  //     localStorage.setItem('userCartItems', JSON.stringify(cart.items));
+  //   }
+  // };
+
 
   return (
     <div>
