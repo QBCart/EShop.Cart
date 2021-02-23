@@ -4,7 +4,7 @@ import React, {
   ChangeEvent
 } from 'https://cdn.skypack.dev/pin/react@v17.0.1-tOtrZxBRexARODgO0jli/min/react.js';
 
-import toUSCurrency from '../utils/currency';
+import { toUSCurrency } from '@qbcart/utils';
 import CartState from '../types/CartState';
 
 interface Props {
