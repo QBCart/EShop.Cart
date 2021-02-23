@@ -3,7 +3,7 @@ import React, {
   useState,
   useEffect
 } from 'https://cdn.skypack.dev/pin/react@v17.0.1-tOtrZxBRexARODgO0jli/min/react.js';
-import ProductModal from '@qbcart/qbc-eshop-product-modal';
+import ProductModal from '@qbcart/eshop-product-modal';
 
 import CartViewModal from './components/cart-view-modal';
 import ClearCartModal from './components/clear-cart-modal';
