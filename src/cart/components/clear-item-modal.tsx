@@ -7,7 +7,7 @@ import React, {
 import CartItem from '../types/CartItem';
 
 interface Props {
-  companyStorageUrl: string;
+  imagesStorageUrl: string;
   clearItem(item: CartItem): void;
 }
 
@@ -47,7 +47,7 @@ const ClearItemModal: FC<Props> = (props) => {
               <div>
                 <img
                   className="clear-img"
-                  src={props.companyStorageUrl + 'images/thumbnail/' + item.id}
+                  src={props.imagesStorageUrl + 'images/thumbnail/' + item.id}
                   alt=""
                 />
               </div>

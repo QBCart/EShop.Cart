@@ -8,7 +8,7 @@ import toUSCurrency from '../utils/currency';
 import CartState from '../types/CartState';
 
 interface Props {
-  companyStorageUrl: string;
+  imagesStorageUrl: string;
   cartState: CartState;
   pullFromLocalStorage(): void;
   changeItemQuantity(e: any): void;
@@ -41,7 +41,7 @@ const CartViewModal: FC<Props> = (props) => {
             <div className="col-lg-4">
               <img
                 className="img-fluid cart-row-img"
-                src={props.companyStorageUrl + 'images/thumbnail/' + itemId}
+                src={props.imagesStorageUrl + 'images/thumbnail/' + itemId}
                 alt=""
               />
             </div>

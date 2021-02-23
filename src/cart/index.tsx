@@ -18,7 +18,7 @@ interface Props {
 
 const Cart: FC<Props> = (props) => {
   const cartNamespaceId = 'qbc-eshop-cart';
-  const companyStorageUrl = document.getElementById(cartNamespaceId)!.dataset
+  const imagesStorageUrl = document.getElementById(cartNamespaceId)!.dataset
     .url!;
   const [cart, setCart] = useState<CartState>({
     items: {},
@@ -136,21 +136,18 @@ const Cart: FC<Props> = (props) => {
   return (
     <div>
       <CartViewModal
-        companyStorageUrl={companyStorageUrl}
+        imagesStorageUrl={imagesStorageUrl}
         cartState={cart}
         pullFromLocalStorage={pullFromLocalStorage}
         changeItemQuantity={changeItemQuantity}
         changeItemInputValue={changeItemInputValue}
         revertItemInputValue={revertItemInputValue}
       />
-      <ProductModal
-        addToCart={addToCart}
-        imagesStorageUrl={companyStorageUrl}
-      />
+      <ProductModal addToCart={addToCart} imagesStorageUrl={imagesStorageUrl} />
       <ClearCartModal clearCart={clearCart} />
       <ClearItemModal
         clearItem={clearItem}
-        companyStorageUrl={companyStorageUrl}
+        imagesStorageUrl={imagesStorageUrl}
       />
     </div>
   );
