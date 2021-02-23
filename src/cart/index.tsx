@@ -38,13 +38,13 @@ const Cart: FC<Props> = (props) => {
     pullFromLocalStorage();
   }, []);
 
-  useEffect(() => {
-    if (userLoggedIn) {
-      localStorage.setItem('userCart', JSON.stringify(cart));
-    } else {
-      localStorage.setItem('guestCart', JSON.stringify(cart));
-    }
-  }, [cart]);
+  // useEffect(() => {
+  //   if (userLoggedIn) {
+  //     localStorage.setItem('userCart', JSON.stringify(cart));
+  //   } else {
+  //     localStorage.setItem('guestCart', JSON.stringify(cart));
+  //   }
+  // }, [cart]);
 
   const getCart = async () => {
     if (userLoggedIn) {
@@ -61,16 +61,25 @@ const Cart: FC<Props> = (props) => {
   };
 
   const pullFromLocalStorage = () => {
-    if (userLoggedIn && localStorage.guestCartItems) {
+    if (userLoggedIn && localStorage.guestCart) {
+      // let newCart = { ...cart };
+      // newCart = JSON.parse(localStorage.getItem('userCart')!);
+      // setCart(newCart);
+      alert('would you like to merge guest cart to yours?')
+    } else if (!userLoggedIn && localStorage.userCart) {
       let newCart = { ...cart };
-      newCart.items = JSON.parse(localStorage.getItem('guestCartItems')!);
-      setCart(newCart);
-    } else if (!userLoggedIn && localStorage.userCartItems) {
-      let newCart = { ...cart };
-      newCart.items = JSON.parse(localStorage.getItem('userCartItems')!);
+      newCart = JSON.parse(localStorage.getItem('guestCart')!);
       setCart(newCart);
     } else {
       return;
+    }
+  };
+
+  const updateLocalStorage = (cart: CartState) => {
+    if (userLoggedIn) {
+      localStorage.setItem('userCart', JSON.stringify(cart));
+    } else {
+      localStorage.setItem('guestCart', JSON.stringify(cart));
     }
   };
 
@@ -98,6 +107,7 @@ const Cart: FC<Props> = (props) => {
 
     newCart.lastUpdated = new Date();
     setCart(newCart);
+    updateLocalStorage(newCart);
   };
 
   const changeItemInputValue = (e: React.ChangeEvent<Element>) => {
