@@ -40,7 +40,7 @@ const ClearItemModal: FC<Props> = (props) => {
               <h5 className="modal-title" id="staticBackdropLabel">
                 <span className="material-icons m-icon-36">delete</span>
               </h5>
-              <div className="clear-title">Remove {item.SalesDesc}</div>
+              <div className="clear-title">Remove {item.salesDesc}</div>
             </div>
 
             <div className="modal-body">
@@ -52,7 +52,7 @@ const ClearItemModal: FC<Props> = (props) => {
                 />
               </div>
               <span>
-                Are you sure you want to remove {item.SalesDesc} from your cart?
+                Are you sure you want to remove {item.salesDesc} from your cart?
               </span>
             </div>
             <div className="modal-footer d-flex justify-content-center">

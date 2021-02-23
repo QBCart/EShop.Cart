@@ -1,10 +1,10 @@
 interface CartItem {
-  Href: string;
   id: string;
-  SalesDesc: string;
-  Name: string;
-  SalesPrice: number;
-  Quantity: number;
+  salesDesc: string;
+  name: string;
+  salesPrice: number;
+  href: string;
+  quantity: number;
   inputValue: string;
   updateReady: boolean;
 }

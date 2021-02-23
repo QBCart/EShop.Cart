@@ -28,8 +28,8 @@ const CartViewModal: FC<Props> = (props) => {
   let cartSubtotal = 0;
   for (let itemId in props.cartState.items) {
     cartSubtotal +=
-      props.cartState.items[itemId].SalesPrice *
-      props.cartState.items[itemId].Quantity;
+      props.cartState.items[itemId].salesPrice *
+      props.cartState.items[itemId].quantity;
   }
 
   const renderItems = () => {
@@ -46,9 +46,9 @@ const CartViewModal: FC<Props> = (props) => {
               />
             </div>
             <div className="col-lg-8 cart-row-data">
-              <h4>{props.cartState.items[itemId].SalesDesc}</h4>
+              <h4>{props.cartState.items[itemId].salesDesc}</h4>
               <div>
-                Price: {toUSCurrency(props.cartState.items[itemId].SalesPrice)}
+                Price: {toUSCurrency(props.cartState.items[itemId].salesPrice)}
               </div>
               <div>
                 <label>Quantity: </label>
@@ -74,12 +74,12 @@ const CartViewModal: FC<Props> = (props) => {
               <div>
                 Total:{' '}
                 {toUSCurrency(
-                  props.cartState.items[itemId].SalesPrice *
-                    props.cartState.items[itemId].Quantity
+                  props.cartState.items[itemId].salesPrice *
+                    props.cartState.items[itemId].quantity
                 )}
               </div>
               <div className="d-flex justify-content-end">
-                <a href={props.cartState.items[itemId].Href}>
+                <a href={props.cartState.items[itemId].href}>
                   <button type="button" className="btn btn-primary mr-1">
                     <span className="material-icons">open_in_new</span>
                   </button>

@@ -57,13 +57,13 @@ const Cart: FC<Props> = (props) => {
     let newCart = { ...cart };
 
     if (newCart.items[item.id]) {
-      newCart.items[item.id].Quantity += item.Quantity;
+      newCart.items[item.id].quantity += item.quantity;
     } else {
       newCart.items[item.id] = item;
     }
     newCart.items[item.id].inputValue = newCart.items[
       item.id
-    ].Quantity.toString();
+    ].quantity.toString();
     newCart.items[item.id].updateReady = false;
     newCart.lastUpdated = new Date();
     console.log(newCart);
@@ -85,7 +85,7 @@ const Cart: FC<Props> = (props) => {
       typeof inputValueNum === 'number' &&
       inputValueNum > 0 &&
       inputValueNum % 1 === 0 &&
-      inputValueNum !== newCart.items[evtId].Quantity
+      inputValueNum !== newCart.items[evtId].quantity
     ) {
       newCart.items[evtId].updateReady = true;
     } else {
@@ -101,7 +101,7 @@ const Cart: FC<Props> = (props) => {
       let newCart = { ...cart };
       newCart.items[evtId].inputValue = newCart.items[
         evtId
-      ].Quantity.toString();
+      ].quantity.toString();
       newCart.items[evtId].updateReady = false;
       setCart(newCart);
     }
@@ -111,7 +111,7 @@ const Cart: FC<Props> = (props) => {
     // @ts-ignore
     const evtId = e.target.dataset.id;
     let newCart = { ...cart };
-    newCart.items[evtId].Quantity = parseInt(newCart.items[evtId].inputValue);
+    newCart.items[evtId].quantity = parseInt(newCart.items[evtId].inputValue);
     newCart.items[evtId].updateReady = false;
     newCart.lastUpdated = new Date();
     setCart(newCart);
