@@ -13,97 +13,97 @@ import CartState from './types/CartState';
 import CartItem from './types/CartItem';
 
 interface Props {
+  userLoggedIn: boolean;
+  imagesStorageUrl: string;
   cartGetAPI?: string;
 }
 
 const Cart: FC<Props> = (props) => {
-  const cartNamespaceId = 'qbc-eshop-cart';
-  const imagesStorageUrl = document.getElementById(cartNamespaceId)!.dataset
-    .url!;
+  const initCartFromLocalStorage = () => {
+    if (props.userLoggedIn) {
+      if (localStorage.userCart) {
+        return JSON.parse(localStorage.userCart) as CartState;
+      } else {
+        return {
+          items: {},
+          lastUpdated: new Date(2000, 12, 25),
+          ignoreGuestCart: false
+        } as CartState;
+      }
+    } else if (localStorage.guestCart) {
+      return JSON.parse(localStorage.guestCart) as CartState;
+    } else {
+      return {
+        items: {},
+        lastUpdated: new Date(2000, 12, 25),
+        ignoreGuestCart: false
+      } as CartState;
+    }
+  };
 
-  const [cart, setCart] = useState<CartState>({
-    items: {},
-    lastUpdated: new Date(),
-    ignoreGuestCart: false
-  });
-
-  const userLoggedIn = Boolean(
-    document.getElementById(cartNamespaceId)!.dataset.userLoggedIn
-  );
+  const [cart, setCart] = useState<CartState>(initCartFromLocalStorage());
 
   useEffect(() => {
-    getCart();
+    getBackendCart();
   }, []);
 
-  // useEffect(() => {
-  //   pullFromLocalStorage();
-  // }, []);
+  // Persist CartState
+  useEffect(() => {
+    console.log('updated local storage');
+    if (props.userLoggedIn) {
+      localStorage.setItem('userCart', JSON.stringify(cart));
+      updateBackendCart();
+    } else {
+      localStorage.setItem('guestCart', JSON.stringify(cart));
+    }
+  }, [cart.lastUpdated]);
 
-  // useEffect(() => {
-  //   if (userLoggedIn) {
-  //     localStorage.setItem('userCart', JSON.stringify(cart));
-  //   } else {
-  //     localStorage.setItem('guestCart', JSON.stringify(cart));
-  //   }
-  // }, [cart]);
-
-  const getCart = async () => {
-    if (userLoggedIn) {
+  const getBackendCart = async () => {
+    if (props.userLoggedIn) {
       const res = await fetch(`${props.cartGetAPI || '/cart/get'}`, {
         credentials: 'include',
         method: 'POST'
       });
       const json = await res.json();
-      let x = '';
+      let x = localStorage.guestCart;
+      let y = '';
     } else {
       console.log('logged out');
       localStorage.removeItem('userCart');
     }
   };
 
+  const updateBackendCart = async () => {
+    console.log('updated backend because user is logged in');
+  };
+
   const pullFromLocalStorage = () => {
-    if (userLoggedIn && localStorage.guestCart) {
+    if (props.userLoggedIn && localStorage.guestCart) {
       if (localStorage.userCart) {
-        let newCart = { ...cart };
-        newCart = JSON.parse(localStorage.getItem('userCart')!);
+        let newCart: CartState = JSON.parse(localStorage.userCart);
 
         if (newCart.ignoreGuestCart) {
-          console.log('ignore guest cart: ' + newCart.ignoreGuestCart)
+          console.log('ignore guest cart: ' + newCart.ignoreGuestCart);
         } else {
           console.log('would you like to merge guest cart to yours?');
           newCart.ignoreGuestCart = true;
-          console.log('ignore guest cart: ' + newCart.ignoreGuestCart)
-        };
+          console.log('ignore guest cart: ' + newCart.ignoreGuestCart);
+        }
 
         setCart(newCart);
-        updateLocalStorage(newCart);
       }
 
       // just a demo for what will soon be append guest cart logic
-
-      
-
-      
-    } else if (userLoggedIn && !localStorage.guestCart) {
+    } else if (props.userLoggedIn && !localStorage.guestCart) {
       if (localStorage.userCart) {
-        let newCart = { ...cart };
-        newCart = JSON.parse(localStorage.getItem('userCart')!);
+        let newCart: CartState = JSON.parse(localStorage.userCart);
         setCart(newCart);
       }
-    } else if (!userLoggedIn && localStorage.guestCart) {
-      let newCart = { ...cart };
-      newCart = JSON.parse(localStorage.getItem('guestCart')!);
+    } else if (!props.userLoggedIn && localStorage.guestCart) {
+      let newCart: CartState = JSON.parse(localStorage.guestCart);
       setCart(newCart);
     } else {
       return;
-    }
-  };
-
-  const updateLocalStorage = (cart: CartState) => {
-    if (userLoggedIn) {
-      localStorage.setItem('userCart', JSON.stringify(cart));
-    } else {
-      localStorage.setItem('guestCart', JSON.stringify(cart));
     }
   };
 
@@ -131,7 +131,6 @@ const Cart: FC<Props> = (props) => {
 
     newCart.lastUpdated = new Date();
     setCart(newCart);
-    updateLocalStorage(newCart);
   };
 
   const changeItemInputValue = (e: React.ChangeEvent<Element>) => {
@@ -157,7 +156,7 @@ const Cart: FC<Props> = (props) => {
   const revertItemInputValue = (e: React.ChangeEvent<Element>) => {
     // @ts-ignore
     const evtId = e.target.dataset.id;
-    if (!cart.items[evtId].updateReady) {
+    if (cart.items[evtId].updateReady) {
       let newCart = { ...cart };
       newCart.items[evtId].inputValue = newCart.items[
         evtId
@@ -190,57 +189,27 @@ const Cart: FC<Props> = (props) => {
       lastUpdated: new Date(),
       ignoreGuestCart: cart.ignoreGuestCart
     };
-    console.log(newCart);
     setCart(newCart);
   };
-
-  // fetch url="/cart/get" or "/cart/update" (is a relative path)
-
-  // useEffect(() => {
-  //   if(document.getElementById('user-is-logged-in')) {
-  //     let userInfo = document.getElementById('user-is-logged-in').data
-  //   };
-  // }, []);
-
-  // useEffect(() => {
-  //   localStorage.setItem('items', JSON.stringify(cart.items));
-  // }, [cart]);
-
-  // const pullFromLocalStorage = () => {
-  //   if (localStorage.items) {
-  //     let newCart = { ...cart };
-  //     newCart.items = JSON.parse(localStorage.getItem('items')!);
-  //     setCart((prevCart) => (prevCart = newCart));
-  //   }
-  // };
-
-  // const updateLocalStorage = () => {
-  //   localStorage.setItem('items', JSON.stringify(cart.items));
-  // };
-
-  // const updateLocalStorage = () => {
-  //   if (!userLoggedIn) {
-  //     localStorage.setItem('guestCartItems', JSON.stringify(cart.items));
-  //   } else {
-  //     localStorage.setItem('userCartItems', JSON.stringify(cart.items));
-  //   }
-  // };
 
   return (
     <div>
       <CartViewModal
-        imagesStorageUrl={imagesStorageUrl}
+        imagesStorageUrl={props.imagesStorageUrl}
         cartState={cart}
         pullFromLocalStorage={pullFromLocalStorage}
         changeItemQuantity={changeItemQuantity}
         changeItemInputValue={changeItemInputValue}
         revertItemInputValue={revertItemInputValue}
       />
-      <ProductModal addToCart={addToCart} imagesStorageUrl={imagesStorageUrl} />
+      <ProductModal
+        addToCart={addToCart}
+        imagesStorageUrl={props.imagesStorageUrl}
+      />
       <ClearCartModal clearCart={clearCart} />
       <ClearItemModal
         clearItem={clearItem}
-        imagesStorageUrl={imagesStorageUrl}
+        imagesStorageUrl={props.imagesStorageUrl}
       />
     </div>
   );
