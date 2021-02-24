@@ -1,3 +1,6 @@
 import mountCart from '../src/index';
 
-mountCart('/cart/get/index.json');
+mountCart(
+  Boolean(document.getElementById('qbc-eshop-cart')!.dataset.userLoggedIn),
+  '/cart/get/index.json'
+);
