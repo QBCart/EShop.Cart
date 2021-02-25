@@ -19,15 +19,15 @@ interface Props {
   cartGetAPI?: string;
 }
 
-
-
 const Cart: FC<Props> = (props) => {
-
-  const initCartState = (useCurrentTime?: boolean, ignoreGuestCart?: boolean) => {
+  const initCartState = (
+    useCurrentTime?: boolean,
+    ignoreGuestCart?: boolean
+  ) => {
     return {
       items: {},
-      lastUpdated: useCurrentTime ? new Date() : new Date(2000, 12, 25),
-      ignoreGuestCart: ignoreGuestCart
+      lastUpdated: useCurrentTime ?? false ? Date.now() : 0,
+      ignoreGuestCart: ignoreGuestCart ?? false
     } as CartState;
   };
 
@@ -36,12 +36,12 @@ const Cart: FC<Props> = (props) => {
       if (localStorage.userCart) {
         return JSON.parse(localStorage.userCart) as CartState;
       } else {
-        return initCartState()
+        return initCartState();
       }
     } else if (localStorage.guestCart) {
       return JSON.parse(localStorage.guestCart) as CartState;
     } else {
-      return initCartState(true)
+      return initCartState(true);
     }
   };
 
@@ -78,7 +78,12 @@ const Cart: FC<Props> = (props) => {
   };
 
   const updateBackendCart = async () => {
-    console.log('updated backend because user is logged in');
+    if (cart.lastUpdated > initCartState().lastUpdated) {
+      console.log('updated backend because user cart is new');
+      console.log(cart);
+    } else {
+      console.log('cart is too old!');
+    }
   };
 
   const pullFromLocalStorage = () => {
@@ -127,7 +132,7 @@ const Cart: FC<Props> = (props) => {
       };
     }
 
-    newCart.lastUpdated = new Date();
+    newCart.lastUpdated = Date.now();
     setCart(newCart);
   };
 
@@ -136,19 +141,19 @@ const Cart: FC<Props> = (props) => {
     newCart.items[id].quantity = parseInt(
       (document.getElementById(`qty-input-${id}`) as HTMLInputElement).value
     );
-    newCart.lastUpdated = new Date();
+    newCart.lastUpdated = Date.now();
     setCart(newCart);
   };
 
   const clearItem = (id: string) => {
     let newCart = { ...cart };
     delete newCart.items[id];
-    newCart.lastUpdated = new Date();
+    newCart.lastUpdated = Date.now();
     setCart(newCart);
   };
 
   const clearCart = () => {
-    const newCart: CartState = initCartState(true, cart.ignoreGuestCart)
+    const newCart: CartState = initCartState(true, cart.ignoreGuestCart);
     setCart(newCart);
   };
 
