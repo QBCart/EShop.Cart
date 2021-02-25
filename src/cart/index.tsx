@@ -137,9 +137,9 @@ const Cart: FC<Props> = (props) => {
     setCart(newCart);
   };
 
-  const clearItem = (item: CartItem) => {
+  const clearItem = (id: string) => {
     let newCart = { ...cart };
-    delete newCart.items[item.id];
+    delete newCart.items[id];
     newCart.lastUpdated = new Date();
     setCart(newCart);
   };

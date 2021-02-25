@@ -8,7 +8,7 @@ import CartItem from '../types/CartItem';
 
 interface Props {
   imagesStorageUrl: string;
-  clearItem(item: CartItem): void;
+  clearItem(id: string): void;
 }
 
 const ClearItemModal: FC<Props> = (props) => {
@@ -57,7 +57,7 @@ const ClearItemModal: FC<Props> = (props) => {
             </div>
             <div className="modal-footer d-flex justify-content-center">
               <button
-                onClick={() => props.clearItem(item)}
+                onClick={() => props.clearItem(item.id)}
                 type="button"
                 className="btn btn-danger"
                 data-toggle="modal"
