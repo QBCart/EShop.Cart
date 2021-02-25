@@ -14,7 +14,6 @@ interface Props {
   pullFromLocalStorage(): void;
   changeItemQuantity(e: any): void;
   changeItemInputValue(e: ChangeEvent): void;
-  revertItemInputValue(e: ChangeEvent): void;
 }
 
 const CartViewModal: FC<Props> = (props) => {
@@ -32,9 +31,8 @@ const CartViewModal: FC<Props> = (props) => {
     cartSubtotal +=
       props.cartState.items[itemId].salesPrice *
       props.cartState.items[itemId].quantity;
-    
-      cartItemsTotal +=
-      props.cartState.items[itemId].quantity;
+
+    cartItemsTotal += props.cartState.items[itemId].quantity;
   }
 
   const renderItems = () => {
@@ -65,7 +63,9 @@ const CartViewModal: FC<Props> = (props) => {
                 {toUSCurrency(
                   props.cartState.items[itemId].salesPrice *
                     props.cartState.items[itemId].quantity
-                )} ({props.cartState.items[itemId].quantity} item{props.cartState.items[itemId].quantity > 1 ? 's' : ''})
+                )}{' '}
+                ({props.cartState.items[itemId].quantity} item
+                {props.cartState.items[itemId].quantity > 1 ? 's' : ''})
               </div>
               <div className="d-flex justify-content-end">
                 <a href={props.cartState.items[itemId].href}>
@@ -114,7 +114,8 @@ const CartViewModal: FC<Props> = (props) => {
           </div>
           <div className="modal-footer">
             <h4 className="col  d-flex justify-content-start">
-              Subtotal: {toUSCurrency(cartSubtotal)} ({cartItemsTotal} item{cartItemsTotal === 1 ? '' : 's'})
+              Subtotal: {toUSCurrency(cartSubtotal)} ({cartItemsTotal} item
+              {cartItemsTotal === 1 ? '' : 's'})
             </h4>
             <div className="col d-flex justify-content-end">
               <button

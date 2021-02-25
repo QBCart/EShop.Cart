@@ -154,19 +154,6 @@ const Cart: FC<Props> = (props) => {
     setCart(newCart);
   };
 
-  const revertItemInputValue = (e: React.ChangeEvent<Element>) => {
-    // @ts-ignore
-    const evtId = e.target.dataset.id;
-    if (cart.items[evtId].updateReady) {
-      let newCart = { ...cart };
-      newCart.items[evtId].inputValue = newCart.items[
-        evtId
-      ].quantity.toString();
-      newCart.items[evtId].updateReady = false;
-      setCart(newCart);
-    }
-  };
-
   const changeItemQuantity = (e: MouseEvent<HTMLButtonElement>) => {
     const button = e.currentTarget as HTMLButtonElement;
     const id = button.dataset.id!;
@@ -202,7 +189,6 @@ const Cart: FC<Props> = (props) => {
         pullFromLocalStorage={pullFromLocalStorage}
         changeItemQuantity={changeItemQuantity}
         changeItemInputValue={changeItemInputValue}
-        revertItemInputValue={revertItemInputValue}
       />
       <ProductModal
         addToCart={addToCart}

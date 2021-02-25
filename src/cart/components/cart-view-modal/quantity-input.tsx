@@ -28,6 +28,12 @@ const QuantityInput: FC<Props> = (props) => {
     }
   };
 
+  const revertItemInputValue = (e: ChangeEvent<HTMLInputElement>) => {
+    if (!updateReady) {
+      e.currentTarget.value = props.quantity.toString();
+    }
+  };
+
   return (
     <div>
       {console.log('rendered')}
@@ -35,8 +41,7 @@ const QuantityInput: FC<Props> = (props) => {
       <input
         id={`qty-input-${props.itemId}`}
         onChange={changeItemInputValue}
-        // data-id={itemId}
-        // onBlur={props.revertItemInputValue}
+        onBlur={revertItemInputValue}
         type="number"
         min="1"
         defaultValue={props.quantity}
