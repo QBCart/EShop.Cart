@@ -16,8 +16,7 @@ const ClearItemModal: FC<Props> = (props) => {
   const modalId = 'qbc-eshop-cart-clear-item-modal';
 
   useEffect(() => {
-    $(`#${modalId}`).on('shown.bs.modal', function (e) {
-      //@ts-ignore
+    $(`#${modalId}`).on('shown.bs.modal', function (e: JQueryEventObject) {
       const triggerItem: CartItem = $(e.relatedTarget).data('item');
       setItem(triggerItem);
     });
@@ -40,7 +39,7 @@ const ClearItemModal: FC<Props> = (props) => {
               <h5 className="modal-title" id="staticBackdropLabel">
                 <span className="material-icons m-icon-36">delete</span>
               </h5>
-              <div className="clear-title">Remove {item.salesDesc}</div>
+              <div className="clear-title">Remove Item</div>
             </div>
 
             <div className="modal-body">
