@@ -18,6 +18,7 @@ interface Props {
 const CartViewModal: FC<Props> = (props) => {
   const modalId = 'qbc-eshop-cart-view-modal';
 
+  // esures that cart state matches changes from another tab, every time the modal is opened
   useEffect(() => {
     $(`#${modalId}`).on('shown.bs.modal', function () {
       props.pullFromLocalStorage();
