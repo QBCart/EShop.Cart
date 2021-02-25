@@ -5,7 +5,8 @@ declare module 'https://cdn.skypack.dev/pin/react@v17.0.1-tOtrZxBRexARODgO0jli/m
     useEffect,
     createContext,
     useContext,
-    ChangeEvent
+    ChangeEvent,
+    MouseEvent
   } from 'react';
 }
 
