@@ -3,7 +3,7 @@ import CartItems from './CartItems';
 interface CartState {
   items: CartItems;
   lastUpdated: Date;
-  ignoreGuestCart: Boolean;
+  ignoreGuestCart: boolean;
 }
 
 export default CartState;
