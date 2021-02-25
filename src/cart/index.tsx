@@ -19,26 +19,29 @@ interface Props {
   cartGetAPI?: string;
 }
 
+
+
 const Cart: FC<Props> = (props) => {
+
+  const initCartState = (useCurrentTime?: boolean, ignoreGuestCart?: boolean) => {
+    return {
+      items: {},
+      lastUpdated: useCurrentTime ? new Date() : new Date(2000, 12, 25),
+      ignoreGuestCart: ignoreGuestCart
+    } as CartState;
+  };
+
   const initCartFromLocalStorage = () => {
     if (props.userLoggedIn) {
       if (localStorage.userCart) {
         return JSON.parse(localStorage.userCart) as CartState;
       } else {
-        return {
-          items: {},
-          lastUpdated: new Date(2000, 12, 25),
-          ignoreGuestCart: false
-        } as CartState;
+        return initCartState()
       }
     } else if (localStorage.guestCart) {
       return JSON.parse(localStorage.guestCart) as CartState;
     } else {
-      return {
-        items: {},
-        lastUpdated: new Date(2000, 12, 25),
-        ignoreGuestCart: false
-      } as CartState;
+      return initCartState(true)
     }
   };
 
@@ -145,11 +148,7 @@ const Cart: FC<Props> = (props) => {
   };
 
   const clearCart = () => {
-    const newCart: CartState = {
-      items: {},
-      lastUpdated: new Date(),
-      ignoreGuestCart: cart.ignoreGuestCart
-    };
+    const newCart: CartState = initCartState(true, cart.ignoreGuestCart)
     setCart(newCart);
   };
 
