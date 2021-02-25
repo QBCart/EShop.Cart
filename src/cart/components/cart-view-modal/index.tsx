@@ -17,6 +17,8 @@ interface Props {
 
 const CartViewModal: FC<Props> = (props) => {
   const modalId = 'qbc-eshop-cart-view-modal';
+  let cartSubtotal = 0;
+  let cartItemsTotal = 0;
 
   // esures that cart state matches changes from another tab, every time the modal is opened
   useEffect(() => {
@@ -25,15 +27,17 @@ const CartViewModal: FC<Props> = (props) => {
     });
   }, []);
 
-  let cartSubtotal = 0;
-  let cartItemsTotal = 0;
-  for (let itemId in props.cartState.items) {
-    cartSubtotal +=
-      props.cartState.items[itemId].salesPrice *
-      props.cartState.items[itemId].quantity;
+  // update totals before each render
+  const updateTotals = () => {
+    for (let itemId in props.cartState.items) {
+      cartSubtotal +=
+        props.cartState.items[itemId].salesPrice *
+        props.cartState.items[itemId].quantity;
+      cartItemsTotal += props.cartState.items[itemId].quantity;
+    }
+  };
 
-    cartItemsTotal += props.cartState.items[itemId].quantity;
-  }
+  updateTotals();
 
   const renderItems = () => {
     let itemsArr: JSX.Element[] = [];
