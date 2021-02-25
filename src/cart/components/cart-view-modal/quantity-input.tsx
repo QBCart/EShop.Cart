@@ -1,7 +1,8 @@
 import React, {
   ChangeEvent,
   FC,
-  useState
+  useState,
+  useEffect
 } from 'https://cdn.skypack.dev/pin/react@v17.0.1-tOtrZxBRexARODgO0jli/min/react.js';
 
 interface Props {
@@ -12,6 +13,13 @@ interface Props {
 
 const QuantityInput: FC<Props> = (props) => {
   const [updateReady, setUpdateReady] = useState(false);
+
+  useEffect(() => {
+    const quantityInput = document.getElementById(
+      `qty-input-${props.itemId}`
+    ) as HTMLInputElement;
+    quantityInput.value = props.quantity.toString();
+  }, [props.quantity]);
 
   const changeItemInputValue = (e: ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.currentTarget.value;
@@ -36,7 +44,6 @@ const QuantityInput: FC<Props> = (props) => {
 
   return (
     <div>
-      {console.log('rendered')}
       <label>Quantity: </label>
       <input
         id={`qty-input-${props.itemId}`}
@@ -44,7 +51,6 @@ const QuantityInput: FC<Props> = (props) => {
         onBlur={revertItemInputValue}
         type="number"
         min="1"
-        defaultValue={props.quantity}
         className="quantity-input-cart form-control-sm ml-2 mr-1"
       ></input>
       {updateReady ? (
