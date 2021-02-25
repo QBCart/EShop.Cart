@@ -113,10 +113,6 @@ const Cart: FC<Props> = (props) => {
 
     if (newCart.items[item.id]) {
       newCart.items[item.id].quantity += item.quantity;
-      newCart.items[item.id].inputValue = newCart.items[
-        item.id
-      ].quantity.toString();
-      newCart.items[item.id].updateReady = false;
     } else {
       newCart.items[item.id] = {
         id: item.id,
@@ -124,9 +120,7 @@ const Cart: FC<Props> = (props) => {
         salesDesc: item.salesDesc,
         salesPrice: item.salesPrice,
         href: item.href,
-        quantity: item.quantity,
-        inputValue: item.quantity.toString(),
-        updateReady: false
+        quantity: item.quantity
       };
     }
 
