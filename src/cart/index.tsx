@@ -134,26 +134,6 @@ const Cart: FC<Props> = (props) => {
     setCart(newCart);
   };
 
-  const changeItemInputValue = (e: React.ChangeEvent<Element>) => {
-    // @ts-ignore
-    const evtId = e.target.dataset.id;
-    let newCart = { ...cart };
-    // @ts-ignore
-    newCart.items[evtId].inputValue = e.target.value;
-    const inputValueNum = Number(newCart.items[evtId].inputValue);
-    if (
-      typeof inputValueNum === 'number' &&
-      inputValueNum > 0 &&
-      inputValueNum % 1 === 0 &&
-      inputValueNum !== newCart.items[evtId].quantity
-    ) {
-      newCart.items[evtId].updateReady = true;
-    } else {
-      newCart.items[evtId].updateReady = false;
-    }
-    setCart(newCart);
-  };
-
   const changeItemQuantity = (e: MouseEvent<HTMLButtonElement>) => {
     const button = e.currentTarget as HTMLButtonElement;
     const id = button.dataset.id!;
@@ -188,7 +168,6 @@ const Cart: FC<Props> = (props) => {
         cartState={cart}
         pullFromLocalStorage={pullFromLocalStorage}
         changeItemQuantity={changeItemQuantity}
-        changeItemInputValue={changeItemInputValue}
       />
       <ProductModal
         addToCart={addToCart}

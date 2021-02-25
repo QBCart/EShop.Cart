@@ -13,7 +13,6 @@ interface Props {
   cartState: CartState;
   pullFromLocalStorage(): void;
   changeItemQuantity(e: any): void;
-  changeItemInputValue(e: ChangeEvent): void;
 }
 
 const CartViewModal: FC<Props> = (props) => {
