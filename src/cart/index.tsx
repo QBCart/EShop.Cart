@@ -1,7 +1,8 @@
 import React, {
   FC,
   useState,
-  useEffect
+  useEffect,
+  MouseEvent
 } from 'https://cdn.skypack.dev/pin/react@v17.0.1-tOtrZxBRexARODgO0jli/min/react.js';
 import { ProductModal, ProductModalItem } from '@qbcart/eshop-product-modal';
 
@@ -166,12 +167,13 @@ const Cart: FC<Props> = (props) => {
     }
   };
 
-  const changeItemQuantity = (e: Event) => {
-    // @ts-ignore
-    const evtId = e.target.dataset.id;
+  const changeItemQuantity = (e: MouseEvent<HTMLButtonElement>) => {
+    const button = e.currentTarget as HTMLButtonElement;
+    const id = button.dataset.id!;
     let newCart = { ...cart };
-    newCart.items[evtId].quantity = parseInt(newCart.items[evtId].inputValue);
-    newCart.items[evtId].updateReady = false;
+    newCart.items[id].quantity = parseInt(
+      (document.getElementById(`qty-input-${id}`) as HTMLInputElement).value
+    );
     newCart.lastUpdated = new Date();
     setCart(newCart);
   };
