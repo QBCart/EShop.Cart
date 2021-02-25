@@ -55,11 +55,10 @@ const QuantityInput: FC<Props> = (props) => {
       ></input>
       {updateReady ? (
         <button
-          data-id={props.itemId}
           className="btn btn-success cart-quantity-update"
-          onClick={(e) => {
+          onClick={() => {
             setUpdateReady(false);
-            props.changeItemQuantity(e);
+            props.changeItemQuantity(props.itemId);
           }}
         >
           update

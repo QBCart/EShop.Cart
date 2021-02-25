@@ -128,9 +128,7 @@ const Cart: FC<Props> = (props) => {
     setCart(newCart);
   };
 
-  const changeItemQuantity = (e: MouseEvent<HTMLButtonElement>) => {
-    const button = e.currentTarget as HTMLButtonElement;
-    const id = button.dataset.id!;
+  const changeItemQuantity = (id: string) => {
     let newCart = { ...cart };
     newCart.items[id].quantity = parseInt(
       (document.getElementById(`qty-input-${id}`) as HTMLInputElement).value
