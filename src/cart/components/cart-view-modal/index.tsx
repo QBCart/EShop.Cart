@@ -54,8 +54,9 @@ const CartViewModal: FC<Props> = (props) => {
             </div>
             <div className="col-lg-8 cart-row-data">
               <h4>{props.cartState.items[itemId].salesDesc}</h4>
-              <div>
-                Price: {toUSCurrency(props.cartState.items[itemId].salesPrice)}
+              <div className="mb-2 mt-3">
+                Price:{' '}
+                <b>{toUSCurrency(props.cartState.items[itemId].salesPrice)}</b>
               </div>
               <QuantityInput
                 itemId={itemId}
@@ -64,12 +65,14 @@ const CartViewModal: FC<Props> = (props) => {
               />
               <div>
                 Total:{' '}
-                {toUSCurrency(
-                  props.cartState.items[itemId].salesPrice *
-                    props.cartState.items[itemId].quantity
-                )}{' '}
-                ({props.cartState.items[itemId].quantity} item
-                {props.cartState.items[itemId].quantity > 1 ? 's' : ''})
+                <b>
+                  {toUSCurrency(
+                    props.cartState.items[itemId].salesPrice *
+                      props.cartState.items[itemId].quantity
+                  )}{' '}
+                  ({props.cartState.items[itemId].quantity} item
+                  {props.cartState.items[itemId].quantity > 1 ? 's' : ''})
+                </b>
               </div>
               <div className="d-flex justify-content-end">
                 <a href={props.cartState.items[itemId].href}>

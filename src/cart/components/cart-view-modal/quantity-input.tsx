@@ -43,7 +43,7 @@ const QuantityInput: FC<Props> = (props) => {
   };
 
   return (
-    <div>
+    <div className="mb-1">
       <label>Quantity: </label>
       <input
         id={`qty-input-${props.itemId}`}
