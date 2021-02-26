@@ -2,7 +2,7 @@ node_modules
 
 # snowpack output
 build
-
+dist
 .npmrc
 
 # Apple Snooping File
