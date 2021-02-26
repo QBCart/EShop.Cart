@@ -1,17 +1,16 @@
 import React, {
   FC,
   useState,
-  useEffect,
-  MouseEvent
+  useEffect
 } from 'https://cdn.skypack.dev/pin/react@v17.0.1-tOtrZxBRexARODgO0jli/min/react.js';
-import { ProductModal, ProductModalItem } from '@qbcart/eshop-product-modal';
+import ProductModal from '@qbcart/eshop-product-modal';
+import type ProductModalItem from '@qbcart/eshop-product-modal/types/product-modal-item';
 
 import CartViewModal from './components/cart-view-modal';
 import ClearCartModal from './components/clear-cart-modal';
 import ClearItemModal from './components/clear-item-modal';
 
-import CartState from './types/CartState';
-import CartItem from './types/CartItem';
+import type CartState from './types/CartState';
 
 interface Props {
   userLoggedIn: boolean;

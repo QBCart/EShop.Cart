@@ -18,7 +18,7 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "importsNotUsedAsValues": "preserve",
+    "importsNotUsedAsValues": "error",
     "jsx": "react-jsx"
   },
   "exclude": ["**dev**", "**build**"]

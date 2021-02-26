@@ -1,3 +1,4 @@
+// @ts-ignore
 import React, {
   FC
 } from 'https://cdn.skypack.dev/pin/react@v17.0.1-tOtrZxBRexARODgO0jli/min/react.js';

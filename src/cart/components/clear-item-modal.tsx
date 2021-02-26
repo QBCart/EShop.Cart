@@ -4,7 +4,7 @@ import React, {
   useState
 } from 'https://cdn.skypack.dev/pin/react@v17.0.1-tOtrZxBRexARODgO0jli/min/react.js';
 
-import CartItem from '../types/CartItem';
+import type CartItem from '../types/CartItem';
 
 interface Props {
   imagesStorageUrl: string;

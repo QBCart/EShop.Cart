@@ -5,7 +5,7 @@ import React, {
 } from 'https://cdn.skypack.dev/pin/react@v17.0.1-tOtrZxBRexARODgO0jli/min/react.js';
 
 import { toUSCurrency } from '@qbcart/utils';
-import CartState from '../../types/CartState';
+import type CartState from '../../types/CartState';
 import QuantityInput from './quantity-input';
 
 interface Props {
