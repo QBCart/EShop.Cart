@@ -45,6 +45,10 @@ const Cart: FC<Props> = (props) => {
   };
 
   const [cart, setCart] = useState<CartState>(initCartFromLocalStorage());
+  //! TOMORROW START WITH GUEST USERFLOW
+  useEffect(() => {
+    validateCart();
+  }, []);
 
   useEffect(() => {
     getBackendCart();
@@ -60,6 +64,11 @@ const Cart: FC<Props> = (props) => {
       localStorage.setItem('guestCart', JSON.stringify(cart));
     }
   }, [cart.lastUpdated]);
+
+  const validateCart = async () => {
+    // must have items.length > 0
+    //if (cart.items !== {})
+  };
 
   const getBackendCart = async () => {
     if (props.userLoggedIn) {
