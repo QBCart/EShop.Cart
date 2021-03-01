@@ -11,4 +11,4 @@ dist
 .DS_Store
 
 # Azure Function local dev settings
-api/local.settings.json
+#api/local.settings.json
