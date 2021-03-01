@@ -1,9 +1,14 @@
 node_modules
+.npmrc
 
 # snowpack output
 build
+
+# typescript output
 dist
-.npmrc
 
 # Apple Snooping File
 .DS_Store
+
+# Azure Function local dev settings
+api/local.settings.json
