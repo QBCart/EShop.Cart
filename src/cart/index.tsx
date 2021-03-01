@@ -1,4 +1,4 @@
-import React, {
+ import React, {
   FC,
   useState,
   useEffect
@@ -78,10 +78,21 @@ const Cart: FC<Props> = (props) => {
 
   const updateBackendCart = async () => {
     if (cart.lastUpdated > initCartState().lastUpdated) {
-      console.log('updated backend because user cart is new');
-      console.log(cart);
-    } else {
-      console.log('cart is too old!');
+      try {
+        const res = await fetch('/cart/update', {
+          credentials: 'include',
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(cart)
+        });
+        if (!res.ok) {
+          console.log('Internet may be having issues.');
+        }
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
