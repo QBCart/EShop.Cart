@@ -4,4 +4,8 @@
  * This code can only be used and/or distributed with express permission.
  */
 
-export default async function validateCart(cart: any) {}
+export default async function validateCart(cart: any) {
+  // for (let itemId in cart.items) {
+  //     cart.items[itemId].salesDesc = 'Hello World'
+  // }
+}
