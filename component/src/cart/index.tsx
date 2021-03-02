@@ -47,36 +47,41 @@ const Cart: FC<Props> = (props) => {
   const [cart, setCart] = useState<CartState>(initCartFromLocalStorage());
 
   useEffect(() => {
-    validateCart();
-  }, []);
-
-  useEffect(() => {
-    getBackendCart();
+    console.log('effect: initUseEffects');
+    initUseEffects();
   }, []);
 
   // Persist CartState
   useEffect(() => {
-    console.log('updated local storage');
     if (props.userLoggedIn) {
       localStorage.setItem('userCart', JSON.stringify(cart));
       updateBackendCart();
     } else {
       localStorage.setItem('guestCart', JSON.stringify(cart));
     }
+    console.log('effect: local storage');
   }, [cart.lastUpdated]);
+
+  const initUseEffects = async () => {
+    await validateCart();
+    await getBackendCart();
+  };
 
   const validateCart = async () => {
     if (Object.keys(cart.items).length > 0) {
       try {
-        const res = await fetch(`${props.cartAPI? props.cartAPI + '/validate' :'/cart/validate'}`, {
-          credentials: 'include',
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Credentials': 'true'
-          },
-          body: JSON.stringify(cart)
-        });
+        const res = await fetch(
+          `${props.cartAPI ? props.cartAPI + '/validate' : '/cart/validate'}`,
+          {
+            credentials: 'include',
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Credentials': 'true'
+            },
+            body: JSON.stringify(cart)
+          }
+        );
         if (res.ok) {
           const validatedCart: CartState = await res.json();
           validatedCart.lastUpdated = Date.now();
@@ -90,34 +95,41 @@ const Cart: FC<Props> = (props) => {
         console.error('error: ' + error);
       }
     }
+    console.log('effect: validateCart');
   };
 
   const getBackendCart = async () => {
     if (props.userLoggedIn) {
-      const res = await fetch(`${props.cartAPI? props.cartAPI + '/get' :'/cart/get'}`, {
-        credentials: 'include',
-        method: 'POST'
-      });
+      const res = await fetch(
+        `${props.cartAPI ? props.cartAPI + '/get' : '/cart/get'}`,
+        {
+          credentials: 'include',
+          method: 'POST'
+        }
+      );
       const json = await res.json();
       let x = localStorage.guestCart;
       let y = '';
     } else {
-      console.log('logged out');
       localStorage.removeItem('userCart');
     }
+    console.log('effect: getBackendCart');
   };
 
   const updateBackendCart = async () => {
     if (cart.lastUpdated > initCartState().lastUpdated) {
       try {
-        const res = await fetch(`${props.cartAPI? props.cartAPI + '/update' :'/cart/update'}`, {
-          credentials: 'include',
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(cart)
-        });
+        const res = await fetch(
+          `${props.cartAPI ? props.cartAPI + '/update' : '/cart/update'}`,
+          {
+            credentials: 'include',
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(cart)
+          }
+        );
         if (!res.ok) {
           console.log('Internet may be having issues.');
         }
