@@ -37,10 +37,13 @@ const Cart: FC<Props> = (props) => {
       } else {
         return initCartState();
       }
-    } else if (localStorage.guestCart) {
-      return JSON.parse(localStorage.guestCart) as CartState;
     } else {
-      return initCartState(true);
+      localStorage.removeItem('userCart');
+      if (localStorage.guestCart) {
+        return JSON.parse(localStorage.guestCart) as CartState;
+      } else {
+        return initCartState(true);
+      }
     }
   };
 
@@ -53,18 +56,18 @@ const Cart: FC<Props> = (props) => {
 
   // Persist CartState
   useEffect(() => {
-    if (props.userLoggedIn) {
-      localStorage.setItem('userCart', JSON.stringify(cart));
+    updateLocalStorage(cart);
+    if (props.userLoggedIn && cart.lastUpdated > initCartState().lastUpdated) {
       updateBackendCart();
-    } else {
-      localStorage.setItem('guestCart', JSON.stringify(cart));
     }
     console.log('effect: local storage');
   }, [cart.lastUpdated]);
 
   const initUseEffects = async () => {
     await validateCart();
-    await getBackendCart();
+    if (props.userLoggedIn) {
+      getBackendCart();
+    }
   };
 
   const validateCart = async () => {
@@ -84,7 +87,7 @@ const Cart: FC<Props> = (props) => {
         );
         if (res.ok) {
           const validatedCart: CartState = await res.json();
-          validatedCart.lastUpdated = Date.now();
+          updateLocalStorage(validatedCart);
           setCart(validatedCart);
         } else {
           // TODO: Add network toast
@@ -99,7 +102,7 @@ const Cart: FC<Props> = (props) => {
   };
 
   const getBackendCart = async () => {
-    if (props.userLoggedIn) {
+    try {
       const res = await fetch(
         `${props.cartAPI ? props.cartAPI + '/get' : '/cart/get'}`,
         {
@@ -107,35 +110,46 @@ const Cart: FC<Props> = (props) => {
           method: 'POST'
         }
       );
-      const json = await res.json();
-      let x = localStorage.guestCart;
-      let y = '';
-    } else {
-      localStorage.removeItem('userCart');
+      if (res.ok) {
+        lastCartWins(await res.json())
+      } else {
+        if (res.status !== 404) {
+          // TODO: Add network toast
+          console.error(await res.text());
+        }
+      }
+    } catch (error) {
+      // TODO: Add network toast
+      console.error('error: ' + error);
     }
+
     console.log('effect: getBackendCart');
   };
 
+  const lastCartWins = (backendCart: CartState) => {
+    if (backendCart.lastUpdated > cart.lastUpdated) {
+      setCart(backendCart);
+    }
+  }
+
   const updateBackendCart = async () => {
-    if (cart.lastUpdated > initCartState().lastUpdated) {
-      try {
-        const res = await fetch(
-          `${props.cartAPI ? props.cartAPI + '/update' : '/cart/update'}`,
-          {
-            credentials: 'include',
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(cart)
-          }
-        );
-        if (!res.ok) {
-          console.log('Internet may be having issues.');
+    try {
+      const res = await fetch(
+        `${props.cartAPI ? props.cartAPI + '/update' : '/cart/update'}`,
+        {
+          credentials: 'include',
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(cart)
         }
-      } catch (err) {
-        console.log(err);
+      );
+      if (!res.ok) {
+        console.log('Internet may be having issues.');
       }
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -166,6 +180,14 @@ const Cart: FC<Props> = (props) => {
       setCart(newCart);
     } else {
       return;
+    }
+  };
+
+  const updateLocalStorage = (cart: CartState) => {
+    if (props.userLoggedIn) {
+      localStorage.setItem('userCart', JSON.stringify(cart));
+    } else {
+      localStorage.setItem('guestCart', JSON.stringify(cart));
     }
   };
 
