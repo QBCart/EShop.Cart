@@ -15,7 +15,7 @@ import type CartState from './types/CartState';
 interface Props {
   userLoggedIn: boolean;
   imagesStorageUrl: string;
-  cartGetAPI?: string;
+  cartAPI?: string;
 }
 
 const Cart: FC<Props> = (props) => {
@@ -45,7 +45,7 @@ const Cart: FC<Props> = (props) => {
   };
 
   const [cart, setCart] = useState<CartState>(initCartFromLocalStorage());
-  //! TOMORROW START WITH GUEST USERFLOW
+
   useEffect(() => {
     validateCart();
   }, []);
@@ -66,13 +66,35 @@ const Cart: FC<Props> = (props) => {
   }, [cart.lastUpdated]);
 
   const validateCart = async () => {
-    // must have items.length > 0
-    //if (cart.items !== {})
+    if (Object.keys(cart.items).length > 0) {
+      try {
+        const res = await fetch(`${props.cartAPI? props.cartAPI + '/validate' :'/cart/validate'}`, {
+          credentials: 'include',
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Credentials': 'true'
+          },
+          body: JSON.stringify(cart)
+        });
+        if (res.ok) {
+          const validatedCart: CartState = await res.json();
+          validatedCart.lastUpdated = Date.now();
+          setCart(validatedCart);
+        } else {
+          // TODO: Add network toast
+          console.error(await res.text());
+        }
+      } catch (error) {
+        // TODO: Add network toast
+        console.error('error: ' + error);
+      }
+    }
   };
 
   const getBackendCart = async () => {
     if (props.userLoggedIn) {
-      const res = await fetch(`${props.cartGetAPI || '/cart/get'}`, {
+      const res = await fetch(`${props.cartAPI? props.cartAPI + '/get' :'/cart/get'}`, {
         credentials: 'include',
         method: 'POST'
       });
@@ -88,7 +110,7 @@ const Cart: FC<Props> = (props) => {
   const updateBackendCart = async () => {
     if (cart.lastUpdated > initCartState().lastUpdated) {
       try {
-        const res = await fetch('/cart/update', {
+        const res = await fetch(`${props.cartAPI? props.cartAPI + '/update' :'/cart/update'}`, {
           credentials: 'include',
           method: 'POST',
           headers: {
