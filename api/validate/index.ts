@@ -26,8 +26,7 @@ const httpTrigger: AzureFunction = async function (
     console.error(error);
     context.res = {
       status: '500',
-      body:
-        'Contact Support: The Cart API seems to be having internal issues.',
+      body: 'Contact Support: The Cart API seems to be having internal issues.',
       headers: {
         'Content-Type': 'application/json'
       }
