@@ -8,10 +8,8 @@ const httpTrigger: AzureFunction = async function (
   req: HttpRequest
 ): Promise<void> {
   try {
-    const user: User =
-      process.env.AZURE_FUNCTIONS_ENVIRONMENT === 'Development'
-        ? { oid: '1111' }
-        : req.body?.user;
+    const isDevEnv = process.env.AZURE_FUNCTIONS_ENVIRONMENT === 'Development';
+    const user: User = isDevEnv ? { oid: '1111' } : req.body?.user;
     if (user) {
       const cart = await cosmos.customers.getEshopCart(
         `ESHOP-CART-${user.oid}`
