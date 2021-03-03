@@ -11,7 +11,7 @@ import ClearCartModal from './components/clear-cart-modal';
 import ClearItemModal from './components/clear-item-modal';
 
 import type CartState from './types/CartState';
-import type { EShopCart } from '@qbcart/types/eshop'
+import type { EShopCart } from '@qbcart/types/eshop';
 
 interface Props {
   userLoggedIn: boolean;
