@@ -57,6 +57,7 @@ const Cart: FC<Props> = (props) => {
   // Persist CartState
   useEffect(() => {
     updateLocalStorage(cart);
+    // TODO: Prevent updateBackend on init with stale user cart
     if (props.userLoggedIn && cart.lastUpdated > initCartState().lastUpdated) {
       updateBackendCart();
     }
@@ -95,7 +96,7 @@ const Cart: FC<Props> = (props) => {
         }
       } catch (error) {
         // TODO: Add network toast
-        console.error('error: ' + error);
+        console.error('Try/Catch Error: ' + error);
       }
     }
     console.log('effect: validateCart');
@@ -111,7 +112,7 @@ const Cart: FC<Props> = (props) => {
         }
       );
       if (res.ok) {
-        lastCartWins(await res.json())
+        lastCartWins(await res.json());
       } else {
         if (res.status !== 404) {
           // TODO: Add network toast
@@ -120,17 +121,21 @@ const Cart: FC<Props> = (props) => {
       }
     } catch (error) {
       // TODO: Add network toast
-      console.error('error: ' + error);
+      console.error('Try/Catch Error: ' + error);
     }
 
     console.log('effect: getBackendCart');
   };
 
-  const lastCartWins = (backendCart: CartState) => {
+  const lastCartWins = (backendCart: any) => {
     if (backendCart.lastUpdated > cart.lastUpdated) {
-      setCart(backendCart);
+      setCart({
+        items: backendCart.items,
+        lastUpdated: backendCart.lastUpdated,
+        ignoreGuestCart: cart.ignoreGuestCart
+      });
     }
-  }
+  };
 
   const updateBackendCart = async () => {
     try {
@@ -142,7 +147,10 @@ const Cart: FC<Props> = (props) => {
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify(cart)
+          body: JSON.stringify({
+            items: cart.items,
+            lastUpdated: cart.lastUpdated
+          })
         }
       );
       if (!res.ok) {
