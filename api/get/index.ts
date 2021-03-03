@@ -1,24 +1,48 @@
 import type { AzureFunction, Context, HttpRequest } from '@azure/functions';
 import type { User } from '@qbcart/types';
+import cosmos from '../shared/cosmos';
+import validateCart from '../shared/validateCart';
 
 const httpTrigger: AzureFunction = async function (
   context: Context,
   req: HttpRequest
 ): Promise<void> {
   try {
-    const user: User = req.body?.user;
+    const user: User =
+      process.env.AZURE_FUNCTIONS_ENVIRONMENT === 'Development'
+        ? { oid: '1111' }
+        : req.body?.user;
     if (user) {
-      context.res = {
-        // status: 200, /* Defaults to 200 */
-        body: null,
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      };
+      const cart = await cosmos.customers.read<any>(
+        `ESHOP-CART-${user.oid}`,
+        'EShopCart'
+      );
+      if (cart) {
+        await validateCart(cart);
+        context.res = {
+          // status: 200, /* Defaults to 200 */
+          //
+          body: {
+            items: cart.Items,
+            lastUpdated: cart.LastUpdated
+          },
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        };
+      } else {
+        context.res = {
+          status: '404',
+          body: 'No Cart Found',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        };
+      }
     } else {
       context.res = {
         status: '401',
-        body: 'Error: Unauthorized.',
+        body: 'Cart API Error: Unauthorized.',
         headers: {
           'Content-Type': 'application/json'
         }
@@ -28,8 +52,7 @@ const httpTrigger: AzureFunction = async function (
     console.error(error);
     context.res = {
       status: '500',
-      body:
-        'Contact Support: The Search API seems to be having internal issues.',
+      body: 'Cart Get API Error: Internal Server Issues.',
       headers: {
         'Content-Type': 'application/json'
       }
