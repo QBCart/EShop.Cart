@@ -41,7 +41,7 @@ const httpTrigger: AzureFunction = async function (
     } else {
       context.res = {
         status: '401',
-        body: 'Cart API Error: Unauthorized.',
+        body: 'Cart Get API Error: Unauthorized.',
         headers: {
           'Content-Type': 'application/json'
         }
