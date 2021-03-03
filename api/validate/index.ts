@@ -11,7 +11,9 @@ const httpTrigger: AzureFunction = async function (
   try {
     const isDevEnv = process.env.AZURE_FUNCTIONS_ENVIRONMENT === 'Development';
     const user: User = isDevEnv ? { oid: '1111' } : req.body?.user;
-    const cart: EShopCart = isDevEnv ? req.body?.data || req.body : req.body?.data;
+    const cart: EShopCart = isDevEnv
+      ? req.body?.data || req.body
+      : req.body?.data;
     await validateCart(cart);
     if (user) {
       await validateCustomerPricing(cart);

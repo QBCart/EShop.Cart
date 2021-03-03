@@ -3,7 +3,6 @@ import type { User } from '@qbcart/types';
 import type { EShopCart } from '@qbcart/types/eshop';
 import cosmos from '../shared/cosmos';
 
-
 const httpTrigger: AzureFunction = async function (
   context: Context,
   req: HttpRequest
@@ -12,9 +11,11 @@ const httpTrigger: AzureFunction = async function (
     const isDevEnv = process.env.AZURE_FUNCTIONS_ENVIRONMENT === 'Development';
     const user: User = isDevEnv ? { oid: '1111' } : req.body?.user;
     if (user) {
-      const cart: EShopCart = isDevEnv ? req.body?.data || req.body : req.body?.data;
+      const cart: EShopCart = isDevEnv
+        ? req.body?.data || req.body
+        : req.body?.data;
       cart.id = `ESHOP-CART-${user.oid}`;
-      if(await cosmos.customers.upsertEshopCart(cart)) {
+      if (await cosmos.customers.upsertEshopCart(cart)) {
         context.res = {
           // status: 200, /* Defaults to 200 */
           //
