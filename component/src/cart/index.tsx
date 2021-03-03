@@ -11,6 +11,7 @@ import ClearCartModal from './components/clear-cart-modal';
 import ClearItemModal from './components/clear-item-modal';
 
 import type CartState from './types/CartState';
+import type { EShopCart } from '@qbcart/types/eshop'
 
 interface Props {
   userLoggedIn: boolean;
@@ -127,7 +128,7 @@ const Cart: FC<Props> = (props) => {
     console.log('effect: getBackendCart');
   };
 
-  const lastCartWins = (backendCart: any) => {
+  const lastCartWins = (backendCart: EShopCart) => {
     if (backendCart.lastUpdated > cart.lastUpdated) {
       setCart({
         items: backendCart.items,
