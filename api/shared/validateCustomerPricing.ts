@@ -4,4 +4,6 @@
  * This code can only be used and/or distributed with express permission.
  */
 
-export default async function validateCustomerPricing(cart: any) {}
+import type { EShopCart } from "@qbcart/types/eshop";
+
+export default async function validateCustomerPricing(cart: EShopCart) {}
