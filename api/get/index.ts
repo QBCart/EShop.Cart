@@ -1,6 +1,5 @@
 import type { AzureFunction, Context, HttpRequest } from '@azure/functions';
 import type { User } from '@qbcart/types';
-import type { EShopCart } from '@qbcart/types/eshop';
 import cosmos from '../shared/cosmos';
 import validateCart from '../shared/validateCart';
 
