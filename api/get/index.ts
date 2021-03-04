@@ -1,7 +1,6 @@
 import type { AzureFunction, Context, HttpRequest } from '@azure/functions';
 import type { User } from '@qbcart/types';
 import cosmos from '../shared/cosmos';
-import validateCart from '../shared/validateCart';
 
 const httpTrigger: AzureFunction = async function (
   context: Context,
@@ -15,7 +14,6 @@ const httpTrigger: AzureFunction = async function (
         `ESHOP-CART-${user.oid}`
       );
       if (cart) {
-        await validateCart(cart);
         context.res = {
           // status: 200, /* Defaults to 200 */
           //
