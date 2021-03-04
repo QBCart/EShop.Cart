@@ -13,6 +13,7 @@ interface Props {
   cartState: CartState;
   pullFromLocalStorage(): void;
   changeItemQuantity(e: any): void;
+  checkUptime(): void;
 }
 
 const CartViewModal: FC<Props> = (props) => {
@@ -24,6 +25,8 @@ const CartViewModal: FC<Props> = (props) => {
   useEffect(() => {
     $(`#${modalId}`).on('shown.bs.modal', function () {
       props.pullFromLocalStorage();
+
+      props.checkUptime();
     });
   }, []);
 
