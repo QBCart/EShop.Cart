@@ -6,7 +6,9 @@ declare module 'https://cdn.skypack.dev/pin/react@v17.0.1-tOtrZxBRexARODgO0jli/m
     createContext,
     useContext,
     ChangeEvent,
-    MouseEvent
+    MouseEvent,
+    forwardRef,
+    createRef
   } from 'react';
 }
 

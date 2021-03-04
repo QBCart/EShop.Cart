@@ -74,3 +74,16 @@
   align-items: center;
   justify-content: center;
 }
+
+#qbc-eshop-cart-toast-container {
+  z-index: 2000;
+  position: fixed;
+  top: 50%;
+  right: 50%;
+}
+
+#qbc-eshop-cart-toast {
+  position: relative;
+  bottom: 50%;
+  left: 50%;
+}
