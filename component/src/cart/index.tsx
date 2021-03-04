@@ -46,10 +46,11 @@ const Cart: FC<Props> = (props) => {
   };
 
   const [cart, setCart] = useState<CartState>(initCartFromLocalStorage());
-  const [lastPulledFromLocalStorage, setLastPulledFromLocalStorage] = useState(0);
+  const [lastPulledFromLocalStorage, setLastPulledFromLocalStorage] = useState(
+    0
+  );
   const [toastBody] = useState(React.createRef<HTMLDivElement>());
   const [startTime] = useState(Date.now());
-  
 
   useEffect(() => {
     validateCart();
@@ -154,12 +155,12 @@ const Cart: FC<Props> = (props) => {
       }
     } catch (error) {
       throw "You're probably offline. Check your network.";
-    } 
+    }
   };
 
   const pullFromLocalStorage = () => {
-    const lastTimeUpdated: number = Number(localStorage.lastTimeUpdated)
-    if ( lastTimeUpdated !== lastPulledFromLocalStorage) {
+    const lastTimeUpdated: number = Number(localStorage.lastTimeUpdated);
+    if (lastTimeUpdated !== lastPulledFromLocalStorage) {
       if (props.userLoggedIn && localStorage.guestCart) {
         if (localStorage.userCart) {
           let newCart: CartState = JSON.parse(localStorage.userCart);
@@ -188,8 +189,8 @@ const Cart: FC<Props> = (props) => {
         return;
       }
 
-      setLastPulledFromLocalStorage(lastTimeUpdated)
-      console.log('pulled from local storage')
+      setLastPulledFromLocalStorage(lastTimeUpdated);
+      console.log('pulled from local storage');
     }
   };
 
