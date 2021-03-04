@@ -4,9 +4,9 @@
  * This code can only be used and/or distributed with express permission.
  */
 
-import type { EShopCart } from '@qbcart/types/eshop';
+import type CartItems from '@qbcart/types/types/internals/cart-items';
 
-export default async function validateCart(cart: EShopCart) {
+export default async function validateCart(cart: CartItems) {
   // for (let itemId in cart.items) {
   //     cart.items[itemId].salesDesc = 'Hello World'
   // }
