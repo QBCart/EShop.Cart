@@ -1,8 +1,7 @@
 import type { AzureFunction, Context, HttpRequest } from '@azure/functions';
 import type { User } from '@qbcart/types';
-import type { EShopCart } from '@qbcart/types/eshop';
-import validateCart from '../shared/validateCart';
-import validateCustomerPricing from '../shared/validateCustomerPricing';
+import type CartItems from '@qbcart/types/types/internals/cart-items';
+import validateCartItems from './validateCartItems';
 
 const httpTrigger: AzureFunction = async function (
   context: Context,
@@ -11,16 +10,17 @@ const httpTrigger: AzureFunction = async function (
   try {
     const isDevEnv = process.env.AZURE_FUNCTIONS_ENVIRONMENT === 'Development';
     const user: User = isDevEnv ? { oid: '1111' } : req.body?.user;
-    const cart: EShopCart = isDevEnv
+    const items: CartItems = isDevEnv
       ? req.body?.data || req.body
       : req.body?.data;
-    await validateCart(cart);
-    if (user) {
-      await validateCustomerPricing(cart);
-    }
+    const removedItems = await validateCartItems(items, user);
+
     context.res = {
       // status: 200, /* Defaults to 200 */
-      body: cart,
+      body: {
+        items,
+        removedItems
+      },
       headers: {
         'Content-Type': 'application/json'
       }
@@ -29,7 +29,8 @@ const httpTrigger: AzureFunction = async function (
     console.error(error);
     context.res = {
       status: '500',
-      body: 'Cart Validate API Error: Internal Server Issues.',
+      body:
+        'Our systems are having trouble validating your cart online. Please contact support.',
       headers: {
         'Content-Type': 'application/json'
       }
