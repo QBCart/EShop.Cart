@@ -159,31 +159,31 @@ const Cart: FC<Props> = (props) => {
   };
 
   const setCartFromLocalStorage = () => {
-    console.log('setcartfromlocalstorage')
+    console.log('setcartfromlocalstorage');
     if (localStorage.lastUpdated) {
       let newCart: CartState | null = null;
-      setLastPulledFromLocalStorage(timeStamp => {
-        console.log('setlastpulledfromlocalstorage')
+      setLastPulledFromLocalStorage((timeStamp) => {
+        console.log('setlastpulledfromlocalstorage');
         const lastUpdated = Number(localStorage.lastUpdated);
-        console.log(timeStamp)
+        console.log(timeStamp);
         if (timeStamp !== lastUpdated) {
           if (props.userLoggedIn && localStorage.userCart) {
             newCart = JSON.parse(localStorage.userCart) as CartState;
           } else if (!props.userLoggedIn && localStorage.guestCart) {
             newCart = JSON.parse(localStorage.guestCart) as CartState;
           }
-          console.log('updated')
+          console.log('updated');
           return lastUpdated;
         } else return timeStamp;
       });
       if (newCart) {
         setCart(newCart);
       }
-    };
+    }
   };
 
   const updateLocalStorage = (cart: CartState) => {
-    const lastUpdated = Date.now()
+    const lastUpdated = Date.now();
     localStorage.setItem('lastUpdated', lastUpdated.toString());
     setLastPulledFromLocalStorage(lastUpdated);
 

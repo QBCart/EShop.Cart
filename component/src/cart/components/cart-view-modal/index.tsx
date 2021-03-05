@@ -24,7 +24,7 @@ const CartViewModal: FC<Props> = (props) => {
 
   useEffect(() => {
     $(`#${modalId}`).on('shown.bs.modal', function () {
-      console.log('show cart')
+      console.log('show cart');
       props.setCartFromLocalStorage();
       props.checkUptime();
     });
