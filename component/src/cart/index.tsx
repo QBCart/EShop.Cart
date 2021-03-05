@@ -1,7 +1,8 @@
 import React, {
   FC,
   useState,
-  useEffect
+  useEffect,
+  useCallback
 } from 'https://cdn.skypack.dev/pin/react@v17.0.1-tOtrZxBRexARODgO0jli/min/react.js';
 import ProductModal from '@qbcart/eshop-product-modal';
 import type ProductModalItem from '@qbcart/eshop-product-modal/types/product-modal-item';
@@ -12,7 +13,6 @@ import ClearItemModal from './components/clear-item-modal';
 import Toast from './components/toast';
 
 import type CartState from './types/CartState';
-import type { EShopCart } from '@qbcart/types/eshop';
 
 interface Props {
   userLoggedIn: boolean;
@@ -85,7 +85,7 @@ const Cart: FC<Props> = (props) => {
     }
   };
 
-  const validateCart = async () => {
+  async function validateCart() {
     if (props.userLoggedIn || Object.keys(cart.items).length > 0) {
       let retry = 3;
       while (retry--) {
@@ -125,7 +125,7 @@ const Cart: FC<Props> = (props) => {
         }
       }
     }
-  };
+  }
 
   const getBackendCart = async () => {
     try {
@@ -158,45 +158,35 @@ const Cart: FC<Props> = (props) => {
     }
   };
 
-  const pullFromLocalStorage = () => {
-    const lastTimeUpdated: number = Number(localStorage.lastTimeUpdated);
-    if (lastTimeUpdated !== lastPulledFromLocalStorage) {
-      if (props.userLoggedIn && localStorage.guestCart) {
-        if (localStorage.userCart) {
-          let newCart: CartState = JSON.parse(localStorage.userCart);
-
-          if (newCart.ignoreGuestCart) {
-            // console.log('ignore guest cart: ' + newCart.ignoreGuestCart);
-          } else {
-            // console.log('would you like to merge guest cart to yours?');
-            // newCart.ignoreGuestCart = true;
-            // console.log('ignore guest cart: ' + newCart.ignoreGuestCart);
+  const setCartFromLocalStorage = () => {
+    console.log('setcartfromlocalstorage')
+    if (localStorage.lastUpdated) {
+      let newCart: CartState | null = null;
+      setLastPulledFromLocalStorage(timeStamp => {
+        console.log('setlastpulledfromlocalstorage')
+        const lastUpdated = Number(localStorage.lastUpdated);
+        console.log(timeStamp)
+        if (timeStamp !== lastUpdated) {
+          if (props.userLoggedIn && localStorage.userCart) {
+            newCart = JSON.parse(localStorage.userCart) as CartState;
+          } else if (!props.userLoggedIn && localStorage.guestCart) {
+            newCart = JSON.parse(localStorage.guestCart) as CartState;
           }
-
-          setCart(newCart);
-        }
-
-        // just a demo for what will soon be append guest cart logic
-      } else if (props.userLoggedIn && !localStorage.guestCart) {
-        if (localStorage.userCart) {
-          let newCart: CartState = JSON.parse(localStorage.userCart);
-          setCart(newCart);
-        }
-      } else if (!props.userLoggedIn && localStorage.guestCart) {
-        let newCart: CartState = JSON.parse(localStorage.guestCart);
+          console.log('updated')
+          return lastUpdated;
+        } else return timeStamp;
+      });
+      if (newCart) {
         setCart(newCart);
-      } else {
-        return;
       }
-
-      setLastPulledFromLocalStorage(lastTimeUpdated);
-      console.log('pulled from local storage');
-    }
+    };
   };
 
   const updateLocalStorage = (cart: CartState) => {
-    // localStorage.setItem('lastTimeUpdated', lastPulledFromLocalStorage.toString());
-    localStorage.setItem('lastTimeUpdated', Date.now().toString());
+    const lastUpdated = Date.now()
+    localStorage.setItem('lastUpdated', lastUpdated.toString());
+    setLastPulledFromLocalStorage(lastUpdated);
+
     if (props.userLoggedIn) {
       localStorage.setItem('userCart', JSON.stringify(cart));
     } else {
@@ -309,12 +299,11 @@ const Cart: FC<Props> = (props) => {
 
   return (
     <div>
-      <div>{lastPulledFromLocalStorage}</div>
       <Toast imagesStorageUrl={props.imagesStorageUrl!} ref={toastBody} />
       <CartViewModal
         imagesStorageUrl={props.imagesStorageUrl}
         cartState={cart}
-        pullFromLocalStorage={pullFromLocalStorage}
+        setCartFromLocalStorage={setCartFromLocalStorage}
         changeItemQuantity={changeItemQuantity}
         checkUptime={checkUptime}
       />

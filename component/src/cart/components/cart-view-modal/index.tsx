@@ -1,7 +1,8 @@
 import React, {
   FC,
   useEffect,
-  ChangeEvent
+  ChangeEvent,
+  useState
 } from 'https://cdn.skypack.dev/pin/react@v17.0.1-tOtrZxBRexARODgO0jli/min/react.js';
 
 import { toUSCurrency } from '@qbcart/utils';
@@ -11,7 +12,7 @@ import QuantityInput from './quantity-input';
 interface Props {
   imagesStorageUrl: string;
   cartState: CartState;
-  pullFromLocalStorage(): void;
+  setCartFromLocalStorage(): void;
   changeItemQuantity(e: any): void;
   checkUptime(): void;
 }
@@ -21,11 +22,10 @@ const CartViewModal: FC<Props> = (props) => {
   let cartSubtotal = 0;
   let cartItemsTotal = 0;
 
-  // esures that cart state matches changes from another tab, every time the modal is opened
   useEffect(() => {
     $(`#${modalId}`).on('shown.bs.modal', function () {
-      props.pullFromLocalStorage();
-
+      console.log('show cart')
+      props.setCartFromLocalStorage();
       props.checkUptime();
     });
   }, []);
