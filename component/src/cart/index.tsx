@@ -15,6 +15,7 @@ import type CartState from './types/CartState';
 interface Props {
   userLoggedIn: boolean;
   imagesStorageUrl: string;
+  showToast: (header: string, body: string, duration: number) => void;
   cartAPI?: string;
 }
 
@@ -196,7 +197,11 @@ const Cart: FC<Props> = (props) => {
           newCart.items[item.id].lastUpdated
         );
       }
-      // show Toast
+      props.showToast(
+        'Cart',
+        '<span class="text-success">Item was added to your cart</span>',
+        3.5
+      );
 
       return true;
     } catch {

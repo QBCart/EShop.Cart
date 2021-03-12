@@ -3,12 +3,16 @@ import React from 'https://cdn.skypack.dev/pin/react@v17.0.1-tOtrZxBRexARODgO0jl
 import { render } from 'https://cdn.skypack.dev/pin/react-dom@v17.0.1-DtIXT56q6U8PbgLMrBhE/min/react-dom.js';
 import Cart from './cart';
 
-const mountCart = (cartAPI?: string) => {
+const mountCart = (
+  showToast: (header: string, body: string, duration: number) => void,
+  cartAPI?: string
+) => {
   const cartDataSet = document.getElementById('qbc-eshop-cart')!.dataset;
   render(
     <Cart
       userLoggedIn={Boolean(cartDataSet.userLoggedIn)}
       imagesStorageUrl={cartDataSet.imagesStorageUrl!}
+      showToast={showToast}
       cartAPI={cartAPI}
     />,
     document.getElementById('qbc-eshop-cart')
