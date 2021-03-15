@@ -1,7 +1,5 @@
-import React, {
-  FC,
-  useEffect
-} from 'https://cdn.skypack.dev/pin/react@v17.0.1-tOtrZxBRexARODgO0jli/min/react.js';
+import * as React from '../../../skypack';
+import { FC, useEffect } from '../../../skypack';
 
 import { toUSCurrency } from '@qbcart/utils';
 import type CartState from '../../types/CartState';

@@ -1,8 +1,5 @@
-import React, {
-  FC,
-  useState,
-  useEffect
-} from 'https://cdn.skypack.dev/pin/react@v17.0.1-tOtrZxBRexARODgO0jli/min/react.js';
+import * as React from '../skypack';
+import { FC, useState, useEffect } from '../skypack';
 import ProductModal from '@qbcart/eshop-product-modal';
 import type ProductModalItem from '@qbcart/eshop-product-modal/types/product-modal-item';
 

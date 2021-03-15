@@ -1,9 +1,5 @@
-import React, {
-  ChangeEvent,
-  FC,
-  useState,
-  useEffect
-} from 'https://cdn.skypack.dev/pin/react@v17.0.1-tOtrZxBRexARODgO0jli/min/react.js';
+import * as React from '../../../skypack';
+import { ChangeEvent, FC, useState, useEffect } from '../../../skypack';
 
 interface Props {
   quantity: number;
