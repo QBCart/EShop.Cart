@@ -9,5 +9,7 @@ module.exports = {
   },
   devOptions: {},
   buildOptions: {},
-  plugins: [['@snowpack/plugin-sass']]
+  plugins: [
+    ['@snowpack/plugin-sass', { compilerOptions: { loadPath: 'node_modules' } }]
+  ]
 };

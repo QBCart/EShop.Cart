@@ -13,5 +13,7 @@ module.exports = {
   optimize: {
     target: 'es2020'
   },
-  plugins: [['@snowpack/plugin-sass']]
+  plugins: [
+    ['@snowpack/plugin-sass', { compilerOptions: { loadPath: 'node_modules' } }]
+  ]
 };
