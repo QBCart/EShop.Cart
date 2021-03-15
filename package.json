@@ -24,7 +24,6 @@
   "scripts": {
     "start": "snowpack dev --config snowpack.dev.config.js",
     "build": "snowpack build && tsc",
-    "build:npm": "snowpack build && tsc && cp package.json build && cp README.md build",
     "lint": "eslint src/**/*.ts src/**/*.tsx",
     "format:check": "prettier --check .",
     "format:fix": "prettier --write .",
