@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "esnext",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "baseUrl": "./",
+    "rootDir": "src",
+    "paths": {
+      "https*": ["skypack.d.ts"]
+    },
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "importsNotUsedAsValues": "error",
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "declarationMap": true,
+    "declarationDir": "dist/types",
+    "emitDeclarationOnly": true,
+    "sourceMap": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "noImplicitAny": true,
+    "isolatedModules": true,
+    "jsx": "react"
+  },
+  "include": ["src"]
+}

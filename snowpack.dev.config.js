@@ -4,12 +4,10 @@ module.exports = {
     src: { url: '/src', resolve: true, static: false },
     dev: { url: '/', resolve: true, static: false }
   },
-  devOptions: {},
-  buildOptions: {
-    clean: true,
-    metaUrlPath: '.'
+  packageOptions: {
+    source: 'remote'
   },
-  plugins: [
-    ['@snowpack/plugin-sass', { compilerOptions: { loadPath: 'node_modules' } }]
-  ]
+  devOptions: {},
+  buildOptions: {},
+  plugins: [['@snowpack/plugin-sass']]
 };
