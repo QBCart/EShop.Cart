@@ -5,7 +5,7 @@ module.exports = {
     dev: { url: '/', resolve: true, static: false }
   },
   packageOptions: {
-    source: 'remote'
+    source: 'local'
   },
   devOptions: {},
   buildOptions: {},
