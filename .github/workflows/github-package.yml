@@ -87,7 +87,7 @@ jobs:
         shell: bash
         run: |
           cp package.json dist
-          cp .README.md dist
+          cp README.md dist
 
       ###################
       # Publish Package #
