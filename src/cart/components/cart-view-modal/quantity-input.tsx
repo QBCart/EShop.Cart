@@ -1,4 +1,4 @@
-import * as React from '../../../skypack';
+import { React } from '../../../skypack';
 import { ChangeEvent, FC, useState, useEffect } from '../../../skypack';
 
 interface Props {

@@ -1,4 +1,4 @@
-import * as React from './skypack';
+import { React } from './skypack';
 import { render } from './skypack';
 import Cart from './cart';
 

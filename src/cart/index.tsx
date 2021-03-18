@@ -1,7 +1,5 @@
-import * as React from '../skypack';
+import { React } from '../skypack';
 import { FC, useState, useEffect } from '../skypack';
-import ProductModal from '@qbcart/eshop-product-modal';
-import type ProductModalItem from '@qbcart/eshop-product-modal/types/product-modal-item';
 
 import CartViewModal from './components/cart-view-modal';
 import ClearCartModal from './components/clear-cart-modal';

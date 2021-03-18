@@ -1,4 +1,4 @@
-import * as React from '../../../skypack';
+import { React } from '../../../skypack';
 import { FC, useEffect } from '../../../skypack';
 
 import { toUSCurrency } from '@qbcart/utils';

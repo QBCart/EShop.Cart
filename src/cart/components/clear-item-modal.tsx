@@ -1,4 +1,4 @@
-import * as React from '../../skypack';
+import { React } from '../../skypack';
 import { FC, useEffect, useState } from '../../skypack';
 
 import type CartItem from '../types/CartItem';
