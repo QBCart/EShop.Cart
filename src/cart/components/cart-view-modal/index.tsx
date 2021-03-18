@@ -1,100 +1,24 @@
 import { React } from '../../../skypack';
-import { FC, useEffect } from '../../../skypack';
-
+import type { FC } from '../../../skypack';
+import { useInventory } from '@qbcart/eshop-local-db';
 import { toUSCurrency } from '@qbcart/utils';
-import type CartState from '../../types/CartState';
-import QuantityInput from './quantity-input';
+import type CartItem from '@qbcart/types/eshop/cart-item';
+import CartLineItem from './cart-line-item';
 
 interface Props {
   imagesStorageUrl: string;
-  cartState: CartState;
-  setCartFromLocalStorage(): void;
-  changeItemQuantity(e: any): void;
-  checkUptime(): void;
+  cartItems: CartItem[];
+  updateItem: (id: string, quantity: number) => Promise<string>;
+  removeItem: (id: string) => Promise<string>;
+  namespaceId: string;
 }
 
 const CartViewModal: FC<Props> = (props) => {
-  const modalId = 'qbc-eshop-cart-view-modal';
-  let cartSubtotal = 0;
-  let cartItemsTotal = 0;
+  const modalId = `${props.namespaceId}-view-modal`;
 
-  useEffect(() => {
-    $(`#${modalId}`).on('shown.bs.modal', function () {
-      console.log('show cart');
-      props.setCartFromLocalStorage();
-      props.checkUptime();
-    });
-  }, []);
-
-  // update totals before each render
-  const updateTotals = () => {
-    for (let itemId in props.cartState.items) {
-      cartSubtotal +=
-        props.cartState.items[itemId].salesPrice *
-        props.cartState.items[itemId].quantity;
-      cartItemsTotal += props.cartState.items[itemId].quantity;
-    }
-  };
-
-  updateTotals();
-
-  const renderItems = () => {
-    let itemsArr: JSX.Element[] = [];
-    for (let itemId in props.cartState.items) {
-      itemsArr.push(
-        <div key={props.cartState.items[itemId].id}>
-          <div className="row cart-row">
-            <div className="col-lg-4">
-              <img
-                className="img-fluid cart-row-img"
-                src={props.imagesStorageUrl + 'images/thumbnail/' + itemId}
-                alt=""
-              />
-            </div>
-            <div className="col-lg-8 cart-row-data">
-              <h4>{props.cartState.items[itemId].salesDesc}</h4>
-              <div className="mb-2 mt-3">
-                Price:{' '}
-                <b>{toUSCurrency(props.cartState.items[itemId].salesPrice)}</b>
-              </div>
-              <QuantityInput
-                itemId={itemId}
-                quantity={props.cartState.items[itemId].quantity}
-                changeItemQuantity={props.changeItemQuantity}
-              />
-              <div>
-                Total:{' '}
-                <b>
-                  {toUSCurrency(
-                    props.cartState.items[itemId].salesPrice *
-                      props.cartState.items[itemId].quantity
-                  )}{' '}
-                  ({props.cartState.items[itemId].quantity} item
-                  {props.cartState.items[itemId].quantity > 1 ? 's' : ''})
-                </b>
-              </div>
-              <div className="d-flex justify-content-end">
-                <a href={props.cartState.items[itemId].href}>
-                  <button type="button" className="btn btn-primary mr-1">
-                    <span className="material-icons">open_in_new</span>
-                  </button>
-                </a>
-                <button
-                  type="button"
-                  className="btn btn-danger"
-                  data-toggle="modal"
-                  data-target="#qbc-eshop-cart-clear-item-modal"
-                  data-item={JSON.stringify(props.cartState.items[itemId])}
-                >
-                  <span className="material-icons">delete</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-    }
-    return itemsArr;
+  const cartTotals = {
+    subtotal: 0,
+    numOfItems: 0
   };
 
   return (
@@ -116,12 +40,23 @@ const CartViewModal: FC<Props> = (props) => {
             </button>
           </div>
           <div className="modal-body">
-            <div>{renderItems()}</div>
+            {props.cartItems.map((item) => (
+              <CartLineItem
+                key={item.id}
+                id={item.id}
+                quantity={item.quantity}
+                imagesStorageUrl={props.imagesStorageUrl}
+                updateItem={props.updateItem}
+                removeItem={props.removeItem}
+                cartTotals={cartTotals}
+              />
+            ))}
           </div>
           <div className="modal-footer">
             <h4 className="col  d-flex justify-content-start">
-              Subtotal: {toUSCurrency(cartSubtotal)} ({cartItemsTotal} item
-              {cartItemsTotal === 1 ? '' : 's'})
+              Subtotal: {toUSCurrency(cartTotals.subtotal)} (
+              {cartTotals.numOfItems} item
+              {cartTotals.numOfItems === 1 ? '' : 's'})
             </h4>
             <div className="col d-flex justify-content-end">
               <button

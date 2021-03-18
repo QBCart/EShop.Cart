@@ -2,11 +2,12 @@ import { React } from '../../skypack';
 import type { FC } from '../../skypack';
 
 interface Props {
-  clearCart(): void;
+  clearCart: () => Promise<string>;
+  namespaceId: string;
 }
 
 const ClearCartModal: FC<Props> = (props) => {
-  const modalId = 'qbc-eshop-cart-clear-cart-modal';
+  const modalId = `${props.namespaceId}-clear-cart-modal`;
   return (
     <div
       className="modal fade"

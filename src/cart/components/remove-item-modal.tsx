@@ -1,21 +1,20 @@
 import { React } from '../../skypack';
-import { FC, useEffect, useState } from '../../skypack';
-
-import type CartItem from '../types/CartItem';
+import { FC, useEffect } from '../../skypack';
+import { useInventoryItem } from '@qbcart/eshop-local-db';
 
 interface Props {
   imagesStorageUrl: string;
-  clearItem(id: string): void;
+  removeItem: (id: string) => Promise<string>;
+  namespaceId: string;
 }
 
-const ClearItemModal: FC<Props> = (props) => {
-  const [item, setItem] = useState<CartItem>();
-  const modalId = 'qbc-eshop-cart-clear-item-modal';
+const RemoveItemModal: FC<Props> = (props) => {
+  const [item, setItem] = useInventoryItem('');
+  const modalId = `${props.namespaceId}-clear-item-modal`;
 
   useEffect(() => {
-    $(`#${modalId}`).on('shown.bs.modal', function (e: JQueryEventObject) {
-      const triggerItem: CartItem = $(e.relatedTarget).data('item');
-      setItem(triggerItem);
+    $(`#${modalId}`).on('show.bs.modal', function (e: JQueryEventObject) {
+      setItem($(e.relatedTarget).data('id'));
     });
   }, []);
 
@@ -48,12 +47,12 @@ const ClearItemModal: FC<Props> = (props) => {
                 />
               </div>
               <span>
-                Are you sure you want to remove {item.salesDesc} from your cart?
+                Are you sure you want to remove {item.SalesDesc} from your cart?
               </span>
             </div>
             <div className="modal-footer d-flex justify-content-center">
               <button
-                onClick={() => props.clearItem(item.id)}
+                onClick={() => props.removeItem(item.id)}
                 type="button"
                 className="btn btn-danger"
                 data-toggle="modal"
@@ -79,4 +78,4 @@ const ClearItemModal: FC<Props> = (props) => {
   );
 };
 
-export default ClearItemModal;
+export default RemoveItemModal;

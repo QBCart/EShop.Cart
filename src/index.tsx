@@ -10,6 +10,7 @@ const mountCart = (
   const mountingDiv = document.getElementById(id);
   render(
     <Cart
+      namespaceId={id}
       userLoggedIn={Boolean(mountingDiv.dataset.userLoggedIn)}
       imagesStorageUrl={mountingDiv.dataset.imagesStorageUrl!}
       showToast={showToast}
