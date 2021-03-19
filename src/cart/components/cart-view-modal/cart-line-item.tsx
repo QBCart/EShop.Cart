@@ -9,7 +9,6 @@ interface Props {
   imagesStorageUrl: string;
   updateItem: (id: string, quantity: number) => Promise<string>;
   removeItem: (id: string) => Promise<string>;
-  cartTotals: { subtotal: number; numOfItems: number };
 }
 
 const CartLineItem: FC<Props> = (props: Props) => {
@@ -18,9 +17,6 @@ const CartLineItem: FC<Props> = (props: Props) => {
   const [item] = useInventoryItem(props.id);
   const [customPrice] = useCustomPrice(props.id);
   const price = customPrice?.price ?? item?.SalesPrice ?? 0;
-
-  props.cartTotals.subtotal += props.quantity * price;
-  props.cartTotals.numOfItems += props.quantity;
 
   useEffect(() => {
     const inputValueNum = Number(inputQuantity);

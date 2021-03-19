@@ -1,6 +1,6 @@
 import { React } from '../../../skypack';
 import type { FC } from '../../../skypack';
-import { toUSCurrency } from '@qbcart/utils';
+// import { toUSCurrency } from '@qbcart/utils';
 import type CartItem from '@qbcart/types/eshop/cart-item';
 import CartLineItem from './cart-line-item';
 
@@ -14,11 +14,6 @@ interface Props {
 
 const CartViewModal: FC<Props> = (props: Props) => {
   const modalId = `${props.namespaceId}-view-modal`;
-
-  const cartTotals = {
-    subtotal: 0,
-    numOfItems: 0
-  };
 
   return (
     <div className="modal" tabIndex={-1} id={modalId}>
@@ -48,16 +43,15 @@ const CartViewModal: FC<Props> = (props: Props) => {
                     imagesStorageUrl={props.imagesStorageUrl}
                     updateItem={props.updateItem}
                     removeItem={props.removeItem}
-                    cartTotals={cartTotals}
                   />
                 ))
               : null}
           </div>
           <div className="modal-footer">
             <h4 className="col  d-flex justify-content-start">
-              Subtotal: {toUSCurrency(cartTotals.subtotal)} (
-              {cartTotals.numOfItems} item
-              {cartTotals.numOfItems === 1 ? '' : 's'})
+              {/* Subtotal: {toUSCurrency(test.current.subtotal)} (
+              {test.current.numOfItems} item
+              {test.current.numOfItems === 1 ? '' : 's'}) */}
             </h4>
             <div className="col d-flex justify-content-end">
               <button
