@@ -34,7 +34,7 @@ const CartLineItem: FC<Props> = (props: Props) => {
     } else {
       setUpdateReady(false);
     }
-  }, [inputQuantity]);
+  }, [inputQuantity, props.quantity]);
 
   const revertInputQuantity = () => {
     if (!updateReady) {
