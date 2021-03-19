@@ -8,15 +8,15 @@ interface Props {
   namespaceId: string;
 }
 
-const RemoveItemModal: FC<Props> = (props) => {
+const RemoveItemModal: FC<Props> = (props: Props) => {
   const [item, setItem] = useInventoryItem('');
   const modalId = `${props.namespaceId}-clear-item-modal`;
 
   useEffect(() => {
-    $(`#${modalId}`).on('show.bs.modal', function (e: JQueryEventObject) {
+    $(`#${modalId}`).on('show.bs.modal', function (e) {
       setItem($(e.relatedTarget).data('id'));
     });
-  }, []);
+  }, [modalId, setItem]);
 
   return (
     <div
