@@ -15,7 +15,7 @@ interface Props {
   namespaceId: string;
 }
 
-const Cart: FC<Props> = (props) => {
+const Cart: FC<Props> = (props: Props) => {
   const [cartItems, updateItem, removeItem, clearCart] = useCart(
     props.userLoggedIn,
     props.isDev

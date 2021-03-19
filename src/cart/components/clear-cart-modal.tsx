@@ -6,7 +6,7 @@ interface Props {
   namespaceId: string;
 }
 
-const ClearCartModal: FC<Props> = (props) => {
+const ClearCartModal: FC<Props> = (props: Props) => {
   const modalId = `${props.namespaceId}-clear-cart-modal`;
   return (
     <div
