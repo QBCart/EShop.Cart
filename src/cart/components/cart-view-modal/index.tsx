@@ -1,6 +1,5 @@
 import { React } from '../../../skypack';
 import type { FC } from '../../../skypack';
-import { useInventory } from '@qbcart/eshop-local-db';
 import { toUSCurrency } from '@qbcart/utils';
 import type CartItem from '@qbcart/types/eshop/cart-item';
 import CartLineItem from './cart-line-item';
@@ -13,7 +12,7 @@ interface Props {
   namespaceId: string;
 }
 
-const CartViewModal: FC<Props> = (props) => {
+const CartViewModal: FC<Props> = (props: Props) => {
   const modalId = `${props.namespaceId}-view-modal`;
 
   const cartTotals = {
@@ -40,17 +39,19 @@ const CartViewModal: FC<Props> = (props) => {
             </button>
           </div>
           <div className="modal-body">
-            {props.cartItems.map((item) => (
-              <CartLineItem
-                key={item.id}
-                id={item.id}
-                quantity={item.quantity}
-                imagesStorageUrl={props.imagesStorageUrl}
-                updateItem={props.updateItem}
-                removeItem={props.removeItem}
-                cartTotals={cartTotals}
-              />
-            ))}
+            {props.cartItems
+              ? props.cartItems.map((item) => (
+                  <CartLineItem
+                    key={item.id}
+                    id={item.id}
+                    quantity={item.quantity}
+                    imagesStorageUrl={props.imagesStorageUrl}
+                    updateItem={props.updateItem}
+                    removeItem={props.removeItem}
+                    cartTotals={cartTotals}
+                  />
+                ))
+              : null}
           </div>
           <div className="modal-footer">
             <h4 className="col  d-flex justify-content-start">
