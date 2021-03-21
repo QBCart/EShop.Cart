@@ -1,22 +1,28 @@
 import { React } from '../../../skypack';
 import { FC, useState, useEffect } from '../../../skypack';
 import { toUSCurrency } from '@qbcart/utils';
-import { useInventoryItem, useCustomPrice } from '@qbcart/eshop-local-db';
+import {
+  useUpdateCart,
+  useRemoveFromCart,
+  useInventoryItem,
+  useCustomPrice
+} from '@qbcart/eshop-local-db';
 
 interface Props {
   id: string;
   quantity: number;
   imagesStorageUrl: string;
-  updateItem: (id: string, quantity: number) => Promise<string>;
-  removeItem: (id: string) => Promise<string>;
+  userLoggedIn: boolean;
 }
 
 const CartLineItem: FC<Props> = (props: Props) => {
   const [inputQuantity, setInputQuantity] = useState(props.quantity.toString());
   const [updateReady, setUpdateReady] = useState(false);
+  const updateCart = useUpdateCart(props.userLoggedIn);
+  const removeFromCart = useRemoveFromCart(props.userLoggedIn);
   const [item] = useInventoryItem(props.id);
   const [customPrice] = useCustomPrice(props.id);
-  const price = customPrice?.price ?? item?.SalesPrice ?? 0;
+  const price = customPrice ?? item?.SalesPrice ?? 0;
 
   useEffect(() => {
     const inputValueNum = Number(inputQuantity);
@@ -39,7 +45,7 @@ const CartLineItem: FC<Props> = (props: Props) => {
   };
 
   const updateItemQuantity = async () => {
-    const error = await props.updateItem(props.id, Number(inputQuantity));
+    const error = await updateCart(props.id, price, Number(inputQuantity));
     if (error) {
       //invalid modal with message try again
     } else {
@@ -107,7 +113,7 @@ const CartLineItem: FC<Props> = (props: Props) => {
       ) : (
         <div className="col-lg-8 cart-row-data">
           <h3>Product is no longer available</h3>
-          <button onClick={() => props.removeItem(props.id)}>ok</button>
+          <button onClick={() => removeFromCart(props.id)}>ok</button>
         </div>
       )}
     </div>

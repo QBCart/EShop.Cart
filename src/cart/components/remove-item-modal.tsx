@@ -1,14 +1,15 @@
 import { React } from '../../skypack';
 import { FC, useEffect } from '../../skypack';
-import { useInventoryItem } from '@qbcart/eshop-local-db';
+import { useInventoryItem, useRemoveFromCart } from '@qbcart/eshop-local-db';
 
 interface Props {
-  imagesStorageUrl: string;
-  removeItem: (id: string) => Promise<string>;
   namespaceId: string;
+  imagesStorageUrl: string;
+  userLoggedIn: boolean;
 }
 
 const RemoveItemModal: FC<Props> = (props: Props) => {
+  const removeFromCart = useRemoveFromCart(props.userLoggedIn);
   const [item, setItem] = useInventoryItem('');
   const modalId = `${props.namespaceId}-clear-item-modal`;
 
@@ -52,7 +53,7 @@ const RemoveItemModal: FC<Props> = (props: Props) => {
             </div>
             <div className="modal-footer d-flex justify-content-center">
               <button
-                onClick={() => props.removeItem(item.id)}
+                onClick={() => removeFromCart(item.id)}
                 type="button"
                 className="btn btn-danger"
                 data-toggle="modal"

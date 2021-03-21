@@ -1,12 +1,14 @@
 import { React } from '../../skypack';
 import type { FC } from '../../skypack';
+import { useClearCart } from '@qbcart/eshop-local-db';
 
 interface Props {
-  clearCart: () => Promise<string>;
   namespaceId: string;
+  userLoggedIn: boolean;
 }
 
 const ClearCartModal: FC<Props> = (props: Props) => {
+  const clearCart = useClearCart(props.userLoggedIn);
   const modalId = `${props.namespaceId}-clear-cart-modal`;
   return (
     <div
@@ -39,7 +41,7 @@ const ClearCartModal: FC<Props> = (props: Props) => {
           </div>
           <div className="modal-footer d-flex justify-content-center">
             <button
-              onClick={props.clearCart}
+              onClick={clearCart}
               type="button"
               className="btn btn-danger"
               data-toggle="modal"

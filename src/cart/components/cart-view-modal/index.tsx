@@ -1,18 +1,17 @@
 import { React } from '../../../skypack';
 import type { FC } from '../../../skypack';
 // import { toUSCurrency } from '@qbcart/utils';
-import type CartItem from '@qbcart/types/eshop/cart-item';
 import CartLineItem from './cart-line-item';
+import { useCartItems } from '@qbcart/eshop-local-db';
 
 interface Props {
-  imagesStorageUrl: string;
-  cartItems: CartItem[];
-  updateItem: (id: string, quantity: number) => Promise<string>;
-  removeItem: (id: string) => Promise<string>;
   namespaceId: string;
+  imagesStorageUrl: string;
+  userLoggedIn: boolean;
 }
 
 const CartViewModal: FC<Props> = (props: Props) => {
+  const items = useCartItems(props.userLoggedIn);
   const modalId = `${props.namespaceId}-view-modal`;
 
   return (
@@ -34,15 +33,14 @@ const CartViewModal: FC<Props> = (props: Props) => {
             </button>
           </div>
           <div className="modal-body">
-            {props.cartItems
-              ? props.cartItems.map((item) => (
+            {items
+              ? items.map((item) => (
                   <CartLineItem
                     key={item.id}
                     id={item.id}
                     quantity={item.quantity}
                     imagesStorageUrl={props.imagesStorageUrl}
-                    updateItem={props.updateItem}
-                    removeItem={props.removeItem}
+                    userLoggedIn={props.userLoggedIn}
                   />
                 ))
               : null}
