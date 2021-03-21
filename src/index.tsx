@@ -3,18 +3,16 @@ import { render } from './skypack';
 import Cart from './cart';
 
 const mountCart = (
-  showToast: (header: string, body: string, duration: number) => void,
-  cartAPI?: string
+  showToast: (header: string, body: string, duration: number) => void
 ): void => {
   const id = 'qbc-eshop-cart';
   const mountingDiv = document.getElementById(id);
   render(
     <Cart
       namespaceId={id}
-      userLoggedIn={Boolean(mountingDiv.dataset.userLoggedIn)}
       imagesStorageUrl={mountingDiv.dataset.imagesStorageUrl}
+      userLoggedIn={Boolean(mountingDiv.dataset.userLoggedIn)}
       showToast={showToast}
-      cartAPI={cartAPI}
     />,
     mountingDiv
   );
