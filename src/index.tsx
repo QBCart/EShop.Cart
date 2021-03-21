@@ -13,6 +13,7 @@ const mountCart = (
       imagesStorageUrl={mountingDiv.dataset.imagesStorageUrl}
       userLoggedIn={Boolean(mountingDiv.dataset.userLoggedIn)}
       showToast={showToast}
+      syncInterval={Number(mountingDiv.dataset.syncInterval)}
     />,
     mountingDiv
   );
