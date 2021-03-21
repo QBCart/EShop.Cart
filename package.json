@@ -31,8 +31,8 @@
     "test:ci": "echo \"All Good\" && exit 0"
   },
   "dependencies": {
-    "@qbcart/eshop-local-db": "^1.0.0-alpha.3",
-    "@qbcart/types": "^1.0.0-beta.7",
+    "@qbcart/eshop-local-db": "^1.0.0-alpha.4",
+    "@qbcart/types": "^1.0.0-beta.8",
     "@qbcart/utils": "^1.0.0-alpha.1",
     "@types/bootstrap": "^4.6.0",
     "@types/jquery": "^3.5.5",
