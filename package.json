@@ -23,7 +23,7 @@
   },
   "scripts": {
     "start": "snowpack dev --config snowpack.dev.config.js",
-    "start:api": "snowpack dev --config snowpack.api.config.js",
+    "start:proxy": "snowpack dev --config snowpack.proxy.config.js",
     "build": "snowpack build && tsc",
     "lint": "eslint src/**/*.ts src/**/*.tsx",
     "format:check": "prettier --check .",
