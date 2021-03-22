@@ -38,6 +38,10 @@ const CartLineItem: FC<Props> = (props: Props) => {
     }
   }, [inputQuantity, props.quantity]);
 
+  useEffect(() => {
+    setInputQuantity(props.quantity.toString());
+  }, [props.quantity]);
+
   const revertInputQuantity = () => {
     if (!updateReady) {
       setInputQuantity(props.quantity.toString());
