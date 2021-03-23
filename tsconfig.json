@@ -6,7 +6,7 @@
     "baseUrl": "./",
     "rootDir": ".",
     "paths": {
-      "https*": ["skypack.d.ts"]
+      "https://cdn.skypack.dev/@qbcart/eshop-skypack": ["skypack.d.ts"]
     },
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,

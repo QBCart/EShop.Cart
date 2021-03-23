@@ -1,5 +1,4 @@
-import { React } from '../skypack';
-import type { FC } from '../skypack';
+import { React } from 'https://cdn.skypack.dev/@qbcart/eshop-skypack';
 
 import CartViewModal from './components/cart-view-modal';
 import ClearCartModal from './components/clear-cart-modal';
@@ -15,7 +14,7 @@ interface Props {
   isDev?: boolean;
 }
 
-const Cart: FC<Props> = (props: Props) => {
+const Cart: React.FC<Props> = (props: Props) => {
   useLocalDBSync(props.syncInterval, props.isDev);
   return (
     <div>

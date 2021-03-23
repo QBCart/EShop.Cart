@@ -1,5 +1,5 @@
-import { React } from './skypack';
-import { render } from './skypack';
+import { React } from 'https://cdn.skypack.dev/@qbcart/eshop-skypack';
+import { render } from 'https://cdn.skypack.dev/@qbcart/eshop-skypack';
 import Cart from './cart';
 
 const mountCart = (

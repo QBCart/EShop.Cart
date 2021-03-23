@@ -1,5 +1,4 @@
-import { React } from '../../skypack';
-import { FC, useEffect } from '../../skypack';
+import { React } from 'https://cdn.skypack.dev/@qbcart/eshop-skypack';
 import { useInventoryItem, useRemoveFromCart } from '@qbcart/eshop-local-db';
 
 interface Props {
@@ -8,12 +7,12 @@ interface Props {
   userLoggedIn: boolean;
 }
 
-const RemoveItemModal: FC<Props> = (props: Props) => {
+const RemoveItemModal: React.FC<Props> = (props: Props) => {
   const removeFromCart = useRemoveFromCart(props.userLoggedIn);
   const [item, setItem] = useInventoryItem('');
   const modalId = `${props.namespaceId}-clear-item-modal`;
 
-  useEffect(() => {
+  React.useEffect(() => {
     $(`#${modalId}`).on('show.bs.modal', function (e) {
       setItem($(e.relatedTarget).data('id'));
     });

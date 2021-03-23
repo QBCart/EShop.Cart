@@ -1,5 +1,4 @@
-import { React } from '../../../skypack';
-import type { FC } from '../../../skypack';
+import { React } from 'https://cdn.skypack.dev/@qbcart/eshop-skypack';
 // import { toUSCurrency } from '@qbcart/utils';
 import CartLineItem from './cart-line-item';
 import { useCartItems } from '@qbcart/eshop-local-db';
@@ -10,7 +9,7 @@ interface Props {
   userLoggedIn: boolean;
 }
 
-const CartViewModal: FC<Props> = (props: Props) => {
+const CartViewModal: React.FC<Props> = (props: Props) => {
   const items = useCartItems(props.userLoggedIn);
   const modalId = `${props.namespaceId}-view-modal`;
 

@@ -1,15 +1,15 @@
-import * as React from './skypack';
-import { render } from './skypack';
+import { React } from 'https://cdn.skypack.dev/@qbcart/eshop-skypack';
+import { render } from 'https://cdn.skypack.dev/@qbcart/eshop-skypack';
 import { useAddToCart, useInventoryItem } from '@qbcart/eshop-local-db';
 import mountCart from '../src/index';
-// import { mountToast, showToast } from '@qbcart/toast';
+import { mountToast, showToast } from '@qbcart/toast';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-// import mountProductModal from '@qbcart/eshop-product-modal';
+import mountProductModal from '@qbcart/eshop-product-modal';
 
-// mountToast();
-// mountProductModal();
-mountCart(null);
+mountToast();
+mountProductModal();
+mountCart(showToast);
 
 const AddToCartTest = () => {
   const [item, changeItem] = useInventoryItem('');

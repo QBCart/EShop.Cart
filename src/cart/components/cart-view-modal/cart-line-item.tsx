@@ -1,5 +1,4 @@
-import { React } from '../../../skypack';
-import { FC, useState, useEffect } from '../../../skypack';
+import { React } from 'https://cdn.skypack.dev/@qbcart/eshop-skypack';
 import { toUSCurrency } from '@qbcart/utils';
 import {
   useUpdateCart,
@@ -15,16 +14,18 @@ interface Props {
   userLoggedIn: boolean;
 }
 
-const CartLineItem: FC<Props> = (props: Props) => {
-  const [inputQuantity, setInputQuantity] = useState(props.quantity.toString());
-  const [updateReady, setUpdateReady] = useState(false);
+const CartLineItem: React.FC<Props> = (props: Props) => {
+  const [inputQuantity, setInputQuantity] = React.useState(
+    props.quantity.toString()
+  );
+  const [updateReady, setUpdateReady] = React.useState(false);
   const updateCart = useUpdateCart(props.userLoggedIn);
   const removeFromCart = useRemoveFromCart(props.userLoggedIn);
   const [item] = useInventoryItem(props.id);
   const [customPrice] = useCustomPrice(props.id);
   const price = customPrice ?? item?.SalesPrice ?? 0;
 
-  useEffect(() => {
+  React.useEffect(() => {
     const inputValueNum = Number(inputQuantity);
     if (
       typeof inputValueNum === 'number' &&
@@ -38,7 +39,7 @@ const CartLineItem: FC<Props> = (props: Props) => {
     }
   }, [inputQuantity, props.quantity]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     setInputQuantity(props.quantity.toString());
   }, [props.quantity]);
 

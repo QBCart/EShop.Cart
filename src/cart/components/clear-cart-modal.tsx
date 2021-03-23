@@ -1,5 +1,4 @@
-import { React } from '../../skypack';
-import type { FC } from '../../skypack';
+import { React } from 'https://cdn.skypack.dev/@qbcart/eshop-skypack';
 import { useClearCart } from '@qbcart/eshop-local-db';
 
 interface Props {
@@ -7,7 +6,7 @@ interface Props {
   userLoggedIn: boolean;
 }
 
-const ClearCartModal: FC<Props> = (props: Props) => {
+const ClearCartModal: React.FC<Props> = (props: Props) => {
   const clearCart = useClearCart(props.userLoggedIn);
   const modalId = `${props.namespaceId}-clear-cart-modal`;
   return (
