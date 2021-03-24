@@ -25,7 +25,7 @@
     "start": "snowpack dev --config snowpack.dev.config.js",
     "start:proxy": "snowpack dev --config snowpack.proxy.config.js",
     "build": "snowpack build && tsc",
-    "lint": "eslint src/**/*.ts src/**/*.tsx",
+    "lint": "eslint src/**/*.tsx",
     "format:check": "prettier --check .",
     "format:fix": "prettier --write .",
     "test": "echo \"Error: no test specified\" && exit 1",
