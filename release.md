@@ -2,11 +2,11 @@
 
 # New
 
-- The cart used in QBC.EShop pages.
+- none
 
 # Fixes
 
-- none
+- Guard against empty cart and show message to user when they view modal.
 
 # Breaking
 
