@@ -3,16 +3,13 @@ name: CI
 ####################
 # Start the job on #
 ####################
-on:
-  push:
-  pull_request:
-    branches: [main]
+on: push
 
 ###################
 # Set Global Envs #
 ###################
 env:
-  node_version: '12'
+  NODE_VERSION: '12'
 
 ############
 # Set Jobs #
@@ -21,8 +18,8 @@ jobs:
   ##############
   # Define Job #
   ##############
-  CI:
-    name: CI
+  continuos-integration:
+    name: Continuos Integration
     runs-on: ubuntu-latest
 
     ##############
@@ -39,40 +36,47 @@ jobs:
       # Setup Node JS #
       #################
       - name: Setup Node JS
-        # Setup .npmrc file to publish to npm
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ env.node_version }}
-          registry-url: https://npm.pkg.github.com/
-          scope: '@qbcart'
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.QBC_GITHUB_PACKAGES }}
+          node-version: ${{ env.NODE_VERSION }}
 
       ################
       # Install Deps #
       ################
       - name: Install Deps
+        working-directory: .
         shell: bash
         run: npm install
+
+      ###############
+      # Lint Source #
+      ###############
+      - name: Lint Source
+        working-directory: .
+        shell: bash
+        run: npm run lint
+
+      ################
+      # Check Format #
+      ################
+      - name: Check Format
+        working-directory: .
+        shell: bash
+        run: npm run format:check
 
       #################
       # Build Project #
       #################
       - name: Build Project
+        working-directory: .
         shell: bash
         run: npm run build
-
-      #############
-      # Lint Code #
-      #############
-      - name: Lint Code
-        shell: bash
-        run: npm run lint
 
       #############
       # Run Tests #
       #############
       - name: Run Tests
+        working-directory: .
         shell: bash
         run: |
           npm run test:ci

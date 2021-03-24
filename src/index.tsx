@@ -1,17 +1,23 @@
-// @ts-ignore
-import React from 'https://cdn.skypack.dev/pin/react@v17.0.1-tOtrZxBRexARODgO0jli/min/react.js';
-import { render } from 'https://cdn.skypack.dev/pin/react-dom@v17.0.1-DtIXT56q6U8PbgLMrBhE/min/react-dom.js';
+import {
+  React,
+  render
+} from 'https://cdn.skypack.dev/@qbcart/eshop-skypack-deps';
 import Cart from './cart';
 
-const mountCart = (cartGetAPI?: string) => {
-  const cartDataSet = document.getElementById('qbc-eshop-cart')!.dataset;
+const mountCart = (
+  showToast: (header: string, body: string, duration: number) => void
+): void => {
+  const id = 'qbc-eshop-cart';
+  const mountingDiv = document.getElementById(id);
   render(
     <Cart
-      userLoggedIn={Boolean(cartDataSet.userLoggedIn)}
-      imagesStorageUrl={cartDataSet.imagesStorageUrl!}
-      cartGetAPI={cartGetAPI}
+      namespaceId={id}
+      imagesStorageUrl={mountingDiv.dataset.imagesStorageUrl}
+      userLoggedIn={Boolean(mountingDiv.dataset.userLoggedIn)}
+      showToast={showToast}
+      syncInterval={Number(mountingDiv.dataset.syncInterval)}
     />,
-    document.getElementById('qbc-eshop-cart')
+    mountingDiv
   );
 };
 

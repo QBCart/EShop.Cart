@@ -1,5 +1,6 @@
 {
   "recommendations": [
+    "ms-azuretools.vscode-azurefunctions",
     "runem.lit-plugin",
     "aaron-bond.better-comments",
     "esbenp.prettier-vscode"

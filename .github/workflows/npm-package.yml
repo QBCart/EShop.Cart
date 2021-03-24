@@ -1,4 +1,4 @@
-name: CD
+name: npm
 
 ###################################################
 # Start the job on semantic versioned branch push #
@@ -6,9 +6,9 @@ name: CD
 on:
   push:
     branches:
-      - 'v[0-9].[0-9].[0-9]-alpha.[0-9]'
-      - 'v[0-9].[0-9].[0-9]-beta.[0-9]'
-      - 'v[0-9].[0-9].[0-9]'
+      - 'v[0-9]+.[0-9]+.[0-9]+-alpha.[0-9]+'
+      - 'v[0-9]+.[0-9]+.[0-9]+-beta.[0-9]+'
+      - 'v[0-9]+.[0-9]+.[0-9]+'
 
 ###################
 # Set Global Envs #
@@ -23,8 +23,8 @@ jobs:
   ##############
   # Define Job #
   ##############
-  CD:
-    name: CD
+  publish-npm-package:
+    name: Publish NPM Package
     runs-on: ubuntu-latest
 
     ##############
@@ -57,16 +57,17 @@ jobs:
         # Setup .npmrc file to publish to npm
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ env.node_version }}
-          registry-url: https://npm.pkg.github.com/
+          node-version: ${{ env.NODE_VERSION }}
+          registry-url: https://registry.npmjs.org
           scope: '@qbcart'
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.QBC_GITHUB_PACKAGES }}
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
 
       ################
       # Install Deps #
       ################
       - name: Install Deps
+        working-directory: component
         shell: bash
         run: npm install
 
@@ -74,40 +75,29 @@ jobs:
       # Build Package #
       #################
       - name: Build Package
+        working-directory: component
         shell: bash
-        run: npm run build:npm
+        run: npm run build
 
-      #############
-      # Run Tests #
-      #############
-      - name: Run Tests
+      ######################
+      # Copy Package Files #
+      ######################
+      - name: Copy Package Files
+        working-directory: component
         shell: bash
-        run: npm run test:ci
+        run: |
+          cp package.json dist
+          cp README.md dist
 
       ###################
       # Publish Package #
       ###################
       - name: Publish Package
+        working-directory: component/dist
         shell: bash
         run: |
-          cd build
-          npm version $ver
+          npm version $ver --allow-same-version
           echo 'VER:' $ver
-          npm publish
+          npm publish --access public
         env:
           ver: ${{ env.new_version }}
-
-      #########################
-      # Create GitHub Release #
-      #########################
-      - name: Create GitHub Release
-        id: create_release
-        uses: actions/create-release@v1
-        with:
-          tag_name: ${{ env.new_version }}
-          release_name: ${{ env.new_version }}
-          body_path: ./release.md
-          draft: false
-          prerelease: ${{ contains(env.new_version, 'alpha') || contains(env.new_version, 'beta') }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

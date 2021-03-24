@@ -1,26 +1,25 @@
-import React, {
-  FC,
-  useEffect,
-  useState
-} from 'https://cdn.skypack.dev/pin/react@v17.0.1-tOtrZxBRexARODgO0jli/min/react.js';
-
-import type CartItem from '../types/CartItem';
+import { React } from 'https://cdn.skypack.dev/@qbcart/eshop-skypack-deps';
+import {
+  useInventoryItem,
+  useRemoveFromCart
+} from 'https://cdn.skypack.dev/@qbcart/eshop-local-db';
 
 interface Props {
+  namespaceId: string;
   imagesStorageUrl: string;
-  clearItem(id: string): void;
+  userLoggedIn: boolean;
 }
 
-const ClearItemModal: FC<Props> = (props) => {
-  const [item, setItem] = useState<CartItem>();
-  const modalId = 'qbc-eshop-cart-clear-item-modal';
+const RemoveItemModal: React.FC<Props> = (props: Props) => {
+  const removeFromCart = useRemoveFromCart(props.userLoggedIn);
+  const [item, setItem] = useInventoryItem('');
+  const modalId = `${props.namespaceId}-clear-item-modal`;
 
-  useEffect(() => {
-    $(`#${modalId}`).on('shown.bs.modal', function (e: JQueryEventObject) {
-      const triggerItem: CartItem = $(e.relatedTarget).data('item');
-      setItem(triggerItem);
+  React.useEffect(() => {
+    $(`#${modalId}`).on('show.bs.modal', function (e) {
+      setItem($(e.relatedTarget).data('id'));
     });
-  }, []);
+  }, [modalId, setItem]);
 
   return (
     <div
@@ -51,12 +50,12 @@ const ClearItemModal: FC<Props> = (props) => {
                 />
               </div>
               <span>
-                Are you sure you want to remove {item.salesDesc} from your cart?
+                Are you sure you want to remove {item.SalesDesc} from your cart?
               </span>
             </div>
             <div className="modal-footer d-flex justify-content-center">
               <button
-                onClick={() => props.clearItem(item.id)}
+                onClick={() => removeFromCart(item.id)}
                 type="button"
                 className="btn btn-danger"
                 data-toggle="modal"
@@ -82,4 +81,4 @@ const ClearItemModal: FC<Props> = (props) => {
   );
 };
 
-export default ClearItemModal;
+export default RemoveItemModal;

@@ -1,14 +1,14 @@
-// @ts-ignore
-import React, {
-  FC
-} from 'https://cdn.skypack.dev/pin/react@v17.0.1-tOtrZxBRexARODgO0jli/min/react.js';
+import { React } from 'https://cdn.skypack.dev/@qbcart/eshop-skypack-deps';
+import { useClearCart } from 'https://cdn.skypack.dev/@qbcart/eshop-local-db';
 
 interface Props {
-  clearCart(): void;
+  namespaceId: string;
+  userLoggedIn: boolean;
 }
 
-const ClearCartModal: FC<Props> = (props) => {
-  const modalId = 'qbc-eshop-cart-clear-cart-modal';
+const ClearCartModal: React.FC<Props> = (props: Props) => {
+  const clearCart = useClearCart(props.userLoggedIn);
+  const modalId = `${props.namespaceId}-clear-cart-modal`;
   return (
     <div
       className="modal fade"
@@ -40,7 +40,7 @@ const ClearCartModal: FC<Props> = (props) => {
           </div>
           <div className="modal-footer d-flex justify-content-center">
             <button
-              onClick={props.clearCart}
+              onClick={clearCart}
               type="button"
               className="btn btn-danger"
               data-toggle="modal"
