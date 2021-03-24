@@ -1,7 +1,7 @@
-import { React } from 'https://cdn.skypack.dev/@qbcart/eshop-skypack';
-// import { toUSCurrency } from '@qbcart/utils';
+import { React } from 'https://cdn.skypack.dev/@qbcart/eshop-skypack-deps';
+import { useCartItems } from 'https://cdn.skypack.dev/@qbcart/eshop-local-db';
+import { toUSCurrency } from 'https://cdn.skypack.dev/@qbcart/utils';
 import CartLineItem from './cart-line-item';
-import { useCartItems } from '@qbcart/eshop-local-db';
 
 interface Props {
   namespaceId: string;
@@ -12,6 +12,13 @@ interface Props {
 const CartViewModal: React.FC<Props> = (props: Props) => {
   const items = useCartItems(props.userLoggedIn);
   const modalId = `${props.namespaceId}-view-modal`;
+
+  const subtotal = items
+    ?.map((item) => item.price * item.quantity)
+    .reduce((a, b) => a + b);
+  const numOfItems = items
+    ?.map((item) => item.quantity)
+    .reduce((a, b) => a + b);
 
   return (
     <div className="modal" tabIndex={-1} id={modalId}>
@@ -46,9 +53,8 @@ const CartViewModal: React.FC<Props> = (props: Props) => {
           </div>
           <div className="modal-footer">
             <h4 className="col  d-flex justify-content-start">
-              {/* Subtotal: {toUSCurrency(test.current.subtotal)} (
-              {test.current.numOfItems} item
-              {test.current.numOfItems === 1 ? '' : 's'}) */}
+              Subtotal: {toUSCurrency(subtotal)} ({numOfItems} item
+              {numOfItems === 1 ? '' : 's'})
             </h4>
             <div className="col d-flex justify-content-end">
               <button
