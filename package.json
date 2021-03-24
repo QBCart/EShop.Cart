@@ -1,7 +1,14 @@
 {
   "name": "@qbcart/eshop-cart",
-  "version": "1.0.0-alpha.3",
+  "version": "1.0.0",
   "description": "The cart used in QBC.EShop pages.",
+  "keywords": [
+    "skypack",
+    "deps",
+    "qbcart",
+    "eshop"
+  ],
+  "license": "MIT",
   "author": "QBCart Inc.",
   "contributors": [
     "Allan Mobley",
@@ -10,6 +17,9 @@
   "main": "index.js",
   "module": "index.js",
   "types": "types/index.d.ts",
+  "exports": {
+    "import": "./index.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/QBCart/EShop.Cart.git"
@@ -18,9 +28,6 @@
     "url": "https://github.com/QBCart/EShop.Cart/issues"
   },
   "homepage": "https://github.com/QBCart/EShop.Cart#readme",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
-  },
   "scripts": {
     "start": "snowpack dev --config snowpack.dev.config.js",
     "start:proxy": "snowpack dev --config snowpack.proxy.config.js",
@@ -46,7 +53,7 @@
     "@typescript-eslint/eslint-plugin": "^4.19.0",
     "@typescript-eslint/parser": "^4.19.0",
     "eslint": "^7.21.0",
-    "eslint-plugin-react": "^7.23.0",
+    "eslint-plugin-react": "^7.23.1",
     "eslint-plugin-react-hooks": "^4.2.0",
     "http-proxy": "^1.18.1",
     "husky": "^4.3.8",
