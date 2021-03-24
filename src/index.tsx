@@ -21,4 +21,4 @@ const mountCart = (
   );
 };
 
-export default mountCart;
+export { mountCart };
