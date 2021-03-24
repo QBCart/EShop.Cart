@@ -13,12 +13,16 @@ const CartViewModal: React.FC<Props> = (props: Props) => {
   const items = useCartItems(props.userLoggedIn);
   const modalId = `${props.namespaceId}-view-modal`;
 
-  const subtotal = items
-    ?.map((item) => item.price * item.quantity)
-    .reduce((a, b) => a + b);
-  const numOfItems = items
-    ?.map((item) => item.quantity)
-    .reduce((a, b) => a + b);
+  const subtotal =
+    (items?.length ?? 0) > 0
+      ? items
+          ?.map((item) => item.price * item.quantity)
+          ?.reduce((a, b) => a + b)
+      : 0;
+  const numOfItems =
+    (items?.length ?? 0) > 0
+      ? items?.map((item) => item.quantity)?.reduce((a, b) => a + b)
+      : 0;
 
   return (
     <div className="modal" tabIndex={-1} id={modalId}>
@@ -39,46 +43,50 @@ const CartViewModal: React.FC<Props> = (props: Props) => {
             </button>
           </div>
           <div className="modal-body">
-            {items
-              ? items.map((item) => (
-                  <CartLineItem
-                    key={item.id}
-                    id={item.id}
-                    quantity={item.quantity}
-                    imagesStorageUrl={props.imagesStorageUrl}
-                    userLoggedIn={props.userLoggedIn}
-                  />
-                ))
-              : null}
+            {(items?.length ?? 0) > 0 ? (
+              items.map((item) => (
+                <CartLineItem
+                  key={item.id}
+                  id={item.id}
+                  quantity={item.quantity}
+                  imagesStorageUrl={props.imagesStorageUrl}
+                  userLoggedIn={props.userLoggedIn}
+                />
+              ))
+            ) : (
+              <h5 className="text-warning">Your cart is currently empty.</h5>
+            )}
           </div>
-          <div className="modal-footer">
-            <h4 className="col  d-flex justify-content-start">
-              Subtotal: {toUSCurrency(subtotal)} ({numOfItems} item
-              {numOfItems === 1 ? '' : 's'})
-            </h4>
-            <div className="col d-flex justify-content-end">
-              <button
-                type="button"
-                className="btn btn-danger"
-                data-toggle="modal"
-                data-target="#qbc-eshop-cart-clear-cart-modal"
-              >
-                <span className="material-icons">delete</span>
-              </button>
-              <a href="/Checkout">
-                <button type="button" className="btn btn-success ml-2 mr-2">
-                  <span className="material-icons">payment</span>
+          {(items?.length ?? 0) > 0 ? (
+            <div className="modal-footer">
+              <h4 className="col  d-flex justify-content-start">
+                Subtotal: {toUSCurrency(subtotal)} ({numOfItems} item
+                {numOfItems === 1 ? '' : 's'})
+              </h4>
+              <div className="col d-flex justify-content-end">
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  data-toggle="modal"
+                  data-target="#qbc-eshop-cart-clear-cart-modal"
+                >
+                  <span className="material-icons">delete</span>
                 </button>
-              </a>
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-dismiss="modal"
-              >
-                <span className="material-icons">close</span>
-              </button>
+                <a href="/Checkout">
+                  <button type="button" className="btn btn-success ml-2 mr-2">
+                    <span className="material-icons">payment</span>
+                  </button>
+                </a>
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  <span className="material-icons">close</span>
+                </button>
+              </div>
             </div>
-          </div>
+          ) : null}
         </div>
       </div>
     </div>
