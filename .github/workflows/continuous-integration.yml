@@ -36,14 +36,9 @@ jobs:
       # Setup Node JS #
       #################
       - name: Setup Node JS
-        # Setup .npmrc file to publish to npm
         uses: actions/setup-node@v2
         with:
           node-version: ${{ env.NODE_VERSION }}
-          registry-url: https://npm.pkg.github.com/
-          scope: '@qbcart'
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.QBC_GITHUB_PACKAGES }}
 
       ################
       # Install Deps #
@@ -53,10 +48,10 @@ jobs:
         shell: bash
         run: npm install
 
-      #############
-      # Lint Code #
-      #############
-      - name: Lint Code
+      ###############
+      # Lint Source #
+      ###############
+      - name: Lint Source
         working-directory: .
         shell: bash
         run: npm run lint
