@@ -2,9 +2,7 @@
 
 # New
 
-- Added global utils
-- Updated deps
-- Used proper interface to describe incoming parameter
+- The cart used in QBC.EShop pages.
 
 # Fixes
 
