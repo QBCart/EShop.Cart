@@ -67,7 +67,7 @@ jobs:
       # Install Deps #
       ################
       - name: Install Deps
-        working-directory: component
+        working-directory: .
         shell: bash
         run: npm install
 
@@ -75,7 +75,7 @@ jobs:
       # Build Package #
       #################
       - name: Build Package
-        working-directory: component
+        working-directory: .
         shell: bash
         run: npm run build
 
@@ -83,7 +83,7 @@ jobs:
       # Copy Package Files #
       ######################
       - name: Copy Package Files
-        working-directory: component
+        working-directory: .
         shell: bash
         run: |
           cp package.json dist
@@ -93,7 +93,7 @@ jobs:
       # Publish Package #
       ###################
       - name: Publish Package
-        working-directory: component/dist
+        working-directory: dist
         shell: bash
         run: |
           npm version $ver --allow-same-version
