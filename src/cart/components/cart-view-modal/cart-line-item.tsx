@@ -1,5 +1,8 @@
 import { React } from 'https://cdn.skypack.dev/@qbcart/eshop-skypack-deps';
-import { toUSCurrency } from 'https://cdn.skypack.dev/@qbcart/utils';
+import {
+  toUSCurrency,
+  toWholeNumberGreaterThanZero
+} from 'https://cdn.skypack.dev/@qbcart/utils';
 import {
   useUpdateCart,
   useRemoveFromCart,
@@ -26,13 +29,8 @@ const CartLineItem: React.FC<Props> = (props: Props) => {
   const price = customPrice ?? item?.SalesPrice ?? 0;
 
   React.useEffect(() => {
-    const inputValueNum = Number(inputQuantity);
-    if (
-      typeof inputValueNum === 'number' &&
-      inputValueNum > 0 &&
-      inputValueNum % 1 === 0 &&
-      inputValueNum !== props.quantity
-    ) {
+    const inputValueNum = toWholeNumberGreaterThanZero(inputQuantity);
+    if (inputValueNum && inputValueNum !== props.quantity) {
       setUpdateReady(true);
     } else {
       setUpdateReady(false);
