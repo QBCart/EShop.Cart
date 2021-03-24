@@ -23,8 +23,8 @@ jobs:
   ##############
   # Define Job #
   ##############
-  publish-github-package:
-    name: Publish GitHub Package
+  publish-npm-package:
+    name: Publish NPM Package
     runs-on: ubuntu-latest
 
     ##############
@@ -57,17 +57,17 @@ jobs:
         # Setup .npmrc file to publish to npm
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ env.node_version }}
-          registry-url: https://npm.pkg.github.com/
+          node-version: ${{ env.NODE_VERSION }}
+          registry-url: https://registry.npmjs.org
           scope: '@qbcart'
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.QBC_GITHUB_PACKAGES }}
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
 
       ################
       # Install Deps #
       ################
       - name: Install Deps
-        working-directory: .
+        working-directory: component
         shell: bash
         run: npm install
 
@@ -75,7 +75,7 @@ jobs:
       # Build Package #
       #################
       - name: Build Package
-        working-directory: .
+        working-directory: component
         shell: bash
         run: npm run build
 
@@ -83,7 +83,7 @@ jobs:
       # Copy Package Files #
       ######################
       - name: Copy Package Files
-        working-directory: .
+        working-directory: component
         shell: bash
         run: |
           cp package.json dist
@@ -93,11 +93,11 @@ jobs:
       # Publish Package #
       ###################
       - name: Publish Package
-        working-directory: dist
+        working-directory: component/dist
         shell: bash
         run: |
-          npm version $ver
+          npm version $ver --allow-same-version
           echo 'VER:' $ver
-          npm publish
+          npm publish --access public
         env:
           ver: ${{ env.new_version }}
