@@ -1,9 +1,8 @@
-import { React } from 'https://cdn.skypack.dev/@qbcart/eshop-skypack';
-
+import { React } from 'https://cdn.skypack.dev/@qbcart/eshop-skypack-deps';
+import { useLocalDBSync } from 'https://cdn.skypack.dev/@qbcart/eshop-local-db';
 import CartViewModal from './components/cart-view-modal';
 import ClearCartModal from './components/clear-cart-modal';
 import RemoveItemModal from './components/remove-item-modal';
-import { useLocalDBSync } from '@qbcart/eshop-local-db';
 
 interface Props {
   namespaceId: string;

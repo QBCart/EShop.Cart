@@ -1,11 +1,11 @@
-import { React } from 'https://cdn.skypack.dev/@qbcart/eshop-skypack';
-import { toUSCurrency } from '@qbcart/utils';
+import { React } from 'https://cdn.skypack.dev/@qbcart/eshop-skypack-deps';
+import { toUSCurrency } from 'https://cdn.skypack.dev/@qbcart/utils';
 import {
   useUpdateCart,
   useRemoveFromCart,
   useInventoryItem,
   useCustomPrice
-} from '@qbcart/eshop-local-db';
+} from 'https://cdn.skypack.dev/@qbcart/eshop-local-db';
 
 interface Props {
   id: string;

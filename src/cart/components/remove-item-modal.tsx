@@ -1,5 +1,8 @@
-import { React } from 'https://cdn.skypack.dev/@qbcart/eshop-skypack';
-import { useInventoryItem, useRemoveFromCart } from '@qbcart/eshop-local-db';
+import { React } from 'https://cdn.skypack.dev/@qbcart/eshop-skypack-deps';
+import {
+  useInventoryItem,
+  useRemoveFromCart
+} from 'https://cdn.skypack.dev/@qbcart/eshop-local-db';
 
 interface Props {
   namespaceId: string;
