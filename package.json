@@ -42,9 +42,9 @@
   "devDependencies": {
     "@qbcart/eshop-local-db": "^1.0.0-beta.1",
     "@qbcart/eshop-product-modal": "^1.0.1",
-    "@qbcart/toast": "^1.0.0-beta.1",
+    "@qbcart/toast": "^1.0.0",
     "@qbcart/types": "^1.0.0",
-    "@qbcart/utils": "^1.0.0-beta.1",
+    "@qbcart/utils": "^1.0.0",
     "@snowpack/plugin-sass": "^1.4.0",
     "@types/bootstrap": "^4.6.0",
     "@types/jquery": "^3.5.5",
