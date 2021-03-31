@@ -5,9 +5,7 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "baseUrl": "./",
     "rootDir": "src",
-    "paths": {
-      "https*": ["skypack.d.ts"]
-    },
+    "paths": {},
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "importsNotUsedAsValues": "error",
@@ -16,17 +14,17 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "declaration": true,
-    "declarationMap": true,
+    "declarationMap": false,
     "declarationDir": "dist/types",
     "emitDeclarationOnly": true,
-    "sourceMap": true,
-    "strict": false,
+    "sourceMap": false,
+    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "noImplicitAny": true,
-    "isolatedModules": true,
+    "isolatedModules": false,
+    "noImplicitAny": false,
     "jsx": "react"
   },
   "include": ["src"]
