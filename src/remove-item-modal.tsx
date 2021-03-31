@@ -1,6 +1,8 @@
 import React, { FC, useEffect } from 'react';
 import { useInventoryItem, useRemoveFromCart } from '@qbcart/eshop-local-db';
 
+import StyledRemoveItemModal from './styled-components/styled-remove-item-modal.js';
+
 interface Props {
   namespaceId: string;
   imagesStorageUrl: string;
@@ -10,7 +12,7 @@ interface Props {
 const RemoveItemModal: FC<Props> = (props: Props) => {
   const removeFromCart = useRemoveFromCart(props.userLoggedIn);
   const [item, setItem] = useInventoryItem('');
-  const modalId = `${props.namespaceId}-clear-item-modal`;
+  const modalId = `${props.namespaceId}-remove-item-modal`;
 
   useEffect(() => {
     $(`#${modalId}`).on('show.bs.modal', function (e: JQueryEventObject) {
@@ -19,7 +21,7 @@ const RemoveItemModal: FC<Props> = (props: Props) => {
   }, [modalId, setItem]);
 
   return (
-    <div
+    <StyledRemoveItemModal
       className="modal fade"
       id={modalId}
       data-backdrop="static"
@@ -74,7 +76,7 @@ const RemoveItemModal: FC<Props> = (props: Props) => {
           <div className="modal-content"></div>
         )}
       </div>
-    </div>
+    </StyledRemoveItemModal>
   );
 };
 

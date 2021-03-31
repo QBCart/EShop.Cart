@@ -10,6 +10,7 @@ import {
 interface Props {
   id: string;
   quantity: number;
+  namespaceId: string;
   imagesStorageUrl: string;
   userLoggedIn: boolean;
 }
@@ -101,7 +102,7 @@ const CartLineItem: FC<Props> = (props: Props) => {
               type="button"
               className="btn btn-danger"
               data-toggle="modal"
-              data-target="#qbc-eshop-cart-clear-item-modal"
+              data-target={`#${props.namespaceId}-remove-item-modal`}
               data-id={props.id}
             >
               <span className="material-icons">delete</span>

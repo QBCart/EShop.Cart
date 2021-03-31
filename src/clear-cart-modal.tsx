@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { useClearCart } from '@qbcart/eshop-local-db';
+import StyledClearCartModal from './styled-components/styled-clear-cart-modal.js';
 
 interface Props {
   namespaceId: string;
@@ -10,7 +11,7 @@ const ClearCartModal: FC<Props> = (props: Props) => {
   const clearCart = useClearCart(props.userLoggedIn);
   const modalId = `${props.namespaceId}-clear-cart-modal`;
   return (
-    <div
+    <StyledClearCartModal
       className="modal fade"
       id={modalId}
       data-backdrop="static"
@@ -59,7 +60,7 @@ const ClearCartModal: FC<Props> = (props: Props) => {
           </div>
         </div>
       </div>
-    </div>
+    </StyledClearCartModal>
   );
 };
 
