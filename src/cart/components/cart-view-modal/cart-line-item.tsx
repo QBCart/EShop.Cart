@@ -1,14 +1,11 @@
-import { React } from 'https://cdn.skypack.dev/@qbcart/eshop-skypack-deps';
-import {
-  toUSCurrency,
-  toWholeNumberGreaterThanZero
-} from 'https://cdn.skypack.dev/@qbcart/utils';
+import React, { FC, useState, useEffect } from 'react';
+import { toUSCurrency, toWholeNumberGreaterThanZero } from '@qbcart/utils';
 import {
   useUpdateCart,
   useRemoveFromCart,
   useInventoryItem,
   useCustomPrice
-} from 'https://cdn.skypack.dev/@qbcart/eshop-local-db';
+} from '@qbcart/eshop-local-db';
 
 interface Props {
   id: string;
@@ -17,18 +14,16 @@ interface Props {
   userLoggedIn: boolean;
 }
 
-const CartLineItem: React.FC<Props> = (props: Props) => {
-  const [inputQuantity, setInputQuantity] = React.useState(
-    props.quantity.toString()
-  );
-  const [updateReady, setUpdateReady] = React.useState(false);
+const CartLineItem: FC<Props> = (props: Props) => {
+  const [inputQuantity, setInputQuantity] = useState(props.quantity.toString());
+  const [updateReady, setUpdateReady] = useState(false);
   const updateCart = useUpdateCart(props.userLoggedIn);
   const removeFromCart = useRemoveFromCart(props.userLoggedIn);
   const [item] = useInventoryItem(props.id);
   const [customPrice] = useCustomPrice(props.id);
   const price = customPrice ?? item?.SalesPrice ?? 0;
 
-  React.useEffect(() => {
+  useEffect(() => {
     const inputValueNum = toWholeNumberGreaterThanZero(inputQuantity);
     if (inputValueNum && inputValueNum !== props.quantity) {
       setUpdateReady(true);
@@ -37,7 +32,7 @@ const CartLineItem: React.FC<Props> = (props: Props) => {
     }
   }, [inputQuantity, props.quantity]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setInputQuantity(props.quantity.toString());
   }, [props.quantity]);
 

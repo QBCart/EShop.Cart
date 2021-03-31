@@ -1,6 +1,6 @@
-import { React } from 'https://cdn.skypack.dev/@qbcart/eshop-skypack-deps';
-import { useCartItems } from 'https://cdn.skypack.dev/@qbcart/eshop-local-db';
-import { toUSCurrency } from 'https://cdn.skypack.dev/@qbcart/utils';
+import React, { FC } from 'react';
+import { useCartItems } from '@qbcart/eshop-local-db';
+import { toUSCurrency } from '@qbcart/utils';
 import CartLineItem from './cart-line-item';
 
 interface Props {
@@ -9,19 +9,19 @@ interface Props {
   userLoggedIn: boolean;
 }
 
-const CartViewModal: React.FC<Props> = (props: Props) => {
+const CartViewModal: FC<Props> = (props: Props) => {
   const items = useCartItems(props.userLoggedIn);
   const modalId = `${props.namespaceId}-view-modal`;
 
   const subtotal =
     (items?.length ?? 0) > 0
       ? items
-          ?.map((item) => item.price * item.quantity)
-          ?.reduce((a, b) => a + b)
+          .map((item) => item.price! * item.quantity!)
+          .reduce((a, b) => a + b)
       : 0;
   const numOfItems =
     (items?.length ?? 0) > 0
-      ? items?.map((item) => item.quantity)?.reduce((a, b) => a + b)
+      ? items.map((item) => item.quantity!).reduce((a, b) => a + b)
       : 0;
 
   return (
@@ -47,8 +47,8 @@ const CartViewModal: React.FC<Props> = (props: Props) => {
               items.map((item) => (
                 <CartLineItem
                   key={item.id}
-                  id={item.id}
-                  quantity={item.quantity}
+                  id={item.id!}
+                  quantity={item.quantity!}
                   imagesStorageUrl={props.imagesStorageUrl}
                   userLoggedIn={props.userLoggedIn}
                 />

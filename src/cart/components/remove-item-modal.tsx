@@ -1,8 +1,5 @@
-import { React } from 'https://cdn.skypack.dev/@qbcart/eshop-skypack-deps';
-import {
-  useInventoryItem,
-  useRemoveFromCart
-} from 'https://cdn.skypack.dev/@qbcart/eshop-local-db';
+import React, { FC, useEffect } from 'react';
+import { useInventoryItem, useRemoveFromCart } from '@qbcart/eshop-local-db';
 
 interface Props {
   namespaceId: string;
@@ -10,13 +7,13 @@ interface Props {
   userLoggedIn: boolean;
 }
 
-const RemoveItemModal: React.FC<Props> = (props: Props) => {
+const RemoveItemModal: FC<Props> = (props: Props) => {
   const removeFromCart = useRemoveFromCart(props.userLoggedIn);
   const [item, setItem] = useInventoryItem('');
   const modalId = `${props.namespaceId}-clear-item-modal`;
 
-  React.useEffect(() => {
-    $(`#${modalId}`).on('show.bs.modal', function (e) {
+  useEffect(() => {
+    $(`#${modalId}`).on('show.bs.modal', function (e: JQueryEventObject) {
       setItem($(e.relatedTarget).data('id'));
     });
   }, [modalId, setItem]);

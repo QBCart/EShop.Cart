@@ -1,19 +1,18 @@
-import { React } from 'https://cdn.skypack.dev/@qbcart/eshop-skypack-deps';
-import { useLocalDBSync } from 'https://cdn.skypack.dev/@qbcart/eshop-local-db';
-import CartViewModal from './components/cart-view-modal';
-import ClearCartModal from './components/clear-cart-modal';
-import RemoveItemModal from './components/remove-item-modal';
+import React, { FC } from 'react';
+import { useLocalDBSync } from '@qbcart/eshop-local-db';
+import CartViewModal from './components/cart-view-modal/index.js';
+import ClearCartModal from './components/clear-cart-modal.js';
+import RemoveItemModal from './components/remove-item-modal.js';
 
 interface Props {
   namespaceId: string;
   imagesStorageUrl: string;
   userLoggedIn: boolean;
-  showToast: (header: string, body: string, duration: number) => void;
   syncInterval: number;
   isDev?: boolean;
 }
 
-const Cart: React.FC<Props> = (props: Props) => {
+const Cart: FC<Props> = (props: Props) => {
   useLocalDBSync(props.syncInterval, props.isDev);
   return (
     <div>
