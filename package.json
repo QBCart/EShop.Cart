@@ -44,7 +44,6 @@
     "@qbcart/toast": "^3.0.0",
     "@qbcart/types": "^2.0.0",
     "@qbcart/utils": "^1.0.0",
-    "@snowpack/plugin-sass": "^1.4.0",
     "@types/bootstrap": "^4.6.0",
     "@types/jquery": "^3.5.5",
     "@types/react": "^17.0.3",
