@@ -1,0 +1,90 @@
+name: Demo
+
+######################################
+# Triggers when changes occur in src #
+######################################
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/**'
+
+###################
+# Set Global Envs #
+###################
+env:
+  NODE_VERSION: '14'
+  DEMO_STORAGE_NAME: qbcdemo
+  SUBSCRIPTION_ID: ${{ secrets.DEMO_SUBSCRIPTION_ID }}
+
+############
+# Set Jobs #
+############
+jobs:
+  ##############
+  # Define Job #
+  ##############
+  publish-demo:
+    name: Publish Demo
+    runs-on: ubuntu-latest
+
+    ##############
+    # Load Steps #
+    ##############
+    steps:
+      ###############
+      # Azure Login #
+      ###############
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          allow-no-subscriptions: true
+
+      ###############################
+      # Set Deployment Subscription #
+      ###############################
+      - name: Set Deployment Subscription
+        shell: bash
+        run: az account set --subscription ${{ env.SUBSCRIPTION_ID }}
+
+      #################
+      # Checkout Code #
+      #################
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      #################
+      # Setup Node JS #
+      #################
+      - name: Setup Node JS
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      ##########################
+      # Install Component Deps #
+      ##########################
+      - name: Install Component Deps
+        working-directory: .
+        shell: bash
+        run: npm install
+
+      ###################
+      # Build Component #
+      ###################
+      - name: Build Component
+        working-directory: .
+        shell: bash
+        run: npm run build
+
+      ####################
+      # Deploy Component #
+      ####################
+      - name: Deploy Component
+        working-directory: .
+        shell: bash
+        run: |
+          az storage blob delete-batch --account-name ${{ env.DEMO_STORAGE_NAME }} --source '$web' --pattern 'eshop/product-modal/*'
+          az storage blob upload-batch --account-name ${{ env.DEMO_STORAGE_NAME }} --source 'dist' --destination '$web/eshop/product-modal'
