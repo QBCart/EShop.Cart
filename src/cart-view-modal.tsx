@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useCartItems } from '@qbcart/eshop-local-db';
 import { toUSCurrency } from '@qbcart/utils';
-import CartLineItem from './cart-line-item';
+import CartLineItem from './cart-line-item.js';
 
 interface Props {
   namespaceId: string;

@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { useLocalDBSync } from '@qbcart/eshop-local-db';
-import CartViewModal from './components/cart-view-modal/index.js';
-import ClearCartModal from './components/clear-cart-modal.js';
-import RemoveItemModal from './components/remove-item-modal.js';
+import CartViewModal from './cart-view-modal.js';
+import ClearCartModal from './clear-cart-modal.js';
+import RemoveItemModal from './remove-item-modal.js';
 
 interface Props {
   namespaceId: string;
