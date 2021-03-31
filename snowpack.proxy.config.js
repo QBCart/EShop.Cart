@@ -16,9 +16,17 @@ module.exports = {
   },
   devOptions: {},
   buildOptions: {},
-  plugins: [
-    ['@snowpack/plugin-sass', { compilerOptions: { loadPath: 'node_modules' } }]
-  ],
+  plugins: [],
+  // prettier-ignore
+  alias: {
+    'react': 'https://qbcdemo.z13.web.core.windows.net/deps/react.js',
+    'react-dom': 'https://qbcdemo.z13.web.core.windows.net/deps/react-dom.js',
+    'styled-components': 'https://qbcdemo.z13.web.core.windows.net/deps/styled-components.js',
+    '@qbcart/eshop-local-db': 'https://qbcdemo.z13.web.core.windows.net/eshop/localdb/index.js',
+    '@qbcart/utils': 'https://qbcdemo.z13.web.core.windows.net/utils/index.js',
+    '@qbcart/toast': 'https://qbcdemo.z13.web.core.windows.net/toast/index.js',
+    'cart': './src/index'
+  },
   routes: [
     {
       src: '/data/.*',
