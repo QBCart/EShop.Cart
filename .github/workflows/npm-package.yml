@@ -14,7 +14,7 @@ on:
 # Set Global Envs #
 ###################
 env:
-  node_version: '12'
+  node_version: '14'
 
 ############
 # Set Jobs #
@@ -71,13 +71,13 @@ jobs:
         shell: bash
         run: npm install
 
-      #################
-      # Build Package #
-      #################
-      - name: Build Package
+      ###############
+      # Build Types #
+      ###############
+      - name: Build Types
         working-directory: .
         shell: bash
-        run: npm run build
+        run: npm run build:types
 
       ######################
       # Copy Package Files #
@@ -89,10 +89,10 @@ jobs:
           cp package.json dist
           cp README.md dist
 
-      ###################
-      # Publish Package #
-      ###################
-      - name: Publish Package
+      #################
+      # Publish Types #
+      #################
+      - name: Publish Types
         working-directory: dist
         shell: bash
         run: |
