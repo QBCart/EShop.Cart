@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect } from 'react';
-import { toUSCurrency, toWholeNumberGreaterThanZero } from '@qbcart/utils';
+import { toUSCurrency } from '@qbcart/utils';
 import {
   useUpdateCart,
   useRemoveFromCart,
@@ -25,31 +25,15 @@ const CartLineItem: FC<Props> = (props: Props) => {
   const price = customPrice ?? item?.SalesPrice ?? 0;
 
   useEffect(() => {
-    const inputValueNum = toWholeNumberGreaterThanZero(inputQuantity);
-    if (inputValueNum && inputValueNum !== props.quantity) {
-      setUpdateReady(true);
-    } else {
-      setUpdateReady(false);
-    }
+    setUpdateReady(inputQuantity !== props.quantity.toString());
   }, [inputQuantity, props.quantity]);
 
   useEffect(() => {
     setInputQuantity(props.quantity.toString());
   }, [props.quantity]);
 
-  const revertInputQuantity = () => {
-    if (!updateReady) {
-      setInputQuantity(props.quantity.toString());
-    }
-  };
-
   const updateItemQuantity = async () => {
-    const error = await updateCart(props.id, price, Number(inputQuantity));
-    if (error) {
-      //invalid modal with message try again
-    } else {
-      setUpdateReady(false);
-    }
+    setUpdateReady(!(await updateCart(props.id, price, inputQuantity)));
   };
 
   return (
@@ -70,7 +54,6 @@ const CartLineItem: FC<Props> = (props: Props) => {
             <label>Quantity: </label>
             <input
               onChange={(e) => setInputQuantity(e.target.value)}
-              onBlur={revertInputQuantity}
               value={inputQuantity}
               type="number"
               min="1"
