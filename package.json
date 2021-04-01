@@ -40,8 +40,8 @@
     "test:ci": "echo \"All Good\" && exit 0"
   },
   "devDependencies": {
-    "@qbcart/eshop-local-db": "^1.1.0",
-    "@qbcart/eshop-product-modal": "^2.0.0",
+    "@qbcart/eshop-local-db": "^1.2.0",
+    "@qbcart/eshop-product-modal": "^2.1.0",
     "@qbcart/toast": "^3.0.0",
     "@qbcart/types": "^2.0.0",
     "@qbcart/utils": "^1.0.0",
@@ -59,7 +59,7 @@
     "husky": "^4.3.8",
     "lint-staged": "^10.5.4",
     "prettier": "^2.2.1",
-    "snowpack": "^3.1.2",
+    "snowpack": "^3.2.2",
     "snowpack-plugin-import-map": "^1.1.4",
     "typescript": "^4.2.3"
   },
