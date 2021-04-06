@@ -1,11 +1,11 @@
 {
   "name": "@qbcart/eshop-cart",
   "version": "1.0.0",
-  "description": "Cart component used across the QBCart EShop UI ecosystem.",
+  "description": "Cart modal component used across the QBCart EShop ecosystem.",
   "keywords": [
-    "types",
     "qbcart",
-    "eshop"
+    "eshop",
+    "modal"
   ],
   "license": "MIT",
   "author": "QBCart Inc.",
@@ -13,12 +13,6 @@
     "Allan Mobley",
     "Michael Shea"
   ],
-  "main": "index.js",
-  "module": "index.js",
-  "types": "types/index.d.ts",
-  "exports": {
-    "import": "./index.js"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/QBCart/EShop.Cart.git"
@@ -29,9 +23,7 @@
   "homepage": "https://github.com/QBCart/EShop.Cart#readme",
   "scripts": {
     "start": "snowpack dev --config snowpack.dev.config.js",
-    "start:proxy": "snowpack dev --config snowpack.proxy.config.js",
     "build": "snowpack build",
-    "build:types": "tsc",
     "demo": "snowpack dev --config snowpack.demo.config.js",
     "lint": "eslint src/**/*.tsx",
     "format:check": "prettier --check .",
@@ -40,18 +32,18 @@
     "test:ci": "echo \"All Good\" && exit 0"
   },
   "devDependencies": {
-    "@qbcart/eshop-local-db": "^1.2.0",
-    "@qbcart/eshop-product-modal": "^2.1.0",
-    "@qbcart/toast": "^3.0.0",
-    "@qbcart/types": "^2.0.0",
+    "@qbcart/eshop-cart-hooks": "^1.0.0-beta.1",
+    "@qbcart/eshop-inventory-hooks": "^1.0.0-beta.1",
+    "@qbcart/eshop-user-data-hooks": "^1.0.0-alpha.1",
+    "@qbcart/types": "^2.1.0",
     "@qbcart/utils": "^1.0.0",
     "@types/bootstrap": "^4.6.0",
     "@types/jquery": "^3.5.5",
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.3",
     "@types/styled-components": "^5.1.9",
-    "@typescript-eslint/eslint-plugin": "^4.20.0",
-    "@typescript-eslint/parser": "^4.20.0",
+    "@typescript-eslint/eslint-plugin": "^4.21.0",
+    "@typescript-eslint/parser": "^4.21.0",
     "eslint": "^7.23.0",
     "eslint-plugin-react": "^7.23.1",
     "eslint-plugin-react-hooks": "^4.2.0",
