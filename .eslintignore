@@ -1,4 +1,12 @@
+.npmrc
+
+# generated output
 node_modules
-dist
 build
 .snowpack
+dist
+publish_types
+publish_esm
+
+# Apple Snooping File
+.DS_Store

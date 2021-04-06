@@ -1,4 +1,10 @@
-# Ignore artifacts:
-dist
+# generated output
+node_modules
 build
-coverage
+.snowpack
+dist
+publish_types
+publish_esm
+
+# Apple Snooping File
+.DS_Store
