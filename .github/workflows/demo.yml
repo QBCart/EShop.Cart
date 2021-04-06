@@ -33,22 +33,6 @@ jobs:
     # Load Steps #
     ##############
     steps:
-      ###############
-      # Azure Login #
-      ###############
-      - name: Azure Login
-        uses: Azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-          allow-no-subscriptions: true
-
-      ###############################
-      # Set Deployment Subscription #
-      ###############################
-      - name: Set Deployment Subscription
-        shell: bash
-        run: az account set --subscription ${{ env.SUBSCRIPTION_ID }}
-
       #################
       # Checkout Code #
       #################
@@ -63,28 +47,38 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      ##########################
-      # Install Component Deps #
-      ##########################
-      - name: Install Component Deps
+      ################
+      # Install Deps #
+      ################
+      - name: Install Deps
         working-directory: .
         shell: bash
         run: npm install
 
-      ###################
-      # Build Component #
-      ###################
-      - name: Build Component
+      #############
+      # Build ESM #
+      #############
+      - name: Build ESM
         working-directory: .
         shell: bash
         run: npm run build
 
-      ####################
-      # Deploy Component #
-      ####################
-      - name: Deploy Component
+      ###############
+      # Azure Login #
+      ###############
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          allow-no-subscriptions: true
+
+      ###############################
+      # Publish ESM To Demo Storage #
+      ###############################
+      - name: Publish ESM To Demo Storage
         working-directory: .
         shell: bash
         run: |
+          az account set --subscription ${{ env.SUBSCRIPTION_ID }}
           az storage blob delete-batch --account-name ${{ env.DEMO_STORAGE_NAME }} --source '$web' --pattern 'eshop/cart/*'
-          az storage blob upload-batch --account-name ${{ env.DEMO_STORAGE_NAME }} --source 'dist' --destination '$web/eshop/cart'
+          az storage blob upload-batch --account-name ${{ env.DEMO_STORAGE_NAME }} --source 'publish_esm' --destination '$web/eshop/cart'

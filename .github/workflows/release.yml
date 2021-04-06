@@ -1,4 +1,4 @@
-name: npm
+name: Release
 
 ###################################################
 # Start the job on semantic versioned branch push #
@@ -15,6 +15,8 @@ on:
 ###################
 env:
   node_version: '14'
+  STORAGE_NAME: ${{ secrets.ESM_STORAGE_NAME }}
+  SUBSCRIPTION_ID: ${{ secrets.QBC_SUBSCRIPTION_ID }}
 
 ############
 # Set Jobs #
@@ -23,8 +25,8 @@ jobs:
   ##############
   # Define Job #
   ##############
-  publish-npm-package:
-    name: Publish NPM Package
+  release:
+    name: Release
     runs-on: ubuntu-latest
 
     ##############
@@ -71,33 +73,45 @@ jobs:
         shell: bash
         run: npm install
 
-      ###############
-      # Build Types #
-      ###############
-      - name: Build Types
+      #############
+      # Build ESM #
+      #############
+      - name: Build ESM
         working-directory: .
         shell: bash
-        run: npm run build:types
+        run: npm run build
 
-      ######################
-      # Copy Package Files #
-      ######################
-      - name: Copy Package Files
+      ###############
+      # Azure Login #
+      ###############
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          allow-no-subscriptions: true
+
+      ##########################
+      # Publish ESM To Storage #
+      ##########################
+      - name: Publish ESM To Storage
         working-directory: .
         shell: bash
         run: |
-          cp package.json dist
-          cp README.md dist
+          az account set --subscription ${{ env.SUBSCRIPTION_ID }}
+          az storage blob delete-batch --account-name ${{ env.STORAGE_NAME }} --source '$web' --pattern 'eshop/cart/*'
+          az storage blob upload-batch --account-name ${{ env.STORAGE_NAME }} --source 'publish_esm' --destination '$web/eshop/cart'
 
-      #################
-      # Publish Types #
-      #################
-      - name: Publish Types
-        working-directory: dist
-        shell: bash
-        run: |
-          npm version $ver --allow-same-version
-          echo 'VER:' $ver
-          npm publish --access public
+      #########################
+      # Create GitHub Release #
+      #########################
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ env.new_version }}
+          release_name: ${{ env.new_version }}
+          body_path: RELEASE.md
+          draft: false
+          prerelease: ${{ contains(env.new_version, 'alpha') || contains(env.new_version, 'beta') }}
         env:
-          ver: ${{ env.new_version }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

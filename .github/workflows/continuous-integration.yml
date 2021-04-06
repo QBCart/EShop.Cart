@@ -64,10 +64,10 @@ jobs:
         shell: bash
         run: npm run format:check
 
-      #################
-      # Build Project #
-      #################
-      - name: Build Project
+      #############
+      # Build ESM #
+      #############
+      - name: Build ESM
         working-directory: .
         shell: bash
         run: npm run build
@@ -78,5 +78,4 @@ jobs:
       - name: Run Tests
         working-directory: .
         shell: bash
-        run: |
-          npm run test:ci
+        run: npm run test:ci
