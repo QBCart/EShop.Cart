@@ -1,0 +1,65 @@
+{
+  "lastSynced": 98437491,
+  "items": [
+    {
+      "id": "ITEM-800010DA-1498678070",
+      "Name": "VACBM238",
+      "FullName": "Accessories:Adaptors:VACBM238",
+      "Href": "/Accessories/Adaptors/VACBM238",
+      "SalesDesc": "Vector Core Bit Chuck Adaptor \n5/8\"-11 Male to 3/8\" Shank",
+      "SalesPrice": 25,
+      "IsCategory": false,
+      "IsActive": true,
+      "IsPublic": true,
+      "_ts": 1613309910
+    },
+    {
+      "id": "ITEM-8000099B-1382111330",
+      "Name": "ABPR500P",
+      "FullName": "Accessories:Backer Pads:Alpha Backer Pads:ABPR500P",
+      "Href": "/Accessories/Backer-Pads/Alpha-Backer-Pads/ABPR500P",
+      "SalesDesc": "Alpha Rigid Plastic Backer Pad 5\"",
+      "SalesPrice": 39,
+      "IsCategory": false,
+      "IsActive": true,
+      "IsPublic": true,
+      "_ts": 1606822910
+    },
+    {
+      "id": "ITEM-800009F4-1384978725",
+      "Name": "CTB600",
+      "FullName": "Blades:Granite Blades:Cyclone:CTB600",
+      "Href": "/Blades/Granite-Blades/Cyclone/CTB600",
+      "SalesDesc": "Cyclone Turbo Blades 6 Inches",
+      "SalesPrice": 48,
+      "IsPublic": true,
+      "IsCategory": false,
+      "IsActive": true,
+      "_ts": 1606822911
+    },
+    {
+      "id": "ITEM-60000-997203789",
+      "Name": "VTB600",
+      "FullName": "Blades:Granite Blades:Vector:VTB600",
+      "Href": "/Blades/Granite-Blades/Vector/VTB600",
+      "SalesDesc": "Vector Turbo Blade 6\"",
+      "SalesPrice": 42,
+      "IsPublic": true,
+      "IsCategory": false,
+      "IsActive": true,
+      "_ts": 1616423235
+    },
+    {
+      "id": "ITEM-1E90000-1243542262",
+      "Name": "VKGQT",
+      "FullName": "Chemicals:Vector:Vector Polyester Adhesives:VKGQT",
+      "Href": "/Chemicals/Vector/Vector-Polyester-Adhesives/VKGQT",
+      "SalesDesc": "Vector Knife Grade 1 Quart",
+      "SalesPrice": 15,
+      "IsPublic": true,
+      "IsCategory": false,
+      "IsActive": true,
+      "_ts": 1606822915
+    }
+  ]
+}
