@@ -16,8 +16,10 @@ import Cart from './cart.js';
   render(
     <Cart
       namespaceId={id}
-      imagesStorageUrl={mountingDiv.dataset.imagesStorageUrl!}
-      userLoggedIn={Boolean(mountingDiv.dataset.userLoggedIn)}
+      imagesStorageUrl={
+        document.getElementById('qbc-images')!.dataset.imagesStorageUrl!
+      }
+      userLoggedIn={Boolean(document.getElementById('qbc-user'))}
       syncInterval={Number(mountingDiv.dataset.syncInterval)}
     />,
     mountingDiv
