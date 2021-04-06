@@ -1,7 +1,7 @@
 {
   "name": "@qbcart/eshop-cart",
   "version": "1.0.0",
-  "description": "Cart modal component used across the QBCart EShop ecosystem.",
+  "description": "Cart component used across the QBCart EShop ecosystem.",
   "keywords": [
     "qbcart",
     "eshop",
