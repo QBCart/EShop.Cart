@@ -29,6 +29,7 @@ module.exports = {
     '@qbcart/eshop-inventory-hooks': 'https://qbcdemo.z13.web.core.windows.net/eshop/inventory-hooks/index.js',
     '@qbcart/eshop-cart-hooks': 'https://qbcdemo.z13.web.core.windows.net/eshop/cart-hooks/index.js',
     '@qbcart/eshop-user-data-hooks': 'https://qbcdemo.z13.web.core.windows.net/eshop/user-data-hooks/index.js',
+    '@qbcart/eshop-product-modal': 'https://qbcdemo.z13.web.core.windows.net/eshop/product-modal/index.js',
     '@qbcart/eshop-toast': 'https://qbcdemo.z13.web.core.windows.net/eshop/toast/index.js',
     '@qbcart/eshop-alert-modal': 'https://qbcdemo.z13.web.core.windows.net/eshop/alert-modal/index.js',
     'cart': './src/index'
