@@ -9,6 +9,8 @@
 import styled from 'styled-components';
 
 const StyledCartViewModal = styled.div`
+  color: black;
+
   .m-icon-36 {
     font-size: 32px;
     vertical-align: text-top;
