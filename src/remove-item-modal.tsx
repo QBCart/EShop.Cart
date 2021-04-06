@@ -7,7 +7,8 @@
  */
 
 import React, { FC, useEffect } from 'react';
-import { useInventoryItem, useRemoveFromCart } from '@qbcart/eshop-local-db';
+import { useInventoryItem } from '@qbcart/eshop-inventory-hooks';
+import { useRemoveFromCart } from '@qbcart/eshop-cart-hooks';
 
 import StyledRemoveItemModal from './styled-components/styled-remove-item-modal.js';
 

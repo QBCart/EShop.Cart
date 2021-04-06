@@ -7,7 +7,7 @@
  */
 
 import React, { FC } from 'react';
-import { useCartItems } from '@qbcart/eshop-local-db';
+import { useCartItems } from '@qbcart/eshop-cart-hooks';
 import { toUSCurrency } from '@qbcart/utils';
 
 import CartLineItem from './cart-line-item.js';
@@ -25,13 +25,13 @@ const CartViewModal: FC<Props> = (props: Props) => {
 
   const subtotal =
     (items?.length ?? 0) > 0
-      ? items
+      ? items!
           .map((item) => item.price! * item.quantity!)
           .reduce((a, b) => a + b)
       : 0;
   const numOfItems =
     (items?.length ?? 0) > 0
-      ? items.map((item) => item.quantity!).reduce((a, b) => a + b)
+      ? items!.map((item) => item.quantity!).reduce((a, b) => a + b)
       : 0;
 
   return (
@@ -54,7 +54,7 @@ const CartViewModal: FC<Props> = (props: Props) => {
           </div>
           <div className="modal-body">
             {(items?.length ?? 0) > 0 ? (
-              items.map((item) => (
+              items!.map((item) => (
                 <CartLineItem
                   key={item.id}
                   id={item.id!}

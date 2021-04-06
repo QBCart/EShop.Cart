@@ -7,7 +7,8 @@
  */
 
 import React, { FC } from 'react';
-import { useLocalDBSync } from '@qbcart/eshop-local-db';
+import { useInventorySync } from '@qbcart/eshop-inventory-hooks';
+import { useUserDataSync } from '@qbcart/eshop-user-data-hooks';
 import CartViewModal from './cart-view-modal.js';
 import ClearCartModal from './clear-cart-modal.js';
 import RemoveItemModal from './remove-item-modal.js';
@@ -17,11 +18,11 @@ interface Props {
   imagesStorageUrl: string;
   userLoggedIn: boolean;
   syncInterval: number;
-  isDev?: boolean;
 }
 
 const Cart: FC<Props> = (props: Props) => {
-  useLocalDBSync(props.syncInterval, props.isDev);
+  useInventorySync(props.syncInterval);
+  useUserDataSync(props.userLoggedIn, props.syncInterval);
   return (
     <div>
       <CartViewModal

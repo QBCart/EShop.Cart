@@ -7,7 +7,7 @@
  */
 
 import React, { FC } from 'react';
-import { useClearCart } from '@qbcart/eshop-local-db';
+import { useClearCart } from '@qbcart/eshop-cart-hooks';
 import StyledClearCartModal from './styled-components/styled-clear-cart-modal.js';
 
 interface Props {
