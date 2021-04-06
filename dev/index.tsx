@@ -70,6 +70,14 @@ const CartTest = () => {
           }/images/thumbnail/ITEM-1E90000-1243542262`}
         />
       </button>
+      <br />
+      <button
+        className="btn btn-outline-primary mt-3"
+        data-toggle="modal"
+        data-target="#qbc-eshop-cart-view-modal"
+      >
+        Show Cart
+      </button>
     </div>
   );
 };
