@@ -1,0 +1,10 @@
+###############################################################################
+# Set default behavior to automatically normalize line endings.
+###############################################################################
+* text=auto
+
+###############################################################################
+# Ignore vendor published files and dev files during language count.
+###############################################################################
+/*.js linguist-generated=true
+dev/** linguist-generated=true
