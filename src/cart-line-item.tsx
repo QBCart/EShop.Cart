@@ -1,59 +1,39 @@
-import { React } from 'https://cdn.skypack.dev/@qbcart/eshop-skypack-deps';
-import {
-  toUSCurrency,
-  toWholeNumberGreaterThanZero
-} from 'https://cdn.skypack.dev/@qbcart/utils';
+import React, { FC, useState, useEffect } from 'react';
+import { toUSCurrency } from '@qbcart/utils';
 import {
   useUpdateCart,
   useRemoveFromCart,
   useInventoryItem,
   useCustomPrice
-} from 'https://cdn.skypack.dev/@qbcart/eshop-local-db';
+} from '@qbcart/eshop-local-db';
 
 interface Props {
   id: string;
   quantity: number;
+  namespaceId: string;
   imagesStorageUrl: string;
   userLoggedIn: boolean;
 }
 
-const CartLineItem: React.FC<Props> = (props: Props) => {
-  const [inputQuantity, setInputQuantity] = React.useState(
-    props.quantity.toString()
-  );
-  const [updateReady, setUpdateReady] = React.useState(false);
+const CartLineItem: FC<Props> = (props: Props) => {
+  const [inputQuantity, setInputQuantity] = useState(props.quantity.toString());
+  const [updateReady, setUpdateReady] = useState(false);
   const updateCart = useUpdateCart(props.userLoggedIn);
   const removeFromCart = useRemoveFromCart(props.userLoggedIn);
   const [item] = useInventoryItem(props.id);
   const [customPrice] = useCustomPrice(props.id);
   const price = customPrice ?? item?.SalesPrice ?? 0;
 
-  React.useEffect(() => {
-    const inputValueNum = toWholeNumberGreaterThanZero(inputQuantity);
-    if (inputValueNum && inputValueNum !== props.quantity) {
-      setUpdateReady(true);
-    } else {
-      setUpdateReady(false);
-    }
+  useEffect(() => {
+    setUpdateReady(inputQuantity !== props.quantity.toString());
   }, [inputQuantity, props.quantity]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setInputQuantity(props.quantity.toString());
   }, [props.quantity]);
 
-  const revertInputQuantity = () => {
-    if (!updateReady) {
-      setInputQuantity(props.quantity.toString());
-    }
-  };
-
   const updateItemQuantity = async () => {
-    const error = await updateCart(props.id, price, Number(inputQuantity));
-    if (error) {
-      //invalid modal with message try again
-    } else {
-      setUpdateReady(false);
-    }
+    setUpdateReady(!(await updateCart(props.id, price, inputQuantity)));
   };
 
   return (
@@ -74,7 +54,6 @@ const CartLineItem: React.FC<Props> = (props: Props) => {
             <label>Quantity: </label>
             <input
               onChange={(e) => setInputQuantity(e.target.value)}
-              onBlur={revertInputQuantity}
               value={inputQuantity}
               type="number"
               min="1"
@@ -106,7 +85,7 @@ const CartLineItem: React.FC<Props> = (props: Props) => {
               type="button"
               className="btn btn-danger"
               data-toggle="modal"
-              data-target="#qbc-eshop-cart-clear-item-modal"
+              data-target={`#${props.namespaceId}-remove-item-modal`}
               data-id={props.id}
             >
               <span className="material-icons">delete</span>

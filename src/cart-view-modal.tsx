@@ -1,7 +1,9 @@
-import { React } from 'https://cdn.skypack.dev/@qbcart/eshop-skypack-deps';
-import { useCartItems } from 'https://cdn.skypack.dev/@qbcart/eshop-local-db';
-import { toUSCurrency } from 'https://cdn.skypack.dev/@qbcart/utils';
-import CartLineItem from './cart-line-item';
+import React, { FC } from 'react';
+import { useCartItems } from '@qbcart/eshop-local-db';
+import { toUSCurrency } from '@qbcart/utils';
+
+import CartLineItem from './cart-line-item.js';
+import StyledCartViewModal from './styled-components/styled-cart-view-modal.js';
 
 interface Props {
   namespaceId: string;
@@ -9,23 +11,23 @@ interface Props {
   userLoggedIn: boolean;
 }
 
-const CartViewModal: React.FC<Props> = (props: Props) => {
+const CartViewModal: FC<Props> = (props: Props) => {
   const items = useCartItems(props.userLoggedIn);
   const modalId = `${props.namespaceId}-view-modal`;
 
   const subtotal =
     (items?.length ?? 0) > 0
       ? items
-          ?.map((item) => item.price * item.quantity)
-          ?.reduce((a, b) => a + b)
+          .map((item) => item.price! * item.quantity!)
+          .reduce((a, b) => a + b)
       : 0;
   const numOfItems =
     (items?.length ?? 0) > 0
-      ? items?.map((item) => item.quantity)?.reduce((a, b) => a + b)
+      ? items.map((item) => item.quantity!).reduce((a, b) => a + b)
       : 0;
 
   return (
-    <div className="modal" tabIndex={-1} id={modalId}>
+    <StyledCartViewModal className="modal" tabIndex={-1} id={modalId}>
       <div className="modal-dialog modal-dialog-scrollable modal-xl modal-lg">
         <div className="modal-content">
           <div className="modal-header">
@@ -47,8 +49,9 @@ const CartViewModal: React.FC<Props> = (props: Props) => {
               items.map((item) => (
                 <CartLineItem
                   key={item.id}
-                  id={item.id}
-                  quantity={item.quantity}
+                  id={item.id!}
+                  quantity={item.quantity!}
+                  namespaceId={props.namespaceId}
                   imagesStorageUrl={props.imagesStorageUrl}
                   userLoggedIn={props.userLoggedIn}
                 />
@@ -68,7 +71,7 @@ const CartViewModal: React.FC<Props> = (props: Props) => {
                   type="button"
                   className="btn btn-danger"
                   data-toggle="modal"
-                  data-target="#qbc-eshop-cart-clear-cart-modal"
+                  data-target={`#${props.namespaceId}-clear-cart-modal`}
                 >
                   <span className="material-icons">delete</span>
                 </button>
@@ -89,7 +92,7 @@ const CartViewModal: React.FC<Props> = (props: Props) => {
           ) : null}
         </div>
       </div>
-    </div>
+    </StyledCartViewModal>
   );
 };
 

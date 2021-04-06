@@ -1,24 +1,17 @@
-import {
-  React,
-  render
-} from 'https://cdn.skypack.dev/@qbcart/eshop-skypack-deps';
-import Cart from './cart';
+import React from 'react';
+import { render } from 'react-dom';
+import Cart from './cart.js';
 
-const mountCart = (
-  showToast: (header: string, body: string, duration: number) => void
-): void => {
+(function () {
   const id = 'qbc-eshop-cart';
-  const mountingDiv = document.getElementById(id);
+  const mountingDiv = document.getElementById(id)!;
   render(
     <Cart
       namespaceId={id}
-      imagesStorageUrl={mountingDiv.dataset.imagesStorageUrl}
+      imagesStorageUrl={mountingDiv.dataset.imagesStorageUrl!}
       userLoggedIn={Boolean(mountingDiv.dataset.userLoggedIn)}
-      showToast={showToast}
       syncInterval={Number(mountingDiv.dataset.syncInterval)}
     />,
     mountingDiv
   );
-};
-
-export { mountCart };
+})();

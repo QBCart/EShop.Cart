@@ -1,8 +1,10 @@
 {
   "recommendations": [
-    "ms-azuretools.vscode-azurefunctions",
     "runem.lit-plugin",
     "aaron-bond.better-comments",
-    "esbenp.prettier-vscode"
+    "esbenp.prettier-vscode",
+    "jpoissonnier.vscode-styled-components",
+    "formulahendry.auto-rename-tag",
+    "formulahendry.auto-close-tag"
   ]
 }
