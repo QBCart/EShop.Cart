@@ -18,6 +18,10 @@ module.exports = {
     {
       src: '/sync/inventory',
       dest: '/sync/inventory.json'
+    },
+    {
+      src: '/sync/user',
+      dest: '/sync/user.json'
     }
   ],
   // prettier-ignore
