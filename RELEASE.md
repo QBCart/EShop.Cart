@@ -2,7 +2,7 @@
 
 ### New
 
-- none
+- Cart component used across the QBCart EShop ecosystem.
 
 ### Fixes
 
