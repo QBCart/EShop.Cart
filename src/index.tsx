@@ -8,7 +8,8 @@
 
 import React from 'react';
 import { render } from 'react-dom';
-import Cart from './cart.js';
+
+import Cart from './cart/index.js';
 
 (function () {
   const id = 'qbc-eshop-cart';

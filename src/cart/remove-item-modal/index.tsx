@@ -10,7 +10,7 @@ import React, { FC, useEffect } from 'react';
 import { useInventoryItem } from '@qbcart/eshop-inventory-hooks';
 import { useRemoveFromCart } from '@qbcart/eshop-cart-hooks';
 
-import StyledRemoveItemModal from './styled-components/styled-remove-item-modal.js';
+import RemoveItemModalStyles from './style.js';
 
 interface Props {
   namespaceId: string;
@@ -30,7 +30,7 @@ const RemoveItemModal: FC<Props> = (props: Props) => {
   }, [modalId, setItem]);
 
   return (
-    <StyledRemoveItemModal
+    <RemoveItemModalStyles
       className="modal fade"
       id={modalId}
       data-backdrop="static"
@@ -85,7 +85,7 @@ const RemoveItemModal: FC<Props> = (props: Props) => {
           <div className="modal-content"></div>
         )}
       </div>
-    </StyledRemoveItemModal>
+    </RemoveItemModalStyles>
   );
 };
 

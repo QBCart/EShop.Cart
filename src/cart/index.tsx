@@ -9,9 +9,10 @@
 import React, { FC } from 'react';
 import { useInventorySync } from '@qbcart/eshop-inventory-hooks';
 import { useUserDataSync } from '@qbcart/eshop-user-data-hooks';
-import CartViewModal from './cart-view-modal.js';
-import ClearCartModal from './clear-cart-modal.js';
-import RemoveItemModal from './remove-item-modal.js';
+
+import CartViewModal from './cart-view-modal/index.js';
+import ClearCartModal from './clear-cart-modal/index.js';
+import RemoveItemModal from './remove-item-modal/index.js';
 
 interface Props {
   namespaceId: string;

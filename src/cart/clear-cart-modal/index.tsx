@@ -8,7 +8,8 @@
 
 import React, { FC } from 'react';
 import { useClearCart } from '@qbcart/eshop-cart-hooks';
-import StyledClearCartModal from './styled-components/styled-clear-cart-modal.js';
+
+import ClearCartModalStyles from './style.js';
 
 interface Props {
   namespaceId: string;
@@ -19,7 +20,7 @@ const ClearCartModal: FC<Props> = (props: Props) => {
   const clearCart = useClearCart(props.userLoggedIn);
   const modalId = `${props.namespaceId}-clear-cart-modal`;
   return (
-    <StyledClearCartModal
+    <ClearCartModalStyles
       className="modal fade"
       id={modalId}
       data-backdrop="static"
@@ -68,7 +69,7 @@ const ClearCartModal: FC<Props> = (props: Props) => {
           </div>
         </div>
       </div>
-    </StyledClearCartModal>
+    </ClearCartModalStyles>
   );
 };
 
