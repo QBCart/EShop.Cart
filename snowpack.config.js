@@ -29,7 +29,6 @@ module.exports = {
     'styled-components': '/deps/styled-components.js',
     '@qbcart/eshop-inventory-hooks': '/eshop/inventory-hooks/index.js',
     '@qbcart/eshop-cart-hooks': '/eshop/cart-hooks/index.js',
-    '@qbcart/eshop-user-data-hooks': '/eshop/user-data-hooks/index.js',
     '@qbcart/utils': '/utils/index.js'
   },
   // prettier-ignore
@@ -45,7 +44,6 @@ module.exports = {
           'styled-components': '/deps/styled-components.js',
           '@qbcart/eshop-inventory-hooks': '/eshop/inventory-hooks/index.js',
           '@qbcart/eshop-cart-hooks': '/eshop/cart-hooks/index.js',
-          '@qbcart/eshop-user-data-hooks': '/eshop/user-data-hooks/index.js',
           '@qbcart/utils': '/utils/index.js'
         },
         // if true, import-map transforms imports in development mode too. default: false.
