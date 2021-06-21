@@ -79,11 +79,13 @@ document.write(
       <script type="module" defer>
         import 'https://qbcdemo.z13.web.core.windows.net/eshop/app-shell/index.js';
         import 'https://qbcdemo.z13.web.core.windows.net/eshop/sync-component/index.js';
-        // import 'https://qbcdemo.z13.web.core.windows.net/eshop/product-modal/index.js';
-        // import 'https://qbcdemo.z13.web.core.windows.net/eshop/cart/index.js';
+        import 'https://qbcdemo.z13.web.core.windows.net/eshop/product-modal/index.js';
         // import 'https://qbcdemo.z13.web.core.windows.net/eshop/search-bar/index.js';
         // import 'https://qbcdemo.z13.web.core.windows.net/eshop/toast/index.js';
         // import 'https://qbcdemo.z13.web.core.windows.net/eshop/alert-modal/index.js';
+        import 'https://qbcdemo.z13.web.core.windows.net/eshop/product-slider/index.js';
+        import 'https://qbcdemo.z13.web.core.windows.net/eshop/category-boxes/index.js';
+        import 'https://qbcdemo.z13.web.core.windows.net/eshop/product-boxes/index.js';
         import '/src/index.js';
       </script>
     `
