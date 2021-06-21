@@ -7,8 +7,6 @@
  */
 
 import React, { FC } from 'react';
-import { useInventorySync } from '@qbcart/eshop-inventory-hooks';
-import { useUserDataSync } from '@qbcart/eshop-user-data-hooks';
 
 import CartViewModal from './cart-view-modal/index.js';
 import ClearCartModal from './clear-cart-modal/index.js';
@@ -18,12 +16,9 @@ interface Props {
   namespaceId: string;
   imagesStorageUrl: string;
   userLoggedIn: boolean;
-  syncInterval: number;
 }
 
 const Cart: FC<Props> = (props: Props) => {
-  useInventorySync(props.syncInterval);
-  useUserDataSync(props.userLoggedIn, props.syncInterval);
   return (
     <div>
       <CartViewModal
