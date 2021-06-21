@@ -8,20 +8,25 @@
 
 import React from 'react';
 import { render } from 'react-dom';
-import Cart from './cart.js';
 
-(function () {
-  const id = 'qbc-eshop-cart';
-  const mountingDiv = document.getElementById(id)!;
-  render(
-    <Cart
-      namespaceId={id}
-      imagesStorageUrl={
-        document.getElementById('qbc-images')!.dataset.imagesStorageUrl!
-      }
-      userLoggedIn={Boolean(document.getElementById('qbc-user'))}
-      syncInterval={Number(mountingDiv.dataset.syncInterval)}
-    />,
-    mountingDiv
-  );
-})();
+import Cart from './cart/index.js';
+
+const globalMountsContainer = document.getElementById(
+  'qbc-eshop-global-mounts'
+)!;
+const mountingDiv = document.createElement('div');
+
+mountingDiv.id = 'qbc-eshop-cart';
+globalMountsContainer.appendChild(mountingDiv);
+
+render(
+  <Cart
+    namespaceId={mountingDiv.id}
+    imagesStorageUrl={
+      document.getElementById('qbc-eshop-company-settings')!.dataset
+        .imagesStorageUrl!
+    }
+    userLoggedIn={Boolean(document.getElementById('qbc-eshop-user'))}
+  />,
+  mountingDiv
+);

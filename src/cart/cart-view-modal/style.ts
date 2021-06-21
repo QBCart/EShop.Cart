@@ -8,7 +8,7 @@
 
 import styled from 'styled-components';
 
-const StyledCartViewModal = styled.div`
+const CartViewModalStyles = styled.div`
   color: black;
 
   .m-icon-36 {
@@ -57,4 +57,4 @@ const StyledCartViewModal = styled.div`
   }
 `;
 
-export default StyledCartViewModal;
+export default CartViewModalStyles;

@@ -8,7 +8,7 @@
 
 import styled from 'styled-components';
 
-const StyledRemoveItemModal = styled.div`
+const ClearCartModalStyles = styled.div`
   color: black;
 
   .m-icon-36 {
@@ -34,12 +34,6 @@ const StyledRemoveItemModal = styled.div`
     margin-left: 5px;
     color: lightgray;
   }
-
-  .clear-img {
-    display: block;
-    max-height: 300px;
-    margin: 5px auto;
-  }
 `;
 
-export default StyledRemoveItemModal;
+export default ClearCartModalStyles;

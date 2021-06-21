@@ -9,8 +9,10 @@
 import React, { FC, useState, useEffect } from 'react';
 import { toUSCurrency } from '@qbcart/utils';
 import { useUpdateCart, useRemoveFromCart } from '@qbcart/eshop-cart-hooks';
-import { useInventoryItem } from '@qbcart/eshop-inventory-hooks';
-import { useCustomPrice } from '@qbcart/eshop-user-data-hooks';
+import {
+  useInventoryItem,
+  useCustomPricing
+} from '@qbcart/eshop-inventory-hooks';
 
 interface Props {
   id: string;
@@ -26,7 +28,7 @@ const CartLineItem: FC<Props> = (props: Props) => {
   const updateCart = useUpdateCart(props.userLoggedIn);
   const removeFromCart = useRemoveFromCart(props.userLoggedIn);
   const [item] = useInventoryItem(props.id);
-  const [customPrice] = useCustomPrice(props.userLoggedIn, props.id);
+  const [customPrice] = useCustomPricing(props.userLoggedIn, props.id);
   const price = customPrice ?? item?.SalesPrice ?? 0;
 
   useEffect(() => {

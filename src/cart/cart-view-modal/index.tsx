@@ -10,8 +10,8 @@ import React, { FC } from 'react';
 import { useCartItems } from '@qbcart/eshop-cart-hooks';
 import { toUSCurrency } from '@qbcart/utils';
 
-import CartLineItem from './cart-line-item.js';
-import StyledCartViewModal from './styled-components/styled-cart-view-modal.js';
+import CartLineItem from '../cart-line-item/index.js';
+import CartViewModalStyles from './style.js';
 
 interface Props {
   namespaceId: string;
@@ -35,7 +35,7 @@ const CartViewModal: FC<Props> = (props: Props) => {
       : 0;
 
   return (
-    <StyledCartViewModal className="modal" tabIndex={-1} id={modalId}>
+    <CartViewModalStyles className="modal" tabIndex={-1} id={modalId}>
       <div className="modal-dialog modal-dialog-scrollable modal-xl modal-lg">
         <div className="modal-content">
           <div className="modal-header">
@@ -100,7 +100,7 @@ const CartViewModal: FC<Props> = (props: Props) => {
           ) : null}
         </div>
       </div>
-    </StyledCartViewModal>
+    </CartViewModalStyles>
   );
 };
 
