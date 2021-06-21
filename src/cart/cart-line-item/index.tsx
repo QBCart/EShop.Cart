@@ -9,10 +9,8 @@
 import React, { FC, useState, useEffect } from 'react';
 import { toUSCurrency } from '@qbcart/utils';
 import { useUpdateCart, useRemoveFromCart } from '@qbcart/eshop-cart-hooks';
-import {
-  useInventoryItem,
-  useCustomPricing
-} from '@qbcart/eshop-inventory-hooks';
+// prettier-ignore
+import { useInventoryItem, useCustomPricing } from '@qbcart/eshop-inventory-hooks';
 
 interface Props {
   id: string;
