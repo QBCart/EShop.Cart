@@ -24,6 +24,10 @@ module.exports = {
       dest: '/user.json'
     },
     {
+      src: '/sync/cart',
+      dest: '/cart.html'
+    },
+    {
       src: '/Accessories',
       dest: '/index.html'
     },
