@@ -2,7 +2,7 @@
 
 ### New
 
-- none
+- Now self-creates mounting div.
 
 ### Fixes
 
