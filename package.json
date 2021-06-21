@@ -23,7 +23,7 @@
   "homepage": "https://github.com/QBCart/EShop.Cart#readme",
   "scripts": {
     "build": "snowpack build",
-    "start:local": "snowpack dev --config snowpack.dev.config.js",
+    "start:local": "snowpack dev --config snowpack.local.config.js",
     "start:demo": "snowpack dev --config snowpack.demo.config.js",
     "lint": "eslint src/**/*.tsx",
     "format:check": "prettier --check .",
