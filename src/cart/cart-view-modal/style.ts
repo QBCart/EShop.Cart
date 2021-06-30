@@ -114,7 +114,7 @@ const CartViewModalStyles = styled.div`
 
   .empty-cart-message {
     display: flex;
-    height: calc(var(--cart-view-modal-height) - 50px);
+    height: calc(var(--cart-view-modal-height) - 60px);
     width: 100%;
     padding: 20px;
     font-size: 20px;
