@@ -12,6 +12,8 @@ import { useUpdateCart, useRemoveFromCart } from '@qbcart/eshop-cart-hooks';
 // prettier-ignore
 import { useInventoryItem, useCustomPricing } from '@qbcart/eshop-inventory-hooks';
 
+import CartLineItemStyles from './style.js';
+
 interface Props {
   id: string;
   quantity: number;
@@ -42,7 +44,7 @@ const CartLineItem: FC<Props> = (props: Props) => {
   };
 
   return (
-    <div className="cart-row">
+    <CartLineItemStyles>
       <div
         className="cart-row-img"
         style={{
@@ -52,7 +54,9 @@ const CartLineItem: FC<Props> = (props: Props) => {
       {item ? (
         <div className="cart-row-data">
           <div className="cart-row-top-data">
-            <div className="cart-row-item-description">{item.SalesDesc}</div>
+            <div className="cart-row-item-description truncate-overflow">
+              {item.SalesDesc}
+            </div>
             <div className="cart-row-item-price">
               Price: <b>{toUSCurrency(price)}</b>
             </div>
@@ -105,7 +109,7 @@ const CartLineItem: FC<Props> = (props: Props) => {
           <button onClick={() => removeFromCart(props.id)}>ok</button>
         </div>
       )}
-    </div>
+    </CartLineItemStyles>
   );
 };
 
