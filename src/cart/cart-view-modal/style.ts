@@ -31,6 +31,9 @@ const CartViewModalStyles = styled.div`
   --cart-view-modal-hide: ${CartViewModalHide};
   --cart-view-modal-width: calc(100vw - 300px);
   --cart-view-modal-height: calc(var(--cart-view-modal-width) * 0.7);
+  --line-height-dynamic-lg: calc(var(--cart-view-modal-width) / 26);
+  --line-height-dynamic-md: calc(var(--cart-view-modal-width) / 30);
+
   display: none;
   animation-duration: 0.5s;
   color: black;
@@ -106,7 +109,7 @@ const CartViewModalStyles = styled.div`
   }
 
   .modal-body {
-    overflow-y: scroll;
+    overflow-y: auto;
   }
 
   .modal-footer {
@@ -120,6 +123,12 @@ const CartViewModalStyles = styled.div`
   .modal-footer-subtotals {
     font-size: 20px;
     font-weight: 500;
+  }
+
+  .modal-footer-buttons {
+    display: flex;
+    justify-content: flex-end;
+    width: 120px;
   }
 
   .cart-modal-button {
@@ -165,6 +174,34 @@ const CartViewModalStyles = styled.div`
   @media (max-width: 575.98px) {
     --cart-view-modal-width: calc(100vw - 10px);
     --cart-view-modal-height: calc(100vh - 124px);
+    .modal-footer-subtotals {
+      width: calc(var(--cart-view-modal-width) - 160px);
+      font-size: var(--line-height-dynamic-lg);
+    }
+  }
+
+  /* Small to medium devices (portrait phones, 350px and below) */
+  @media (max-width: 350px) {
+    --cart-view-modal-width: calc(100vw - 5px);
+    --cart-view-modal-height: calc(100vh - 124px);
+
+    .modal-footer-subtotals {
+      width: calc(var(--cart-view-modal-width) - 140px);
+    }
+
+    .modal-footer-buttons {
+      width: 115px;
+    }
+
+    .cart-modal-button {
+      height: 30px;
+      width: 36px;
+      margin-left: 4px;
+    }
+
+    .modal-footer {
+      padding: 10px 10px;
+    }
   }
 `;
 

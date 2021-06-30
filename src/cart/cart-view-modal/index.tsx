@@ -109,7 +109,7 @@ const CartViewModal: FC<Props> = (props: Props) => {
                 Subtotal: {toUSCurrency(subtotal)} ({numOfItems} item
                 {numOfItems === 1 ? '' : 's'})
               </div>
-              <div>
+              <div className="modal-footer-buttons">
                 <button
                   type="button"
                   className="cart-modal-button button-red"
