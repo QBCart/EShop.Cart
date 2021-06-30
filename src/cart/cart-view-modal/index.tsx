@@ -141,6 +141,7 @@ const CartViewModal: FC<Props> = (props: Props) => {
           ) : null}
         </div>
       </div>
+      <div className="modal-backdrop"></div>
     </CartViewModalStyles>
   );
 };

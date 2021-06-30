@@ -58,7 +58,6 @@ const CartViewModalStyles = styled.div`
     left: 0;
     height: 100vh;
     width: 100vw;
-    z-index: 2000;
     background: rgba(0, 0, 0, 0.5);
   }
 
