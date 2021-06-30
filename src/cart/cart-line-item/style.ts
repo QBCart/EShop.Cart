@@ -37,6 +37,32 @@ const CartLineItemStyles = styled.div`
     margin-bottom: 12px;
   }
 
+  .truncate-overflow {
+    --lh: 24px;
+    --max-lines: 2;
+    position: relative;
+    max-height: calc(var(--lh) * var(--max-lines));
+    overflow: hidden;
+    padding-right: 1rem; /* space for ellipsis */
+  }
+  .truncate-overflow::before {
+    position: absolute;
+    content: '...';
+    inset-block-end: 0; /* "bottom" */
+    inset-inline-end: 0; /* "right" */
+    bottom: 0; /* "bottom" */
+    right: 0; /* "right" */
+  }
+  .truncate-overflow::after {
+    content: '   ';
+    position: absolute;
+    inset-inline-end: 0; /* "right" */
+    right: 0; /* "right" */
+    width: 1rem;
+    height: var(--lh);
+    background-color: white;
+  }
+
   .cart-row-item-price {
     margin-bottom: 10px;
   }
