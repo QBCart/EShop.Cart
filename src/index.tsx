@@ -10,23 +10,43 @@ import React from 'react';
 import { render } from 'react-dom';
 
 import Cart from './cart/index.js';
+import CartViewModalTrigger from './cart/cart-view-modal-trigger/index.js';
 
+/**
+ * Mounting code for cart.
+ */
 const globalMountsContainer = document.getElementById(
   'qbc-eshop-global-mounts'
 )!;
-const mountingDiv = document.createElement('div');
+const cartMountingDiv = document.createElement('div');
 
-mountingDiv.id = 'qbc-eshop-cart';
-globalMountsContainer.appendChild(mountingDiv);
+cartMountingDiv.id = 'qbc-eshop-cart';
+globalMountsContainer.appendChild(cartMountingDiv);
 
 render(
   <Cart
-    namespaceId={mountingDiv.id}
+    namespaceId={cartMountingDiv.id}
     imagesStorageUrl={
       document.getElementById('qbc-eshop-company-settings')!.dataset
         .imagesStorageUrl!
     }
     userLoggedIn={Boolean(document.getElementById('qbc-eshop-user'))}
   />,
-  mountingDiv
+  cartMountingDiv
 );
+
+/**
+ * Mounting code for cart view modal trigger.
+ */
+const topAppBarActions = document.getElementById(
+  'qbc-eshop-top-app-bar-actions'
+)!;
+const cartViewModalTriggerMountingDiv = document.createElement('div');
+
+cartViewModalTriggerMountingDiv.id = 'qbc-eshop-cart-view-trigger';
+topAppBarActions.insertAdjacentElement(
+  'beforeend',
+  cartViewModalTriggerMountingDiv
+);
+
+render(<CartViewModalTrigger />, cartViewModalTriggerMountingDiv);
