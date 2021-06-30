@@ -112,6 +112,15 @@ const CartViewModalStyles = styled.div`
     overflow-y: auto;
   }
 
+  .empty-cart-message {
+    display: flex;
+    height: calc(var(--cart-view-modal-height) - 50px);
+    width: 100%;
+    padding: 20px;
+    font-size: 20px;
+    color: rgb(240, 173, 78);
+  }
+
   .modal-footer {
     display: flex;
     justify-content: space-between;
@@ -145,7 +154,7 @@ const CartViewModalStyles = styled.div`
   }
 
   .button-red {
-    background-color: rgb(218, 40, 70);
+    background-color: rgb(217, 83, 79);
   }
 
   .button-blue {
@@ -153,7 +162,7 @@ const CartViewModalStyles = styled.div`
   }
 
   .button-green {
-    background-color: rgb(50, 170, 70);
+    background-color: rgb(92, 184, 92);
   }
 
   .button-grey {

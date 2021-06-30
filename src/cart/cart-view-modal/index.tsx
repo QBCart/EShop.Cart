@@ -100,7 +100,9 @@ const CartViewModal: FC<Props> = (props: Props) => {
                 />
               ))
             ) : (
-              <h5 className="text-warning">Your cart is currently empty.</h5>
+              <div className="empty-cart-message">
+                Your cart is currently empty.
+              </div>
             )}
           </div>
           {(items?.length ?? 0) > 0 ? (
