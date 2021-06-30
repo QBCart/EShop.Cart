@@ -1,0 +1,81 @@
+/**
+ * @license
+ * Copyright (c) 2021 QBCart Inc. All rights reserved.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source repo.
+ */
+
+import styled from 'styled-components';
+
+const CartLineItemStyles = styled.div`
+  display: flex;
+  border-bottom: 1px solid lightgray;
+  margin: 10px;
+
+  .cart-row-img {
+    width: calc((var(--cart-view-modal-width) - 20px) / 3);
+    height: 180px;
+    margin: 10px 0;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .cart-row-data {
+    height: 200px;
+    width: calc(((var(--cart-view-modal-width) - 20px) / 3) * 2);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0 10px 20px 40px;
+  }
+
+  .cart-row-item-description {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+
+  .cart-row-item-price {
+    margin-bottom: 10px;
+  }
+
+  .cart-row-item-quantity {
+    margin-bottom: 10px;
+  }
+
+  .quantity-input-cart {
+    width: 80px;
+    height: 30px;
+    border: 2px solid darkslategray;
+    border-radius: 3px;
+  }
+
+  .cart-quantity-update {
+    height: 30px;
+    width: 60px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    margin-left: 5px;
+    background-color: rgb(50, 170, 70);
+  }
+
+  .cart-quantity-update:hover {
+    cursor: pointer;
+  }
+
+  .cart-row-item-total {
+  }
+
+  .cart-row-bottom-buttons {
+    display: flex;
+    justify-content: flex-end;
+  }
+`;
+
+export default CartLineItemStyles;
