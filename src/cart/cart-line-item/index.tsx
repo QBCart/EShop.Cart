@@ -42,53 +42,55 @@ const CartLineItem: FC<Props> = (props: Props) => {
   };
 
   return (
-    <div className="row cart-row">
-      <div className="col-lg-4">
-        <img
-          className="img-fluid cart-row-img"
-          src={props.imagesStorageUrl + 'images/thumbnail/' + props.id}
-        />
-      </div>
+    <div className="cart-row">
+      <div
+        className="cart-row-img"
+        style={{
+          backgroundImage: `url(${props.imagesStorageUrl}images/thumbnail/${props.id})`
+        }}
+      ></div>
       {item ? (
-        <div className="col-lg-8 cart-row-data">
-          <h4>{item.SalesDesc}</h4>
-          <div className="mb-2 mt-3">
-            Price: <b>{toUSCurrency(price)}</b>
+        <div className="cart-row-data">
+          <div className="cart-row-top-data">
+            <div className="cart-row-item-description">{item.SalesDesc}</div>
+            <div className="cart-row-item-price">
+              Price: <b>{toUSCurrency(price)}</b>
+            </div>
+            <div className="cart-row-item-quantity">
+              <label>Quantity: </label>
+              <input
+                onChange={(e) => setInputQuantity(e.target.value)}
+                value={inputQuantity}
+                type="number"
+                min="1"
+                className="quantity-input-cart"
+              ></input>
+              {updateReady ? (
+                <button
+                  className="cart-quantity-update"
+                  onClick={updateItemQuantity}
+                >
+                  update
+                </button>
+              ) : null}
+            </div>
+            <div className="cart-row-item-total">
+              Total:{' '}
+              <b>
+                {toUSCurrency(price * props.quantity)} ({props.quantity} item
+                {props.quantity > 1 ? 's' : ''})
+              </b>
+            </div>
           </div>
-          <div className="mb-1">
-            <label>Quantity: </label>
-            <input
-              onChange={(e) => setInputQuantity(e.target.value)}
-              value={inputQuantity}
-              type="number"
-              min="1"
-              className="quantity-input-cart form-control-sm ml-2 mr-1"
-            ></input>
-            {updateReady ? (
-              <button
-                className="btn btn-success cart-quantity-update"
-                onClick={updateItemQuantity}
-              >
-                update
-              </button>
-            ) : null}
-          </div>
-          <div>
-            Total:{' '}
-            <b>
-              {toUSCurrency(price * props.quantity)} ({props.quantity} item
-              {props.quantity > 1 ? 's' : ''})
-            </b>
-          </div>
-          <div className="d-flex justify-content-end">
+          <div className="cart-row-bottom-buttons">
             <a href={item.Href}>
-              <button type="button" className="btn btn-primary mr-1">
+              <button type="button" className="cart-modal-button button-blue">
                 <span className="material-icons">open_in_new</span>
               </button>
             </a>
             <button
               type="button"
-              className="btn btn-danger"
+              className="cart-modal-button button-red"
               data-toggle="modal"
               data-target={`#${props.namespaceId}-remove-item-modal`}
               data-id={props.id}
@@ -98,7 +100,7 @@ const CartLineItem: FC<Props> = (props: Props) => {
           </div>
         </div>
       ) : (
-        <div className="col-lg-8 cart-row-data">
+        <div className="cart-row-data">
           <h3>Product is no longer available</h3>
           <button onClick={() => removeFromCart(props.id)}>ok</button>
         </div>

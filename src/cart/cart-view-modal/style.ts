@@ -6,9 +6,33 @@
  * LICENSE file in the root directory of this source repo.
  */
 
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const CartViewModalShow = keyframes`
+    from {
+       opacity: 0;
+    }
+    to {
+       opacity: 1;
+    }
+  `;
+
+const CartViewModalHide = keyframes`
+    from {
+       opacity: 1;
+    }
+    to {
+       opacity: 0;
+    }
+  `;
 
 const CartViewModalStyles = styled.div`
+  --cart-view-modal-show: ${CartViewModalShow};
+  --cart-view-modal-hide: ${CartViewModalHide};
+  --cart-view-modal-width: calc(100vw - 300px);
+  --cart-view-modal-height: calc(var(--cart-view-modal-width) * 0.7);
+  display: none;
+  animation-duration: 0.5s;
   color: black;
 
   .m-icon-36 {
@@ -16,44 +40,202 @@ const CartViewModalStyles = styled.div`
     vertical-align: text-top;
   }
 
+  .modal-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: 2000;
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  .modal-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: var(--cart-view-modal-width);
+    height: var(--cart-view-modal-height);
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    background-color: white;
+  }
+
   .modal-header {
-    padding: 0.5rem 1rem;
+    padding: 7px 10px;
+    height: 50px;
+    display: flex;
+    border-bottom: 1px solid lightgray;
   }
 
   .cart-title {
-    font-size: 24px;
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 500;
     margin-left: 5px;
   }
 
   .modal-header .close {
-    margin: -0.75rem -1rem -1rem auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 24px;
+    width: 24px;
+    font-size: 24px;
+    border: none;
+    background-color: transparent;
+    color: gray;
+    margin: 7px 0px 7px auto;
+  }
+
+  .modal-header .close:hover {
+    color: darkslategray;
+    cursor: pointer;
+  }
+
+  .modal-body {
+    overflow-y: scroll;
   }
 
   .cart-row {
+    display: flex;
     border-bottom: 1px solid lightgray;
     margin: 10px;
   }
 
   .cart-row-img {
-    max-height: 200px;
-    margin: 10px auto;
+    width: calc((var(--cart-view-modal-width) - 20px) / 3);
+    height: 180px;
+    margin: 10px 0;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
   }
 
   .cart-row-data {
     height: 200px;
+    width: calc(((var(--cart-view-modal-width) - 20px) / 3) * 2);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0 10px 20px 40px;
+  }
+
+  .cart-row-item-description {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+
+  .cart-row-item-price {
+    margin-bottom: 10px;
+  }
+
+  .cart-row-item-quantity {
+    margin-bottom: 10px;
   }
 
   .quantity-input-cart {
     width: 80px;
+    height: 30px;
+    border: 2px solid darkslategray;
+    border-radius: 3px;
   }
 
   .cart-quantity-update {
-    height: 31px;
-    width: 64px;
+    height: 30px;
+    width: 60px;
     display: inline-flex;
-    margin-bottom: 2px;
     align-items: center;
     justify-content: center;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    margin-left: 5px;
+    background-color: rgb(50, 170, 70);
+  }
+
+  .cart-quantity-update:hover {
+    cursor: pointer;
+  }
+
+  .cart-row-item-total {
+  }
+
+  .cart-row-bottom-buttons {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid lightgray;
+    padding: 10px 20px;
+  }
+
+  .modal-footer-subtotals {
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  .cart-modal-button {
+    height: 30px;
+    width: 40px;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    margin-left: 5px;
+  }
+
+  .cart-modal-button:hover {
+    cursor: pointer;
+  }
+
+  .button-red {
+    background-color: rgb(218, 40, 70);
+  }
+
+  .button-blue {
+    background-color: rgb(10, 116, 255);
+  }
+
+  .button-green {
+    background-color: rgb(50, 170, 70);
+  }
+
+  .button-grey {
+    background-color: rgb(108, 117, 125);
+  }
+
+  /* Large devices (desktops, 1200px and up) */
+  @media (min-width: 1200px) {
+    --cart-view-modal-width: 900px;
+  }
+
+  /* Small to medium devices (landscape phones, 992px and below) */
+  @media (max-width: 991.98px) {
+    --cart-view-modal-width: calc(100vw - 50px);
+  }
+
+  /* Small to medium devices (portrait phones, 576px and below) */
+  @media (max-width: 575.98px) {
+    --cart-view-modal-width: calc(100vw - 10px);
+    --cart-view-modal-height: calc(100vh - 124px);
   }
 `;
 

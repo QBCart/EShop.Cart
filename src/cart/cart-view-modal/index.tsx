@@ -6,8 +6,9 @@
  * LICENSE file in the root directory of this source repo.
  */
 
-import React, { FC } from 'react';
-import { useCartItems } from '@qbcart/eshop-cart-hooks';
+import React, { FC, useEffect, useRef } from 'react';
+// prettier-ignore
+import { useCartItems ,useCartViewModal, useRemoveCartViewModal } from '@qbcart/eshop-cart-hooks';
 import { toUSCurrency } from '@qbcart/utils';
 
 import CartLineItem from '../cart-line-item/index.js';
@@ -20,8 +21,10 @@ interface Props {
 }
 
 const CartViewModal: FC<Props> = (props: Props) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const show = useCartViewModal();
+  const removeCartViewModal = useRemoveCartViewModal();
   const items = useCartItems(props.userLoggedIn);
-  const modalId = `${props.namespaceId}-view-modal`;
 
   const subtotal =
     (items?.length ?? 0) > 0
@@ -34,9 +37,41 @@ const CartViewModal: FC<Props> = (props: Props) => {
       ? items!.map((item) => item.quantity!).reduce((a, b) => a + b)
       : 0;
 
+  useEffect(() => {
+    if (show) {
+      const modal = ref.current!;
+      modal.style.animationName = 'var(--cart-view-modal-show)';
+      modal.style.display = 'block';
+    }
+  }, [show, ref]);
+
+  const hideModal = () => {
+    const modal = ref.current!;
+    modal.style.animationName = 'var(--cart-view-modal-hide)';
+  };
+
+  const onAnimationEnd = async (): Promise<void> => {
+    const modal = ref.current!;
+    modal.style.animationName = '';
+
+    if (modal.classList.contains('qbc-cart-view-modal-modal-visible')) {
+      modal.classList.remove('qbc-cart-view-modal-modal-visible');
+      modal.style.display = 'none';
+      if (show) {
+        removeCartViewModal();
+      }
+    } else {
+      modal.classList.add('qbc-cart-view-modal-modal-visible');
+    }
+  };
+
   return (
-    <CartViewModalStyles className="modal" tabIndex={-1} id={modalId}>
-      <div className="modal-dialog modal-dialog-scrollable modal-xl modal-lg">
+    <CartViewModalStyles
+      ref={ref}
+      onAnimationEnd={() => onAnimationEnd()}
+      className="modal"
+    >
+      <div className="modal-wrapper">
         <div className="modal-content">
           <div className="modal-header">
             <div className="modal-title">
@@ -46,7 +81,7 @@ const CartViewModal: FC<Props> = (props: Props) => {
             <button
               type="button"
               className="close"
-              data-dismiss="modal"
+              onClick={hideModal}
               aria-label="Close"
             >
               <span aria-hidden="true">&times;</span>
@@ -70,28 +105,34 @@ const CartViewModal: FC<Props> = (props: Props) => {
           </div>
           {(items?.length ?? 0) > 0 ? (
             <div className="modal-footer">
-              <h4 className="col  d-flex justify-content-start">
+              <div className="modal-footer-subtotals">
                 Subtotal: {toUSCurrency(subtotal)} ({numOfItems} item
                 {numOfItems === 1 ? '' : 's'})
-              </h4>
-              <div className="col d-flex justify-content-end">
+              </div>
+              <div>
                 <button
                   type="button"
-                  className="btn btn-danger"
+                  className="cart-modal-button button-red"
                   data-toggle="modal"
                   data-target={`#${props.namespaceId}-clear-cart-modal`}
                 >
                   <span className="material-icons">delete</span>
                 </button>
-                <a href="/Checkout">
-                  <button type="button" className="btn btn-success ml-2 mr-2">
+                <a
+                  href="/Checkout"
+                  // onMouseDown={hideModal}
+                >
+                  <button
+                    type="button"
+                    className="cart-modal-button button-green"
+                  >
                     <span className="material-icons">payment</span>
                   </button>
                 </a>
                 <button
                   type="button"
-                  className="btn btn-secondary"
-                  data-dismiss="modal"
+                  className="cart-modal-button button-grey"
+                  onClick={hideModal}
                 >
                   <span className="material-icons">close</span>
                 </button>
