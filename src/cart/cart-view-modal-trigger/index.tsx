@@ -7,16 +7,14 @@
  */
 
 import React, { FC } from 'react';
-//  import { useCartViewModal } from '@qbcart/eshop-cart-hooks';
+import { useShowCartViewModal } from '@qbcart/eshop-cart-hooks';
 
 const CartViewModalTrigger: FC = () => {
+  const showCartViewModal = useShowCartViewModal();
   return (
     <button
       className="material-icons mdc-top-app-bar__action-item mdc-icon-button"
-      // TODO: call cart view on click
-      onClick={() => {
-        console.log('useCartViewModal');
-      }}
+      onClick={showCartViewModal}
     >
       shopping_cart
     </button>
