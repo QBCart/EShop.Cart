@@ -76,6 +76,7 @@ const CartLineItemStyles = styled.div`
     height: 30px;
     border: 2px solid darkslategray;
     border-radius: 3px;
+    padding: 5px;
   }
 
   .cart-quantity-update {
