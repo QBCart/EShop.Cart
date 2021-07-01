@@ -25,7 +25,6 @@ globalMountsContainer.appendChild(cartMountingDiv);
 
 render(
   <Cart
-    namespaceId={cartMountingDiv.id}
     imagesStorageUrl={
       document.getElementById('qbc-eshop-company-settings')!.dataset
         .imagesStorageUrl!
