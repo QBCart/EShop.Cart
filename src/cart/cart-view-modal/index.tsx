@@ -51,6 +51,11 @@ const CartViewModal: FC<Props> = (props: Props) => {
     modal.style.animationName = 'var(--cart-view-modal-hide)';
   };
 
+  const navigate = async (href: string) => {
+    await removeCartViewModal();
+    window.location.assign(href);
+  };
+
   const onAnimationEnd = async (): Promise<void> => {
     const modal = ref.current!;
     modal.style.animationName = '';
@@ -107,17 +112,13 @@ const CartViewModal: FC<Props> = (props: Props) => {
                 >
                   <span className="material-icons">delete</span>
                 </button>
-                <a
-                  href="/Checkout"
-                  // onMouseDown={hideModal}
+                <button
+                  type="button"
+                  className="cart-modal-button button-green"
+                  onClick={() => navigate('/Checkout')}
                 >
-                  <button
-                    type="button"
-                    className="cart-modal-button button-green"
-                  >
-                    <span className="material-icons">payment</span>
-                  </button>
-                </a>
+                  <span className="material-icons">payment</span>
+                </button>
                 <button
                   type="button"
                   className="cart-modal-button button-grey"

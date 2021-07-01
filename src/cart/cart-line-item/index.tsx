@@ -14,7 +14,11 @@ import React, {
   SetStateAction
 } from 'react';
 import { toUSCurrency } from '@qbcart/utils';
-import { useUpdateCart, useRemoveFromCart } from '@qbcart/eshop-cart-hooks';
+import {
+  useUpdateCart,
+  useRemoveFromCart,
+  useRemoveCartViewModal
+} from '@qbcart/eshop-cart-hooks';
 // prettier-ignore
 import { useInventoryItem, useCustomPricing } from '@qbcart/eshop-inventory-hooks';
 
@@ -29,6 +33,7 @@ interface Props {
 }
 
 const CartLineItem: FC<Props> = (props: Props) => {
+  const removeCartViewModal = useRemoveCartViewModal();
   const [inputQuantity, setInputQuantity] = useState(props.quantity.toString());
   const [updateReady, setUpdateReady] = useState(false);
   const updateCart = useUpdateCart(props.userLoggedIn);
@@ -47,6 +52,11 @@ const CartLineItem: FC<Props> = (props: Props) => {
 
   const updateItemQuantity = async () => {
     setUpdateReady(!(await updateCart(props.id, price, inputQuantity)));
+  };
+
+  const navigate = async (href: string) => {
+    await removeCartViewModal();
+    window.location.assign(href);
   };
 
   return (
@@ -93,11 +103,13 @@ const CartLineItem: FC<Props> = (props: Props) => {
             </div>
           </div>
           <div className="cart-row-bottom-buttons">
-            <a href={item.Href}>
-              <button type="button" className="cart-modal-button button-blue">
-                <span className="material-icons">open_in_new</span>
-              </button>
-            </a>
+            <button
+              type="button"
+              className="cart-modal-button button-blue"
+              onClick={() => navigate(item.Href)}
+            >
+              <span className="material-icons">open_in_new</span>
+            </button>
             <button
               type="button"
               className="cart-modal-button button-red"
