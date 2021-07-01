@@ -6,34 +6,38 @@
  * LICENSE file in the root directory of this source repo.
  */
 
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 
 import CartViewModal from './cart-view-modal/index.js';
 import ClearCartModal from './clear-cart-modal/index.js';
 import RemoveItemModal from './remove-item-modal/index.js';
 
 interface Props {
-  namespaceId: string;
   imagesStorageUrl: string;
   userLoggedIn: boolean;
 }
 
 const Cart: FC<Props> = (props: Props) => {
+  const [showClearCartModal, setShowClearCartModal] = useState(false);
+  const [showRemoveItemModal, setShowRemoveItemModal] = useState('');
   return (
     <div>
       <CartViewModal
-        namespaceId={props.namespaceId}
         imagesStorageUrl={props.imagesStorageUrl}
         userLoggedIn={props.userLoggedIn}
+        setShowClearCartModal={setShowClearCartModal}
+        setShowRemoveItemModal={setShowRemoveItemModal}
       />
       <ClearCartModal
-        namespaceId={props.namespaceId}
         userLoggedIn={props.userLoggedIn}
+        showClearCartModal={showClearCartModal}
+        setShowClearCartModal={setShowClearCartModal}
       />
       <RemoveItemModal
-        namespaceId={props.namespaceId}
         imagesStorageUrl={props.imagesStorageUrl}
         userLoggedIn={props.userLoggedIn}
+        showRemoveItemModal={showRemoveItemModal}
+        setShowRemoveItemModal={setShowRemoveItemModal}
       />
     </div>
   );
