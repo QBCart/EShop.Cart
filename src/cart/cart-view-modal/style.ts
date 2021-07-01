@@ -30,7 +30,8 @@ const CartViewModalStyles = styled.div`
   --cart-view-modal-show: ${CartViewModalShow};
   --cart-view-modal-hide: ${CartViewModalHide};
   --cart-view-modal-width: calc(100vw - 300px);
-  --cart-view-modal-height: calc(var(--cart-view-modal-width) * 0.7);
+  /* --cart-view-modal-height: calc(var(--cart-view-modal-width) * 0.7); */
+  --cart-view-modal-height: calc(100vh - 130px);
   --line-height-dynamic-lg: calc(var(--cart-view-modal-width) / 26);
   --line-height-dynamic-md: calc(var(--cart-view-modal-width) / 30);
 
@@ -69,7 +70,7 @@ const CartViewModalStyles = styled.div`
     flex-direction: column;
     justify-content: space-between;
     width: var(--cart-view-modal-width);
-    height: var(--cart-view-modal-height);
+    max-height: var(--cart-view-modal-height);
     border: 1px solid lightgray;
     border-radius: 4px;
     background-color: white;
@@ -129,9 +130,20 @@ const CartViewModalStyles = styled.div`
     padding: 10px 20px;
   }
 
-  .modal-footer-subtotals {
+  .modal-footer-subtotals,
+  .modal-footer-subtotals .material-icons {
+    display: flex;
+    align-items: center;
     font-size: 20px;
     font-weight: 500;
+  }
+
+  .modal-footer-subtotals .material-icons {
+    display: flex;
+    align-items: center;
+    font-size: 28px;
+    font-weight: 500;
+    margin-right: 5px;
   }
 
   .modal-footer-buttons {
@@ -154,19 +166,35 @@ const CartViewModalStyles = styled.div`
   }
 
   .button-red {
-    background-color: rgb(217, 83, 79);
+    background-color: rgb(220, 53, 69);
+  }
+
+  .button-red:hover {
+    background-color: rgb(210, 43, 59);
   }
 
   .button-blue {
     background-color: rgb(10, 116, 255);
   }
 
+  .button-blue:hover {
+    background-color: rgb(0, 106, 245);
+  }
+
   .button-green {
     background-color: rgb(92, 184, 92);
   }
 
+  .button-green:hover {
+    background-color: rgb(82, 174, 82);
+  }
+
   .button-grey {
     background-color: rgb(108, 117, 125);
+  }
+
+  .button-grey:hover {
+    background-color: rgb(98, 107, 115);
   }
 
   /* Large devices (desktops, 1200px and up) */
@@ -174,32 +202,31 @@ const CartViewModalStyles = styled.div`
     --cart-view-modal-width: 900px;
   }
 
-  /* Small to medium devices (landscape phones, 992px and below) */
-  @media (max-width: 991.98px) {
+  /* Small to medium devices (portrait tablets, 1200px and below) */
+  @media (max-width: 1199.98px) {
     --cart-view-modal-width: calc(100vw - 50px);
   }
 
   /* Small to medium devices (portrait phones, 576px and below) */
   @media (max-width: 575.98px) {
     --cart-view-modal-width: calc(100vw - 10px);
-    --cart-view-modal-height: calc(100vh - 124px);
-    .modal-footer-subtotals {
-      width: calc(var(--cart-view-modal-width) - 160px);
-      font-size: var(--line-height-dynamic-lg);
-    }
-  }
+    --cart-view-modal-height: calc(100vh - 62px);
 
-  /* Small to medium devices (portrait phones, 350px and below) */
-  @media (max-width: 350px) {
-    --cart-view-modal-width: calc(100vw - 5px);
-    --cart-view-modal-height: calc(100vh - 124px);
+    .modal-wrapper {
+      justify-content: center;
+      align-items: flex-end;
+    }
+
+    .modal-content {
+      margin-bottom: 5px;
+    }
 
     .modal-footer-subtotals {
       width: calc(var(--cart-view-modal-width) - 140px);
+      font-size: var(--line-height-dynamic-lg);
     }
-
-    .modal-footer-buttons {
-      width: 115px;
+    .modal-footer-subtotals .material-icons {
+      font-size: calc(var(--line-height-dynamic-lg) * 1.4);
     }
 
     .cart-modal-button {
@@ -208,8 +235,25 @@ const CartViewModalStyles = styled.div`
       margin-left: 4px;
     }
 
+    .modal-footer-buttons {
+      width: 115px;
+    }
+
     .modal-footer {
       padding: 10px 10px;
+    }
+  }
+
+  /* Small to medium devices (portrait phones, 350px and below) */
+  @media (max-width: 350px) {
+    --cart-view-modal-width: calc(100vw - 5px);
+
+    .modal-footer {
+      padding: 10px 5px;
+    }
+
+    .modal-content {
+      margin-bottom: 3px;
     }
   }
 `;

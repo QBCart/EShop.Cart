@@ -74,20 +74,6 @@ const CartViewModal: FC<Props> = (props: Props) => {
     >
       <div className="modal-wrapper">
         <div className="modal-content">
-          <div className="modal-header">
-            <div className="modal-title">
-              <span className="material-icons m-icon-36">shopping_cart</span>
-            </div>
-            <div className="cart-title">Shopping Cart</div>
-            <button
-              type="button"
-              className="close"
-              onClick={hideModal}
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
           <div className="modal-body">
             {(items?.length ?? 0) > 0 ? (
               items!.map((item) => (
@@ -109,6 +95,7 @@ const CartViewModal: FC<Props> = (props: Props) => {
           {(items?.length ?? 0) > 0 ? (
             <div className="modal-footer">
               <div className="modal-footer-subtotals">
+                <span className="material-icons">shopping_cart</span>
                 Subtotal: {toUSCurrency(subtotal)} ({numOfItems} item
                 {numOfItems === 1 ? '' : 's'})
               </div>
