@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source repo.
  */
 
-import React, { FC, useEffect, useRef } from 'react';
+import React, { FC, useEffect, useRef, Dispatch, SetStateAction } from 'react';
 // prettier-ignore
 import { useCartItems ,useCartViewModal, useRemoveCartViewModal } from '@qbcart/eshop-cart-hooks';
 import { toUSCurrency } from '@qbcart/utils';
@@ -15,9 +15,10 @@ import CartLineItem from '../cart-line-item/index.js';
 import CartViewModalStyles from './style.js';
 
 interface Props {
-  namespaceId: string;
   imagesStorageUrl: string;
   userLoggedIn: boolean;
+  setShowClearCartModal: Dispatch<SetStateAction<boolean>>;
+  setShowRemoveItemModal: Dispatch<SetStateAction<string>>;
 }
 
 const CartViewModal: FC<Props> = (props: Props) => {
@@ -54,14 +55,14 @@ const CartViewModal: FC<Props> = (props: Props) => {
     const modal = ref.current!;
     modal.style.animationName = '';
 
-    if (modal.classList.contains('qbc-cart-view-modal-modal-visible')) {
-      modal.classList.remove('qbc-cart-view-modal-modal-visible');
+    if (modal.classList.contains('qbc-cart-view-modal-visible')) {
+      modal.classList.remove('qbc-cart-view-modal-visible');
       modal.style.display = 'none';
       if (show) {
         removeCartViewModal();
       }
     } else {
-      modal.classList.add('qbc-cart-view-modal-modal-visible');
+      modal.classList.add('qbc-cart-view-modal-visible');
     }
   };
 
@@ -94,9 +95,9 @@ const CartViewModal: FC<Props> = (props: Props) => {
                   key={item.id}
                   id={item.id!}
                   quantity={item.quantity!}
-                  namespaceId={props.namespaceId}
                   imagesStorageUrl={props.imagesStorageUrl}
                   userLoggedIn={props.userLoggedIn}
+                  setShowRemoveItemModal={props.setShowRemoveItemModal}
                 />
               ))
             ) : (
@@ -115,8 +116,7 @@ const CartViewModal: FC<Props> = (props: Props) => {
                 <button
                   type="button"
                   className="cart-modal-button button-red"
-                  data-toggle="modal"
-                  data-target={`#${props.namespaceId}-clear-cart-modal`}
+                  onClick={() => props.setShowClearCartModal(true)}
                 >
                   <span className="material-icons">delete</span>
                 </button>
