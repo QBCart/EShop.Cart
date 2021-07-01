@@ -38,7 +38,7 @@ const RemoveItemModal: FC<Props> = (props: Props) => {
 
   const hideModal = () => {
     const modal = ref.current!;
-    modal.style.animationName = 'var(--remove-item--modal-hide)';
+    modal.style.animationName = 'var(--remove-item-modal-hide)';
   };
 
   const onAnimationEnd = async (): Promise<void> => {
@@ -57,52 +57,41 @@ const RemoveItemModal: FC<Props> = (props: Props) => {
   };
 
   return (
-    <RemoveItemModalStyles
-      ref={ref}
-      onAnimationEnd={() => onAnimationEnd()}
-      className="modal fade"
-      data-backdrop="static"
-      data-keyboard="false"
-      tabIndex={-1}
-      aria-labelledby="staticBackdropLabel"
-      aria-hidden="true"
-    >
-      <div className="modal-dialog modal-dialog-centered">
+    <RemoveItemModalStyles ref={ref} onAnimationEnd={() => onAnimationEnd()}>
+      <div className="modal-wrapper">
         {item ? (
           <div className="modal-content">
-            <div className="modal-header clear-header d-flex justify-content-start">
-              <h5 className="modal-title" id="staticBackdropLabel">
+            <div className="modal-header">
+              <div className="modal-title">
                 <span className="material-icons m-icon-36">delete</span>
-              </h5>
+              </div>
               <div className="clear-title">Remove Item</div>
             </div>
-
             <div className="modal-body">
-              <div>
-                <img
-                  className="clear-img"
-                  src={props.imagesStorageUrl + 'images/thumbnail/' + item.id}
-                  alt=""
-                />
-              </div>
+              <div
+                className="clear-img"
+                style={{
+                  backgroundImage: `url(${props.imagesStorageUrl}images/thumbnail/${item.id})`
+                }}
+              ></div>
               <span>
                 Are you sure you want to remove {item.SalesDesc} from your cart?
               </span>
             </div>
-            <div className="modal-footer d-flex justify-content-center">
+            <div className="modal-footer">
               <button
                 onClick={() => {
                   removeFromCart(item.id);
                   hideModal();
                 }}
                 type="button"
-                className="btn btn-danger"
+                className="modal-footer-button button-red"
               >
                 Yes, Remove This Item
               </button>
               <button
                 type="button"
-                className="btn btn-secondary"
+                className="modal-footer-button button-grey"
                 onClick={hideModal}
               >
                 No, Keep this Item
@@ -113,6 +102,7 @@ const RemoveItemModal: FC<Props> = (props: Props) => {
           <div className="modal-content"></div>
         )}
       </div>
+      <div className="modal-backdrop"></div>
     </RemoveItemModalStyles>
   );
 };

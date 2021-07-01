@@ -50,56 +50,46 @@ const ClearCartModal: FC<Props> = (props: Props) => {
   };
 
   return (
-    <ClearCartModalStyles
-      ref={ref}
-      onAnimationEnd={() => onAnimationEnd()}
-      className="modal fade"
-      data-backdrop="static"
-      data-keyboard="false"
-      tabIndex={-1}
-      aria-labelledby="staticBackdropLabel"
-      aria-hidden="true"
-    >
-      <div className="modal-dialog modal-dialog-centered">
+    <ClearCartModalStyles ref={ref} onAnimationEnd={() => onAnimationEnd()}>
+      <div className="modal-wrapper">
         <div className="modal-content">
-          <div className="modal-header clear-header d-flex justify-content-start">
-            <h5 className="modal-title" id="staticBackdropLabel">
+          <div className="modal-header">
+            <h5 className="modal-title">
               <span className="material-icons m-icon-36">delete</span>
             </h5>
             <div className="clear-title">Empty Cart</div>
           </div>
           <div className="modal-body">
-            <div className="d-flex justify-content-center">
-              <span className="material-icons m-icon-36 mr-2">
-                remove_shopping_cart
-              </span>
-              Are you sure you want to clear your entire cart?
-              <span className="material-icons m-icon-36 ml-2">
-                remove_shopping_cart
-              </span>
-            </div>
+            <span className="material-icons m-icon-36 mr-2">
+              remove_shopping_cart
+            </span>
+            <div>Are you sure you want to clear your entire cart?</div>
+            <span className="material-icons m-icon-36 ml-2">
+              remove_shopping_cart
+            </span>
           </div>
-          <div className="modal-footer d-flex justify-content-center">
+          <div className="modal-footer">
             <button
               onClick={() => {
                 clearCart();
                 hideModal();
               }}
               type="button"
-              className="btn btn-danger"
+              className="modal-footer-button button-red"
             >
               Yes, Clear My Cart
             </button>
             <button
               onClick={hideModal}
               type="button"
-              className="btn btn-secondary"
+              className="modal-footer-button button-grey"
             >
               No, Keep My Cart
             </button>
           </div>
         </div>
       </div>
+      <div className="modal-backdrop"></div>
     </ClearCartModalStyles>
   );
 };
