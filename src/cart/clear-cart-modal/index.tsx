@@ -6,23 +6,54 @@
  * LICENSE file in the root directory of this source repo.
  */
 
-import React, { FC } from 'react';
+import React, { FC, useEffect, useRef, Dispatch, SetStateAction } from 'react';
 import { useClearCart } from '@qbcart/eshop-cart-hooks';
 
 import ClearCartModalStyles from './style.js';
 
 interface Props {
-  namespaceId: string;
   userLoggedIn: boolean;
+  showClearCartModal: boolean;
+  setShowClearCartModal: Dispatch<SetStateAction<boolean>>;
 }
 
 const ClearCartModal: FC<Props> = (props: Props) => {
+  const ref = useRef<HTMLDivElement>(null);
   const clearCart = useClearCart(props.userLoggedIn);
-  const modalId = `${props.namespaceId}-clear-cart-modal`;
+
+  useEffect(() => {
+    if (props.showClearCartModal) {
+      const modal = ref.current!;
+      modal.style.animationName = 'var(--clear-cart-modal-show)';
+      modal.style.display = 'block';
+    }
+  }, [props.showClearCartModal, ref]);
+
+  const hideModal = () => {
+    const modal = ref.current!;
+    modal.style.animationName = 'var(--clear-cart-modal-hide)';
+  };
+
+  const onAnimationEnd = async (): Promise<void> => {
+    const modal = ref.current!;
+    modal.style.animationName = '';
+
+    if (modal.classList.contains('qbc-clear-cart-modal-visible')) {
+      modal.classList.remove('qbc-clear-cart-modal-visible');
+      modal.style.display = 'none';
+      if (props.showClearCartModal) {
+        props.setShowClearCartModal(false);
+      }
+    } else {
+      modal.classList.add('qbc-clear-cart-modal-visible');
+    }
+  };
+
   return (
     <ClearCartModalStyles
+      ref={ref}
+      onAnimationEnd={() => onAnimationEnd()}
       className="modal fade"
-      id={modalId}
       data-backdrop="static"
       data-keyboard="false"
       tabIndex={-1}
@@ -50,19 +81,19 @@ const ClearCartModal: FC<Props> = (props: Props) => {
           </div>
           <div className="modal-footer d-flex justify-content-center">
             <button
-              onClick={clearCart}
+              onClick={() => {
+                clearCart();
+                hideModal();
+              }}
               type="button"
               className="btn btn-danger"
-              data-toggle="modal"
-              data-target={`#${modalId}`}
             >
               Yes, Clear My Cart
             </button>
             <button
+              onClick={hideModal}
               type="button"
               className="btn btn-secondary"
-              data-toggle="modal"
-              data-target={`#${modalId}`}
             >
               No, Keep My Cart
             </button>

@@ -6,33 +6,61 @@
  * LICENSE file in the root directory of this source repo.
  */
 
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useRef, Dispatch, SetStateAction } from 'react';
 import { useInventoryItem } from '@qbcart/eshop-inventory-hooks';
 import { useRemoveFromCart } from '@qbcart/eshop-cart-hooks';
 
 import RemoveItemModalStyles from './style.js';
 
 interface Props {
-  namespaceId: string;
   imagesStorageUrl: string;
   userLoggedIn: boolean;
+  showRemoveItemModal: string;
+  setShowRemoveItemModal: Dispatch<SetStateAction<string>>;
 }
 
 const RemoveItemModal: FC<Props> = (props: Props) => {
+  const ref = useRef<HTMLDivElement>(null);
   const removeFromCart = useRemoveFromCart(props.userLoggedIn);
-  const [item, setItem] = useInventoryItem('');
-  const modalId = `${props.namespaceId}-remove-item-modal`;
+  const [item, setItem] = useInventoryItem(props.showRemoveItemModal);
 
   useEffect(() => {
-    $(`#${modalId}`).on('show.bs.modal', function (e: JQueryEventObject) {
-      setItem($(e.relatedTarget).data('id'));
-    });
-  }, [modalId, setItem]);
+    setItem(props.showRemoveItemModal);
+  }, [props.showRemoveItemModal, setItem]);
+
+  useEffect(() => {
+    if (props.showRemoveItemModal) {
+      const modal = ref.current!;
+      modal.style.animationName = 'var(--remove-item-modal-show)';
+      modal.style.display = 'block';
+    }
+  }, [props.showRemoveItemModal, ref]);
+
+  const hideModal = () => {
+    const modal = ref.current!;
+    modal.style.animationName = 'var(--remove-item--modal-hide)';
+  };
+
+  const onAnimationEnd = async (): Promise<void> => {
+    const modal = ref.current!;
+    modal.style.animationName = '';
+
+    if (modal.classList.contains('qbc-remove-item-modal-visible')) {
+      modal.classList.remove('qbc-remove-item-modal-visible');
+      modal.style.display = 'none';
+      if (props.showRemoveItemModal) {
+        props.setShowRemoveItemModal('');
+      }
+    } else {
+      modal.classList.add('qbc-remove-item-modal-visible');
+    }
+  };
 
   return (
     <RemoveItemModalStyles
+      ref={ref}
+      onAnimationEnd={() => onAnimationEnd()}
       className="modal fade"
-      id={modalId}
       data-backdrop="static"
       data-keyboard="false"
       tabIndex={-1}
@@ -63,19 +91,19 @@ const RemoveItemModal: FC<Props> = (props: Props) => {
             </div>
             <div className="modal-footer d-flex justify-content-center">
               <button
-                onClick={() => removeFromCart(item.id)}
+                onClick={() => {
+                  removeFromCart(item.id);
+                  hideModal();
+                }}
                 type="button"
                 className="btn btn-danger"
-                data-toggle="modal"
-                data-target={`#${modalId}`}
               >
                 Yes, Remove This Item
               </button>
               <button
                 type="button"
                 className="btn btn-secondary"
-                data-toggle="modal"
-                data-target={`#${modalId}`}
+                onClick={hideModal}
               >
                 No, Keep this Item
               </button>
