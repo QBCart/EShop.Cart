@@ -6,7 +6,13 @@
  * LICENSE file in the root directory of this source repo.
  */
 
-import React, { FC, useState, useEffect } from 'react';
+import React, {
+  FC,
+  useState,
+  useEffect,
+  Dispatch,
+  SetStateAction
+} from 'react';
 import { toUSCurrency } from '@qbcart/utils';
 import { useUpdateCart, useRemoveFromCart } from '@qbcart/eshop-cart-hooks';
 // prettier-ignore
@@ -17,9 +23,9 @@ import CartLineItemStyles from './style.js';
 interface Props {
   id: string;
   quantity: number;
-  namespaceId: string;
   imagesStorageUrl: string;
   userLoggedIn: boolean;
+  setShowRemoveItemModal: Dispatch<SetStateAction<string>>;
 }
 
 const CartLineItem: FC<Props> = (props: Props) => {
@@ -95,9 +101,7 @@ const CartLineItem: FC<Props> = (props: Props) => {
             <button
               type="button"
               className="cart-modal-button button-red"
-              data-toggle="modal"
-              data-target={`#${props.namespaceId}-remove-item-modal`}
-              data-id={props.id}
+              onClick={() => props.setShowRemoveItemModal(props.id)}
             >
               <span className="material-icons">delete</span>
             </button>
