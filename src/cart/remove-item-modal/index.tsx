@@ -6,76 +6,93 @@
  * LICENSE file in the root directory of this source repo.
  */
 
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useRef, Dispatch, SetStateAction } from 'react';
 import { useInventoryItem } from '@qbcart/eshop-inventory-hooks';
 import { useRemoveFromCart } from '@qbcart/eshop-cart-hooks';
 
 import RemoveItemModalStyles from './style.js';
 
 interface Props {
-  namespaceId: string;
   imagesStorageUrl: string;
   userLoggedIn: boolean;
+  showRemoveItemModal: string;
+  setShowRemoveItemModal: Dispatch<SetStateAction<string>>;
 }
 
 const RemoveItemModal: FC<Props> = (props: Props) => {
+  const ref = useRef<HTMLDivElement>(null);
   const removeFromCart = useRemoveFromCart(props.userLoggedIn);
-  const [item, setItem] = useInventoryItem('');
-  const modalId = `${props.namespaceId}-remove-item-modal`;
+  const [item, setItem] = useInventoryItem(props.showRemoveItemModal);
 
   useEffect(() => {
-    $(`#${modalId}`).on('show.bs.modal', function (e: JQueryEventObject) {
-      setItem($(e.relatedTarget).data('id'));
-    });
-  }, [modalId, setItem]);
+    setItem(props.showRemoveItemModal);
+  }, [props.showRemoveItemModal, setItem]);
+
+  useEffect(() => {
+    if (props.showRemoveItemModal) {
+      const modal = ref.current!;
+      modal.style.animationName = 'var(--remove-item-modal-show)';
+      modal.style.display = 'block';
+    }
+  }, [props.showRemoveItemModal, ref]);
+
+  const hideModal = () => {
+    const modal = ref.current!;
+    modal.style.animationName = 'var(--remove-item-modal-hide)';
+  };
+
+  const onAnimationEnd = async (): Promise<void> => {
+    const modal = ref.current!;
+    modal.style.animationName = '';
+
+    if (modal.classList.contains('qbc-remove-item-modal-visible')) {
+      modal.classList.remove('qbc-remove-item-modal-visible');
+      modal.style.display = 'none';
+      if (props.showRemoveItemModal) {
+        props.setShowRemoveItemModal('');
+      }
+    } else {
+      modal.classList.add('qbc-remove-item-modal-visible');
+    }
+  };
 
   return (
-    <RemoveItemModalStyles
-      className="modal fade"
-      id={modalId}
-      data-backdrop="static"
-      data-keyboard="false"
-      tabIndex={-1}
-      aria-labelledby="staticBackdropLabel"
-      aria-hidden="true"
-    >
-      <div className="modal-dialog modal-dialog-centered">
+    <RemoveItemModalStyles ref={ref} onAnimationEnd={() => onAnimationEnd()}>
+      <div className="modal-wrapper">
         {item ? (
           <div className="modal-content">
-            <div className="modal-header clear-header d-flex justify-content-start">
-              <h5 className="modal-title" id="staticBackdropLabel">
+            <div className="modal-header">
+              <div className="modal-title">
                 <span className="material-icons m-icon-36">delete</span>
-              </h5>
+              </div>
               <div className="clear-title">Remove Item</div>
             </div>
-
             <div className="modal-body">
-              <div>
-                <img
-                  className="clear-img"
-                  src={props.imagesStorageUrl + 'images/thumbnail/' + item.id}
-                  alt=""
-                />
-              </div>
+              <div
+                className="clear-img"
+                style={{
+                  backgroundImage: `url(${props.imagesStorageUrl}images/thumbnail/${item.id})`
+                }}
+              ></div>
               <span>
                 Are you sure you want to remove {item.SalesDesc} from your cart?
               </span>
             </div>
-            <div className="modal-footer d-flex justify-content-center">
+            <div className="modal-footer">
               <button
-                onClick={() => removeFromCart(item.id)}
+                onClick={() => {
+                  removeFromCart(item.id);
+                  hideModal();
+                }}
                 type="button"
-                className="btn btn-danger"
-                data-toggle="modal"
-                data-target={`#${modalId}`}
+                className="modal-footer-button button-red"
               >
                 Yes, Remove This Item
               </button>
               <button
                 type="button"
-                className="btn btn-secondary"
-                data-toggle="modal"
-                data-target={`#${modalId}`}
+                className="modal-footer-button button-grey"
+                onClick={hideModal}
               >
                 No, Keep this Item
               </button>
@@ -85,6 +102,7 @@ const RemoveItemModal: FC<Props> = (props: Props) => {
           <div className="modal-content"></div>
         )}
       </div>
+      <div className="modal-backdrop"></div>
     </RemoveItemModalStyles>
   );
 };

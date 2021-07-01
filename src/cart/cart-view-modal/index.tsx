@@ -6,22 +6,26 @@
  * LICENSE file in the root directory of this source repo.
  */
 
-import React, { FC } from 'react';
-import { useCartItems } from '@qbcart/eshop-cart-hooks';
+import React, { FC, useEffect, useRef, Dispatch, SetStateAction } from 'react';
+// prettier-ignore
+import { useCartItems ,useCartViewModal, useRemoveCartViewModal } from '@qbcart/eshop-cart-hooks';
 import { toUSCurrency } from '@qbcart/utils';
 
 import CartLineItem from '../cart-line-item/index.js';
 import CartViewModalStyles from './style.js';
 
 interface Props {
-  namespaceId: string;
   imagesStorageUrl: string;
   userLoggedIn: boolean;
+  setShowClearCartModal: Dispatch<SetStateAction<boolean>>;
+  setShowRemoveItemModal: Dispatch<SetStateAction<string>>;
 }
 
 const CartViewModal: FC<Props> = (props: Props) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const show = useCartViewModal();
+  const removeCartViewModal = useRemoveCartViewModal();
   const items = useCartItems(props.userLoggedIn);
-  const modalId = `${props.namespaceId}-view-modal`;
 
   const subtotal =
     (items?.length ?? 0) > 0
@@ -34,24 +38,47 @@ const CartViewModal: FC<Props> = (props: Props) => {
       ? items!.map((item) => item.quantity!).reduce((a, b) => a + b)
       : 0;
 
+  useEffect(() => {
+    if (show) {
+      const modal = ref.current!;
+      modal.style.animationName = 'var(--cart-view-modal-show)';
+      modal.style.display = 'block';
+    }
+  }, [show, ref]);
+
+  const hideModal = () => {
+    const modal = ref.current!;
+    modal.style.animationName = 'var(--cart-view-modal-hide)';
+  };
+
+  const navigate = async (href: string) => {
+    await removeCartViewModal();
+    window.location.assign(href);
+  };
+
+  const onAnimationEnd = async (): Promise<void> => {
+    const modal = ref.current!;
+    modal.style.animationName = '';
+
+    if (modal.classList.contains('qbc-cart-view-modal-visible')) {
+      modal.classList.remove('qbc-cart-view-modal-visible');
+      modal.style.display = 'none';
+      if (show) {
+        removeCartViewModal();
+      }
+    } else {
+      modal.classList.add('qbc-cart-view-modal-visible');
+    }
+  };
+
   return (
-    <CartViewModalStyles className="modal" tabIndex={-1} id={modalId}>
-      <div className="modal-dialog modal-dialog-scrollable modal-xl modal-lg">
+    <CartViewModalStyles
+      ref={ref}
+      onAnimationEnd={() => onAnimationEnd()}
+      className="modal"
+    >
+      <div className="modal-wrapper">
         <div className="modal-content">
-          <div className="modal-header">
-            <div className="modal-title">
-              <span className="material-icons m-icon-36">shopping_cart</span>
-            </div>
-            <div className="cart-title">Shopping Cart</div>
-            <button
-              type="button"
-              className="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
           <div className="modal-body">
             {(items?.length ?? 0) > 0 ? (
               items!.map((item) => (
@@ -59,39 +86,43 @@ const CartViewModal: FC<Props> = (props: Props) => {
                   key={item.id}
                   id={item.id!}
                   quantity={item.quantity!}
-                  namespaceId={props.namespaceId}
                   imagesStorageUrl={props.imagesStorageUrl}
                   userLoggedIn={props.userLoggedIn}
+                  setShowRemoveItemModal={props.setShowRemoveItemModal}
                 />
               ))
             ) : (
-              <h5 className="text-warning">Your cart is currently empty.</h5>
+              <div className="empty-cart-message">
+                Your cart is currently empty.
+              </div>
             )}
           </div>
           {(items?.length ?? 0) > 0 ? (
             <div className="modal-footer">
-              <h4 className="col  d-flex justify-content-start">
+              <div className="modal-footer-subtotals">
+                <span className="material-icons">shopping_cart</span>
                 Subtotal: {toUSCurrency(subtotal)} ({numOfItems} item
                 {numOfItems === 1 ? '' : 's'})
-              </h4>
-              <div className="col d-flex justify-content-end">
+              </div>
+              <div className="modal-footer-buttons">
                 <button
                   type="button"
-                  className="btn btn-danger"
-                  data-toggle="modal"
-                  data-target={`#${props.namespaceId}-clear-cart-modal`}
+                  className="cart-modal-button button-red"
+                  onClick={() => props.setShowClearCartModal(true)}
                 >
                   <span className="material-icons">delete</span>
                 </button>
-                <a href="/Checkout">
-                  <button type="button" className="btn btn-success ml-2 mr-2">
-                    <span className="material-icons">payment</span>
-                  </button>
-                </a>
                 <button
                   type="button"
-                  className="btn btn-secondary"
-                  data-dismiss="modal"
+                  className="cart-modal-button button-green"
+                  onClick={() => navigate('/Checkout')}
+                >
+                  <span className="material-icons">payment</span>
+                </button>
+                <button
+                  type="button"
+                  className="cart-modal-button button-grey"
+                  onClick={hideModal}
                 >
                   <span className="material-icons">close</span>
                 </button>
@@ -100,6 +131,7 @@ const CartViewModal: FC<Props> = (props: Props) => {
           ) : null}
         </div>
       </div>
+      <div className="modal-backdrop"></div>
     </CartViewModalStyles>
   );
 };
