@@ -13,6 +13,7 @@ import { useCartItems ,useCartViewModal, useRemoveCartViewModal } from '@qbcart/
 import { toUSCurrency } from '@qbcart/utils';
 
 import CartLineItem from '../cart-line-item/index.js';
+import EmptyCart from '../cart-line-item/empty-cart.js';
 import CartViewModalStyles from './style.js';
 
 interface Props {
@@ -93,43 +94,41 @@ const CartViewModal: FC<Props> = (props: Props) => {
                 />
               ))
             ) : (
-              <div className="empty-cart-message">
-                Your cart is currently empty.
-              </div>
+              <EmptyCart imagesStorageUrl={props.imagesStorageUrl} />
             )}
           </div>
-          {(items?.length ?? 0) > 0 ? (
-            <div className="modal-footer">
-              <div className="modal-footer-subtotals">
-                <span className="material-icons">shopping_cart</span>
-                Subtotal: {toUSCurrency(subtotal)} ({numOfItems} item
-                {numOfItems === 1 ? '' : 's'})
-              </div>
-              <div className="modal-footer-buttons">
-                <button
-                  type="button"
-                  className="cart-modal-button button-red"
-                  onClick={() => props.setShowClearCartModal(true)}
-                >
-                  <span className="material-icons">delete</span>
-                </button>
-                <button
-                  type="button"
-                  className="cart-modal-button button-green"
-                  onClick={() => navigate('/Checkout')}
-                >
-                  <span className="material-icons">payment</span>
-                </button>
-                <button
-                  type="button"
-                  className="cart-modal-button button-grey"
-                  onClick={hideModal}
-                >
-                  <span className="material-icons">close</span>
-                </button>
-              </div>
+          <div className="modal-footer">
+            <div className="modal-footer-subtotals">
+              <span className="material-icons">shopping_cart</span>
+              Subtotal: {toUSCurrency(subtotal)} ({numOfItems} item
+              {numOfItems === 1 ? '' : 's'})
             </div>
-          ) : null}
+            <div className="modal-footer-buttons">
+              <button
+                type="button"
+                disabled={(items?.length ?? 0) < 1}
+                className="cart-modal-button button-red"
+                onClick={() => props.setShowClearCartModal(true)}
+              >
+                <span className="material-icons">delete</span>
+              </button>
+              <button
+                type="button"
+                disabled={(items?.length ?? 0) < 1}
+                className="cart-modal-button button-green"
+                onClick={() => navigate('/Checkout')}
+              >
+                <span className="material-icons">payment</span>
+              </button>
+              <button
+                type="button"
+                className="cart-modal-button button-grey"
+                onClick={hideModal}
+              >
+                <span className="material-icons">close</span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
       <div className="modal-backdrop"></div>

@@ -13,6 +13,12 @@ const CartLineItemStyles = styled.div`
   border-bottom: 1px solid lightgray;
   margin: 10px;
 
+  .empty-cart {
+    font-size: 20px;
+    font-weight: 500;
+    margin-top: 90px;
+  }
+
   .cart-row-img {
     width: calc((var(--cart-view-modal-width) - 20px) / 3);
     height: 180px;
