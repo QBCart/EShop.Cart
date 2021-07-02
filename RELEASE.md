@@ -2,7 +2,7 @@
 
 ### New
 
-- none
+- Removed bootstrap and jquery deps.
 
 ### Fixes
 
