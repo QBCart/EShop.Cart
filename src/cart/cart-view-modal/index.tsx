@@ -30,14 +30,14 @@ const CartViewModal: FC<Props> = (props: Props) => {
   const items = useCartItems(props.userLoggedIn);
 
   const subtotal =
-    (items?.length ?? 0) > 0
-      ? items!
+    items.length > 0
+      ? items
           .map((item) => item.price! * item.quantity!)
           .reduce((a, b) => a + b)
       : 0;
   const numOfItems =
-    (items?.length ?? 0) > 0
-      ? items!.map((item) => item.quantity!).reduce((a, b) => a + b)
+    items.length > 0
+      ? items.map((item) => item.quantity!).reduce((a, b) => a + b)
       : 0;
 
   useEffect(() => {
@@ -82,8 +82,8 @@ const CartViewModal: FC<Props> = (props: Props) => {
       <div className="modal-wrapper">
         <div className="modal-content">
           <div className="modal-body">
-            {(items?.length ?? 0) > 0 ? (
-              items!.map((item) => (
+            {items.length > 0 ? (
+              items.map((item) => (
                 <CartLineItem
                   key={item.id}
                   id={item.id!}
@@ -106,7 +106,7 @@ const CartViewModal: FC<Props> = (props: Props) => {
             <div className="modal-footer-buttons">
               <button
                 type="button"
-                disabled={(items?.length ?? 0) < 1}
+                disabled={items.length < 1}
                 className="cart-modal-button button-red"
                 onClick={() => props.setShowClearCartModal(true)}
               >
@@ -114,7 +114,7 @@ const CartViewModal: FC<Props> = (props: Props) => {
               </button>
               <button
                 type="button"
-                disabled={(items?.length ?? 0) < 1}
+                disabled={items.length < 1}
                 className="cart-modal-button button-green"
                 onClick={() => navigate('/Checkout')}
               >
