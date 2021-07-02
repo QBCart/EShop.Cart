@@ -22,8 +22,10 @@ document.write(
     siteUrl: '',
     siteName: 'Vector Tools',
     userLoggedIn: false,
+    username: '',
     isB2C: false,
     syncInterval: 10000,
+    sliderSettings: null,
     meta: html`
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
