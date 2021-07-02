@@ -6,21 +6,13 @@
  * LICENSE file in the root directory of this source repo.
  */
 
-import React, {
-  FC,
-  useState,
-  useEffect,
-  Dispatch,
-  SetStateAction
-} from 'react';
-import { toUSCurrency } from '@qbcart/utils';
-import {
-  useUpdateCart,
-  useRemoveFromCart,
-  useRemoveCartViewModal
-} from '@qbcart/eshop-cart-hooks';
+// prettier-ignore
+import React, { FC, useState, useEffect, Dispatch, SetStateAction } from 'react';
+// prettier-ignore
+import { useUpdateCart, useRemoveFromCart, useRemoveCartViewModal } from '@qbcart/eshop-cart-hooks';
 // prettier-ignore
 import { useInventoryItem, useCustomPricing } from '@qbcart/eshop-inventory-hooks';
+import { toUSCurrency } from '@qbcart/utils';
 
 import CartLineItemStyles from './style.js';
 

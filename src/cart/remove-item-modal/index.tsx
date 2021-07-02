@@ -6,6 +6,7 @@
  * LICENSE file in the root directory of this source repo.
  */
 
+// prettier-ignore
 import React, { FC, useEffect, useRef, Dispatch, SetStateAction } from 'react';
 import { useInventoryItem } from '@qbcart/eshop-inventory-hooks';
 import { useRemoveFromCart } from '@qbcart/eshop-cart-hooks';
