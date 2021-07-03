@@ -81,4 +81,4 @@ jobs:
         run: |
           az account set --subscription ${{ env.SUBSCRIPTION_ID }}
           az storage blob delete-batch --account-name ${{ env.DEMO_STORAGE_NAME }} --source '$web' --pattern 'eshop/cart/*'
-          az storage blob upload-batch --account-name ${{ env.DEMO_STORAGE_NAME }} --source 'publish_esm' --destination '$web/eshop/cart'
+          az storage blob upload-batch --account-name ${{ env.DEMO_STORAGE_NAME }} --source 'publish_esm' --destination '$web/eshop/cart' --auth-mode key --content-cache 'no-store, max-age=0'
