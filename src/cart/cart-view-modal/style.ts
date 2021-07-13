@@ -30,7 +30,6 @@ const CartViewModalStyles = styled.div`
   --cart-view-modal-show: ${CartViewModalShow};
   --cart-view-modal-hide: ${CartViewModalHide};
   --cart-view-modal-width: calc(100vw - 300px);
-  /* --cart-view-modal-height: calc(var(--cart-view-modal-width) * 0.7); */
   --cart-view-modal-height: calc(100vh - 130px);
   --line-height-dynamic-lg: calc(var(--cart-view-modal-width) / 26);
   --line-height-dynamic-md: calc(var(--cart-view-modal-width) / 30);
