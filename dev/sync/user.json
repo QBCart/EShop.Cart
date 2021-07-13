@@ -1,10 +1,12 @@
 {
   "userCart": {
     "lastSynced": 98437491,
+    "lastForcedUpdate": 1000,
     "items": []
   },
   "userPricing": {
     "lastSynced": 98437491,
+    "lastForcedUpdate": 1000,
     "items": [
       {
         "id": "ITEM-8000028F-1269990123",
