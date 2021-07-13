@@ -169,7 +169,7 @@ const CartViewModalStyles = styled.div`
   }
 
   .button-red:hover {
-    background-color: rgb(210, 43, 59);
+    background-color: rgb(173, 31, 45);
   }
 
   .button-blue {
@@ -177,15 +177,15 @@ const CartViewModalStyles = styled.div`
   }
 
   .button-blue:hover {
-    background-color: rgb(0, 106, 245);
+    background-color: rgb(0, 88, 204);
   }
 
   .button-green {
-    background-color: rgb(92, 184, 92);
+    background-color: rgb(49, 171, 69);
   }
 
   .button-green:hover {
-    background-color: rgb(82, 174, 82);
+    background-color: rgb(40, 138, 57);
   }
 
   .button-grey {
@@ -193,7 +193,7 @@ const CartViewModalStyles = styled.div`
   }
 
   .button-grey:hover {
-    background-color: rgb(98, 107, 115);
+    background-color: rgb(83, 90, 95);
   }
 
   /* Large devices (desktops, 1200px and up) */
