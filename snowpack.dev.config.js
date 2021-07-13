@@ -6,8 +6,7 @@
 module.exports = {
   mount: {
     src: { url: '/src', resolve: true, static: false },
-    'dev/local': { url: '/', resolve: true, static: false },
-    'dev/sync': { url: '/', resolve: true, static: false }
+    dev: { url: '/', resolve: true, static: false }
   },
   plugins: [],
   packageOptions: {
@@ -18,15 +17,15 @@ module.exports = {
   routes: [
     {
       src: '/sync/inventory',
-      dest: '/inventory.json'
+      dest: '/sync/inventory.json'
     },
     {
       src: '/sync/user',
-      dest: '/user.json'
+      dest: '/sync/user.json'
     },
     {
       src: '/sync/cart',
-      dest: '/cart.html'
+      dest: '/sync/cart.html'
     },
     {
       src: '/Accessories',
