@@ -19,17 +19,21 @@ const globalMountsContainer = document.getElementById(
   'qbc-eshop-global-mounts'
 )!;
 const cartMountingDiv = document.createElement('div');
+const companySettings = document.getElementById(
+  'qbc-eshop-company-settings'
+) as HTMLDivElement;
 
 cartMountingDiv.id = 'qbc-eshop-cart';
 globalMountsContainer.appendChild(cartMountingDiv);
 
 render(
   <Cart
-    imagesStorageUrl={
-      document.getElementById('qbc-eshop-company-settings')!.dataset
-        .imagesStorageUrl!
-    }
+    imagesStorageUrl={companySettings.dataset.imagesStorageUrl!}
     userLoggedIn={Boolean(document.getElementById('qbc-eshop-user'))}
+    customPriceTextColor={
+      companySettings.dataset.customPriceTextColor || 'green'
+    }
+    onSalePriceTextColor={companySettings.dataset.onSalePriceTextColor || 'red'}
   />,
   cartMountingDiv
 );

@@ -70,7 +70,22 @@ const CartLineItemStyles = styled.div`
   }
 
   .cart-row-item-price {
+    display: flex;
     margin-bottom: 10px;
+  }
+
+  .retail-price {
+    font-weight: 600;
+    margin-left: 5px;
+  }
+
+  .price-slash {
+    text-decoration: line-through;
+  }
+
+  .product-price {
+    font-weight: 600;
+    margin-left: 10px;
   }
 
   .cart-row-item-quantity {
@@ -102,7 +117,9 @@ const CartLineItemStyles = styled.div`
     cursor: pointer;
   }
 
-  .cart-row-item-total {
+  .cart-row-item-total span {
+    font-weight: 600;
+    margin-left: 5px;
   }
 
   .cart-row-bottom-buttons {

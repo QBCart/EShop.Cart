@@ -22,6 +22,8 @@ interface Props {
   imagesStorageUrl: string;
   userLoggedIn: boolean;
   setShowRemoveItemModal: Dispatch<SetStateAction<string>>;
+  customPriceTextColor: string;
+  onSalePriceTextColor: string;
 }
 
 const CartLineItem: FC<Props> = (props: Props) => {
@@ -32,7 +34,20 @@ const CartLineItem: FC<Props> = (props: Props) => {
   const removeFromCart = useRemoveFromCart(props.userLoggedIn);
   const [item] = useInventoryItem(props.id);
   const [customPrice] = useCustomPricing(props.userLoggedIn, props.id);
-  const price = customPrice ?? item?.SalesPrice ?? 0;
+  const price = item?.IsOnSale
+    ? item.OnSalePrice
+      ? customPrice && customPrice < item.OnSalePrice
+        ? customPrice
+        : item.OnSalePrice
+      : customPrice
+    : customPrice;
+  const priceColor = item?.IsOnSale
+    ? item.OnSalePrice
+      ? customPrice && customPrice < item.OnSalePrice
+        ? props.customPriceTextColor
+        : props.onSalePriceTextColor
+      : props.customPriceTextColor
+    : props.customPriceTextColor;
 
   useEffect(() => {
     setUpdateReady(inputQuantity !== props.quantity.toString());
@@ -43,7 +58,7 @@ const CartLineItem: FC<Props> = (props: Props) => {
   }, [props.quantity]);
 
   const updateItemQuantity = async () => {
-    setUpdateReady(!(await updateCart(props.id, price, inputQuantity)));
+    setUpdateReady(!(await updateCart(props.id, price ?? 0, inputQuantity)));
   };
 
   const navigate = async (href: string) => {
@@ -65,8 +80,24 @@ const CartLineItem: FC<Props> = (props: Props) => {
             <div className="cart-row-item-description truncate-overflow">
               {item.SalesDesc}
             </div>
+            {/* <div className="cart-row-item-price">
+              Price: <b>{toUSCurrency(price ?? item.SalesPrice)}</b>
+            </div> */}
             <div className="cart-row-item-price">
-              Price: <b>{toUSCurrency(price)}</b>
+              Price:
+              <div className={`retail-price ${price ? 'price-slash' : ''}`}>
+                {toUSCurrency(item.SalesPrice)}
+              </div>
+              {price ? (
+                <div
+                  className="product-price"
+                  style={{
+                    color: price ? priceColor : 'black'
+                  }}
+                >
+                  {toUSCurrency(price)}
+                </div>
+              ) : null}
             </div>
             <div className="cart-row-item-quantity">
               <label>Quantity: </label>
@@ -87,11 +118,12 @@ const CartLineItem: FC<Props> = (props: Props) => {
               ) : null}
             </div>
             <div className="cart-row-item-total">
-              Total:{' '}
-              <b>
-                {toUSCurrency(price * props.quantity)} ({props.quantity} item
+              Total:
+              <span>
+                {toUSCurrency((price ?? item.SalesPrice) * props.quantity)} (
+                {props.quantity} item
                 {props.quantity > 1 ? 's' : ''})
-              </b>
+              </span>
             </div>
           </div>
           <div className="cart-row-bottom-buttons">

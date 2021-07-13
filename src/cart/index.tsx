@@ -15,6 +15,8 @@ import RemoveItemModal from './remove-item-modal/index.js';
 interface Props {
   imagesStorageUrl: string;
   userLoggedIn: boolean;
+  customPriceTextColor: string;
+  onSalePriceTextColor: string;
 }
 
 const Cart: FC<Props> = (props: Props) => {
@@ -27,6 +29,8 @@ const Cart: FC<Props> = (props: Props) => {
         userLoggedIn={props.userLoggedIn}
         setShowClearCartModal={setShowClearCartModal}
         setShowRemoveItemModal={setShowRemoveItemModal}
+        customPriceTextColor={props.customPriceTextColor}
+        onSalePriceTextColor={props.onSalePriceTextColor}
       />
       <ClearCartModal
         userLoggedIn={props.userLoggedIn}

@@ -21,6 +21,8 @@ interface Props {
   userLoggedIn: boolean;
   setShowClearCartModal: Dispatch<SetStateAction<boolean>>;
   setShowRemoveItemModal: Dispatch<SetStateAction<string>>;
+  customPriceTextColor: string;
+  onSalePriceTextColor: string;
 }
 
 const CartViewModal: FC<Props> = (props: Props) => {
@@ -91,6 +93,8 @@ const CartViewModal: FC<Props> = (props: Props) => {
                   imagesStorageUrl={props.imagesStorageUrl}
                   userLoggedIn={props.userLoggedIn}
                   setShowRemoveItemModal={props.setShowRemoveItemModal}
+                  customPriceTextColor={props.customPriceTextColor}
+                  onSalePriceTextColor={props.onSalePriceTextColor}
                 />
               ))
             ) : (
