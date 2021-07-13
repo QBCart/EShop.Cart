@@ -210,15 +210,15 @@ const CartViewModalStyles = styled.div`
   /* Small to medium devices (portrait phones, 576px and below) */
   @media (max-width: 575.98px) {
     --cart-view-modal-width: calc(100vw - 10px);
-    --cart-view-modal-height: calc(100vh - 62px);
+    --cart-view-modal-height: 85vh;
 
     .modal-wrapper {
       justify-content: center;
-      align-items: flex-end;
+      align-items: flex-start;
     }
 
     .modal-content {
-      margin-bottom: 5px;
+      margin-top: 5px;
     }
 
     .modal-footer-subtotals {
