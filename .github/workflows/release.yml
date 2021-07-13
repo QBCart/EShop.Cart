@@ -10,14 +10,6 @@ on:
       - 'v[0-9]+.[0-9]+.[0-9]+-beta.[0-9]+'
       - 'v[0-9]+.[0-9]+.[0-9]+'
 
-###################
-# Set Global Envs #
-###################
-env:
-  node_version: '14'
-  STORAGE_NAME: ${{ secrets.ESM_STORAGE_NAME }}
-  SUBSCRIPTION_ID: ${{ secrets.QBC_SUBSCRIPTION_ID }}
-
 ############
 # Set Jobs #
 ############
@@ -63,7 +55,7 @@ jobs:
           registry-url: https://registry.npmjs.org
           scope: '@qbcart'
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ fromJSON(secrets.PROD_ESM).node }}
 
       ################
       # Install Deps #
@@ -90,16 +82,16 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
           allow-no-subscriptions: true
 
-      ##########################
-      # Publish ESM To Storage #
-      ##########################
-      - name: Publish ESM To Storage
+      ###########################
+      # Release into Production #
+      ###########################
+      - name: Release into Production
         working-directory: .
         shell: bash
         run: |
-          az account set --subscription ${{ env.SUBSCRIPTION_ID }}
-          az storage blob delete-batch --account-name ${{ env.STORAGE_NAME }} --source '$web' --pattern 'eshop/cart/*'
-          az storage blob upload-batch --account-name ${{ env.STORAGE_NAME }} --source 'publish_esm' --destination '$web/eshop/cart' --auth-mode key --content-cache 'max-age=3600, must-revalidate'
+          az account set --subscription ${{ fromJSON(secrets.PROD_ESM).subscriptionId }}
+          az storage blob delete-batch --account-name ${{ fromJSON(secrets.PROD_ESM).storageName }} --source '$web' --pattern 'eshop/cart/*'
+          az storage blob upload-batch --account-name ${{ fromJSON(secrets.PROD_ESM).storageName }} --source 'publish_esm' --destination '$web/eshop/cart' --auth-mode key --content-cache 'max-age=3600, must-revalidate'
 
       #########################
       # Create GitHub Release #

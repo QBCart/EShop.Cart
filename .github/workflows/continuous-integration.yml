@@ -1,15 +1,16 @@
 name: CI
 
-####################
-# Start the job on #
-####################
-on: push
-
-###################
-# Set Global Envs #
-###################
-env:
-  NODE_VERSION: '14'
+##############################################################
+# Triggers when push changes occur in specified branch paths #
+##############################################################
+on:
+  push:
+    branches-ignore:
+      - main
+      - '!v[0-9]+.[0-9]+.[0-9]+*'
+    paths:
+      - 'src/**'
+      - 'snowpack.config.js'
 
 ############
 # Set Jobs #
@@ -38,7 +39,7 @@ jobs:
       - name: Setup Node JS
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: ${{ fromJSON(secrets.DEV_ESM).node }}
 
       ################
       # Install Deps #
@@ -79,3 +80,23 @@ jobs:
         working-directory: .
         shell: bash
         run: npm run test:ci
+
+      ###############
+      # Azure Login #
+      ###############
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          allow-no-subscriptions: true
+
+      ######################
+      # Publish To Dev ESM #
+      ######################
+      - name: Publish To Dev ESM
+        working-directory: .
+        shell: bash
+        run: |
+          az account set --subscription ${{ fromJSON(secrets.DEV_ESM).subscriptionId }}
+          az storage blob delete-batch --account-name ${{ fromJSON(secrets.DEV_ESM).storageName }} --source '$web' --pattern 'eshop/cart/*'
+          az storage blob upload-batch --account-name ${{ fromJSON(secrets.DEV_ESM).storageName }} --source 'publish_esm' --destination '$web/eshop/cart' --auth-mode key --content-cache 'no-store, max-age=0'
