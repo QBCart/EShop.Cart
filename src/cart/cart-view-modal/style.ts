@@ -152,12 +152,24 @@ const CartViewModalStyles = styled.div`
   }
 
   .cart-modal-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 30px;
     width: 40px;
     color: white;
     border: none;
     border-radius: 3px;
     margin-left: 5px;
+  }
+
+  .cart-modal-button span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 18px;
+    width: 18px;
+    line-height: 18px;
   }
 
   .cart-modal-button:hover {
