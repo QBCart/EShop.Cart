@@ -9,7 +9,7 @@
 // prettier-ignore
 import React, { FC, useState, useEffect, Dispatch, SetStateAction } from 'react';
 // prettier-ignore
-import { useUpdateCart, useRemoveFromCart, useRemoveCartViewModal } from '@qbcart/eshop-cart-hooks';
+import { useUpdateCart, useRemoveFromCart, useRemoveCartViewModal, useReportSubtotal } from '@qbcart/eshop-cart-hooks';
 // prettier-ignore
 import { useInventoryItem, useCustomPricing } from '@qbcart/eshop-inventory-hooks';
 import { toUSCurrency } from '@qbcart/utils';
@@ -27,7 +27,7 @@ interface Props {
 }
 
 const CartLineItem: FC<Props> = (props: Props) => {
-  // const updateSubtotal = useUpdateSubtotal(); // TODO: useUpdateSubtotal() hook
+  const reportSubtotal = useReportSubtotal();
   const removeCartViewModal = useRemoveCartViewModal();
   const [inputQuantity, setInputQuantity] = useState(props.quantity.toString());
   const [updateReady, setUpdateReady] = useState(false);
@@ -51,15 +51,16 @@ const CartLineItem: FC<Props> = (props: Props) => {
     : props.customPriceTextColor;
   const subtotal = (price ?? item?.SalesPrice ?? 0) * props.quantity;
 
-  useEffect(() => {
-    console.log(`cart line item ${props.id} render`);
-  });
+  // useEffect(() => {
+  //   console.log(`cart line item ${props.id} render`);
+  // });
 
   useEffect(() => {
     if (item) {
-      // updateSubtotal(item.id, subtotal);
+      reportSubtotal(item.id, subtotal);
+      console.log('reportSubtotal: ' + item.id);
     }
-  }, [subtotal, item]);
+  }, [subtotal]);
 
   useEffect(() => {
     setUpdateReady(inputQuantity !== props.quantity.toString());
