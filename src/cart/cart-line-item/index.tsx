@@ -84,9 +84,6 @@ const CartLineItem: FC<Props> = (props: Props) => {
             <div className="cart-row-item-description truncate-overflow">
               {item.SalesDesc}
             </div>
-            {/* <div className="cart-row-item-price">
-              Price: <b>{toUSCurrency(price ?? item.SalesPrice)}</b>
-            </div> */}
             <div className="cart-row-item-price">
               Price:
               <div className={`retail-price ${price ? 'price-slash' : ''}`}>
@@ -122,7 +119,7 @@ const CartLineItem: FC<Props> = (props: Props) => {
               ) : null}
             </div>
             <div className="cart-row-item-total">
-              Total:
+              Subtotal:
               <span>
                 {toUSCurrency((price ?? item.SalesPrice) * props.quantity)} (
                 {props.quantity} item
