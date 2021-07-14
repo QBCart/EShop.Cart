@@ -35,9 +35,9 @@ const CartViewModal: FC<Props> = (props: Props) => {
       ? items.map((item) => item.quantity!).reduce((a, b) => a + b)
       : 0;
 
-  useEffect(() => {
-    console.log('cart view modal render');
-  });
+  // useEffect(() => {
+  //   console.log('cart view modal render');
+  // });
 
   useEffect(() => {
     if (show) {
