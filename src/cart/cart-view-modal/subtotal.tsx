@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source repo.
  */
 
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { toUSCurrency } from '@qbcart/utils';
 
 interface Props {
@@ -14,11 +14,13 @@ interface Props {
 }
 
 const Subtotal: FC<Props> = (props: Props) => {
-  const subtotal = 0; // TODO: useSubtotal() hook
+  // const [subtotals, setSubtotals] = useState(); // TODO: Object of subtotal objects
+  // const subtotal = useSubtotal(); // TODO: useSubtotal() hook
+  // const removeSubtotal = useRemoveSubtotal();  // TODO: useRemoveSubtotal() hook
   return (
     <div className="modal-footer-subtotal">
       <span className="material-icons">shopping_cart</span>
-      Subtotal: {toUSCurrency(subtotal)} ({props.numOfItems} item
+      Subtotal: {toUSCurrency(0)} ({props.numOfItems} item
       {props.numOfItems === 1 ? '' : 's'})
     </div>
   );

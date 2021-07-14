@@ -27,6 +27,7 @@ interface Props {
 }
 
 const CartLineItem: FC<Props> = (props: Props) => {
+  // const updateSubtotal = useUpdateSubtotal(); // TODO: useUpdateSubtotal() hook
   const removeCartViewModal = useRemoveCartViewModal();
   const [inputQuantity, setInputQuantity] = useState(props.quantity.toString());
   const [updateReady, setUpdateReady] = useState(false);
@@ -48,10 +49,17 @@ const CartLineItem: FC<Props> = (props: Props) => {
         : props.onSalePriceTextColor
       : props.customPriceTextColor
     : props.customPriceTextColor;
+  const subtotal = (price ?? item?.SalesPrice ?? 0) * props.quantity;
 
   useEffect(() => {
     console.log(`cart line item ${props.id} render`);
   });
+
+  useEffect(() => {
+    if (item) {
+      // updateSubtotal(item.id, subtotal);
+    }
+  }, [subtotal, item]);
 
   useEffect(() => {
     setUpdateReady(inputQuantity !== props.quantity.toString());
