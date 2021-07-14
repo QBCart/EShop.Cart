@@ -84,6 +84,7 @@ const CartLineItem: FC<Props> = (props: Props) => {
             <div className="cart-row-item-description truncate-overflow">
               {item.SalesDesc}
             </div>
+            <div className="cart-row-item-sku">SKU: {item.Name}</div>
             <div className="cart-row-item-price">
               Price:
               <div className={`retail-price ${price ? 'price-slash' : ''}`}>

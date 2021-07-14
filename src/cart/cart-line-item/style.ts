@@ -21,7 +21,7 @@ const CartLineItemStyles = styled.div`
 
   .cart-row-img {
     width: calc((var(--cart-view-modal-width) - 20px) / 3);
-    height: 180px;
+    height: 200px;
     margin: 10px 0;
     background-size: contain;
     background-repeat: no-repeat;
@@ -29,7 +29,7 @@ const CartLineItemStyles = styled.div`
   }
 
   .cart-row-data {
-    height: 200px;
+    height: 220px;
     width: calc(((var(--cart-view-modal-width) - 20px) / 3) * 2);
     display: flex;
     flex-direction: column;
@@ -67,6 +67,13 @@ const CartLineItemStyles = styled.div`
     width: 1rem;
     height: var(--lh);
     background-color: white;
+  }
+
+  .cart-row-item-sku {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 10px;
   }
 
   .cart-row-item-price {
@@ -136,6 +143,11 @@ const CartLineItemStyles = styled.div`
     .truncate-overflow {
       --lh: calc(var(--line-height-dynamic-lg) * 1.15);
     }
+
+    .cart-row-item-sku {
+      font-size: var(--line-height-dynamic-md);
+    }
+
     .cart-row-item-price {
       font-size: var(--line-height-dynamic-md);
     }
