@@ -13,6 +13,7 @@ import { useCartItems ,useCartViewModal, useRemoveCartViewModal } from '@qbcart/
 import { toUSCurrency } from '@qbcart/utils';
 
 import CartLineItem from '../cart-line-item/index.js';
+import Subtotal from './subtotal.js';
 import EmptyCart from '../cart-line-item/empty-cart.js';
 import CartViewModalStyles from './style.js';
 
@@ -30,13 +31,6 @@ const CartViewModal: FC<Props> = (props: Props) => {
   const show = useCartViewModal();
   const removeCartViewModal = useRemoveCartViewModal();
   const items = useCartItems(props.userLoggedIn);
-
-  const subtotal =
-    items.length > 0
-      ? items
-          .map((item) => item.price! * item.quantity!)
-          .reduce((a, b) => a + b)
-      : 0;
   const numOfItems =
     items.length > 0
       ? items.map((item) => item.quantity!).reduce((a, b) => a + b)
@@ -106,11 +100,7 @@ const CartViewModal: FC<Props> = (props: Props) => {
             )}
           </div>
           <div className="modal-footer">
-            <div className="modal-footer-subtotal">
-              <span className="material-icons">shopping_cart</span>
-              Subtotal: {toUSCurrency(subtotal)} ({numOfItems} item
-              {numOfItems === 1 ? '' : 's'})
-            </div>
+            <Subtotal numOfItems={numOfItems} />
             <div className="modal-footer-buttons">
               <button
                 type="button"
