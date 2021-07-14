@@ -50,6 +50,10 @@ const CartLineItem: FC<Props> = (props: Props) => {
     : props.customPriceTextColor;
 
   useEffect(() => {
+    console.log(`cart line item ${props.id} render`);
+  });
+
+  useEffect(() => {
     setUpdateReady(inputQuantity !== props.quantity.toString());
   }, [inputQuantity, props.quantity]);
 

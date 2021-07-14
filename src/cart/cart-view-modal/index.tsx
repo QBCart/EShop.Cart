@@ -43,6 +43,10 @@ const CartViewModal: FC<Props> = (props: Props) => {
       : 0;
 
   useEffect(() => {
+    console.log('cart view modal render');
+  });
+
+  useEffect(() => {
     if (show) {
       const modal = ref.current!;
       modal.style.animationName = 'var(--cart-view-modal-show)';
