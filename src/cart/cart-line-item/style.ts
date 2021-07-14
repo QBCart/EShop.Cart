@@ -170,7 +170,7 @@ const CartLineItemStyles = styled.div`
     --cart-view-modal-width: calc(100vw - 5px);
     --cart-view-modal-height: calc(100vh - 124px);
 
-    .modal-footer-subtotals {
+    .modal-footer-sutotal {
       width: calc(var(--cart-view-modal-width) - 140px);
     }
 

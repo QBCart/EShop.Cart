@@ -129,15 +129,15 @@ const CartViewModalStyles = styled.div`
     padding: 10px 20px;
   }
 
-  .modal-footer-subtotals,
-  .modal-footer-subtotals .material-icons {
+  .modal-footer-subtotal,
+  .modal-footer-subtotal .material-icons {
     display: flex;
     align-items: center;
     font-size: 20px;
     font-weight: 500;
   }
 
-  .modal-footer-subtotals .material-icons {
+  .modal-footer-subtotal .material-icons {
     display: flex;
     align-items: center;
     font-size: 28px;
@@ -232,11 +232,11 @@ const CartViewModalStyles = styled.div`
       margin-top: 5px;
     }
 
-    .modal-footer-subtotals {
+    .modal-footer-subtotal {
       width: calc(var(--cart-view-modal-width) - 140px);
       font-size: var(--line-height-dynamic-lg);
     }
-    .modal-footer-subtotals .material-icons {
+    .modal-footer-subtotal .material-icons {
       font-size: calc(var(--line-height-dynamic-lg) * 1.4);
     }
 
