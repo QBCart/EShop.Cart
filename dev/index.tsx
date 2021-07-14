@@ -24,7 +24,7 @@ document.write(
     userLoggedIn: true,
     username: '',
     isB2C: false,
-    syncInterval: 10000,
+    syncInterval: 600000,
     sliderSettings: null,
     meta: html`
       <meta charset="UTF-8" />
