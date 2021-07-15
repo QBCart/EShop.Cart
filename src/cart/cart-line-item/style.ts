@@ -23,7 +23,7 @@ const CartLineItemStyles = styled.div`
   .cart-row-img {
     width: calc((var(--cart-view-modal-width) - 20px) / 3);
     height: 200px;
-    margin: 10px 0;
+    /* margin: 10px 0; */
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
