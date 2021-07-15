@@ -13,7 +13,8 @@ const CartLineItemStyles = styled.div`
   border-bottom: 1px solid lightgray;
   margin: 10px;
 
-  .empty-cart {
+  .empty-cart,
+  .not-available {
     font-size: 20px;
     font-weight: 500;
     margin-top: 90px;

@@ -9,12 +9,13 @@
 // prettier-ignore
 import React, { FC, useState, useEffect, Dispatch, SetStateAction } from 'react';
 // prettier-ignore
-import { useUpdateCart, useRemoveFromCart, useRemoveCartViewModal, useReportSubtotal } from '@qbcart/eshop-cart-hooks';
+import { useUpdateCart, useRemoveCartViewModal, useReportSubtotal } from '@qbcart/eshop-cart-hooks';
 // prettier-ignore
 import { useInventoryItem, useCustomPricing } from '@qbcart/eshop-inventory-hooks';
 import { toUSCurrency } from '@qbcart/utils';
 
 import CartLineItemStyles from './style.js';
+import NotAvailable from './not-available.js';
 
 interface Props {
   id: string;
@@ -32,7 +33,7 @@ const CartLineItem: FC<Props> = (props: Props) => {
   const [inputQuantity, setInputQuantity] = useState(props.quantity.toString());
   const [updateReady, setUpdateReady] = useState(false);
   const updateCart = useUpdateCart(props.userLoggedIn);
-  const removeFromCart = useRemoveFromCart(props.userLoggedIn);
+
   const [item] = useInventoryItem(props.id);
   const [customPrice] = useCustomPricing(props.userLoggedIn, props.id);
   const price = item?.IsOnSale
@@ -78,7 +79,7 @@ const CartLineItem: FC<Props> = (props: Props) => {
     window.location.assign(href);
   };
 
-  return (
+  return item ? (
     <CartLineItemStyles>
       <div
         className="cart-row-img"
@@ -86,80 +87,79 @@ const CartLineItem: FC<Props> = (props: Props) => {
           backgroundImage: `url(${props.imagesStorageUrl}images/thumbnail/${props.id})`
         }}
       ></div>
-      {item ? (
-        <div className="cart-row-data">
-          <div className="cart-row-top-data">
-            <div className="cart-row-item-description truncate-overflow">
-              {item.SalesDesc}
+      <div className="cart-row-data">
+        <div className="cart-row-top-data">
+          <div className="cart-row-item-description truncate-overflow">
+            {item.SalesDesc}
+          </div>
+          <div className="cart-row-item-sku">SKU: {item.Name}</div>
+          <div className="cart-row-item-price">
+            Price:
+            <div className={`retail-price ${price ? 'price-slash' : ''}`}>
+              {toUSCurrency(item.SalesPrice)}
             </div>
-            <div className="cart-row-item-sku">SKU: {item.Name}</div>
-            <div className="cart-row-item-price">
-              Price:
-              <div className={`retail-price ${price ? 'price-slash' : ''}`}>
-                {toUSCurrency(item.SalesPrice)}
+            {price ? (
+              <div
+                className="product-price"
+                style={{
+                  color: price ? priceColor : 'black'
+                }}
+              >
+                {toUSCurrency(price)}
               </div>
-              {price ? (
-                <div
-                  className="product-price"
-                  style={{
-                    color: price ? priceColor : 'black'
-                  }}
-                >
-                  {toUSCurrency(price)}
-                </div>
-              ) : null}
-            </div>
-            <div className="cart-row-item-quantity">
-              <label>Quantity: </label>
-              <input
-                onChange={(e) => setInputQuantity(e.target.value)}
-                value={inputQuantity}
-                type="number"
-                min="1"
-                className="quantity-input-cart"
-              ></input>
-              {updateReady ? (
-                <button
-                  className="cart-quantity-update"
-                  onClick={updateItemQuantity}
-                >
-                  update
-                </button>
-              ) : null}
-            </div>
-            <div className="cart-row-item-total">
-              Subtotal:
-              <span>
-                {toUSCurrency((price ?? item.SalesPrice) * props.quantity)} (
-                {props.quantity} item
-                {props.quantity > 1 ? 's' : ''})
-              </span>
-            </div>
+            ) : null}
           </div>
-          <div className="cart-row-bottom-buttons">
-            <button
-              type="button"
-              className="cart-modal-button button-blue"
-              onClick={() => navigate(item.Href)}
-            >
-              <span className="material-icons">open_in_new</span>
-            </button>
-            <button
-              type="button"
-              className="cart-modal-button button-red"
-              onClick={() => props.setShowRemoveItemModal(props.id)}
-            >
-              <span className="material-icons">delete</span>
-            </button>
+          <div className="cart-row-item-quantity">
+            <label>Quantity: </label>
+            <input
+              onChange={(e) => setInputQuantity(e.target.value)}
+              value={inputQuantity}
+              type="number"
+              min="1"
+              className="quantity-input-cart"
+            ></input>
+            {updateReady ? (
+              <button
+                className="cart-quantity-update"
+                onClick={updateItemQuantity}
+              >
+                update
+              </button>
+            ) : null}
+          </div>
+          <div className="cart-row-item-total">
+            Subtotal:
+            <span>
+              {toUSCurrency((price ?? item.SalesPrice) * props.quantity)} (
+              {props.quantity} item
+              {props.quantity > 1 ? 's' : ''})
+            </span>
           </div>
         </div>
-      ) : (
-        <div className="cart-row-data">
-          <h3>Product is no longer available</h3>
-          <button onClick={() => removeFromCart(props.id)}>ok</button>
+        <div className="cart-row-bottom-buttons">
+          <button
+            type="button"
+            className="cart-modal-button button-blue"
+            onClick={() => navigate(item.Href)}
+          >
+            <span className="material-icons">open_in_new</span>
+          </button>
+          <button
+            type="button"
+            className="cart-modal-button button-red"
+            onClick={() => props.setShowRemoveItemModal(props.id)}
+          >
+            <span className="material-icons">delete</span>
+          </button>
         </div>
-      )}
+      </div>
     </CartLineItemStyles>
+  ) : (
+    <NotAvailable
+      imagesStorageUrl={props.imagesStorageUrl}
+      id={props.id}
+      userLoggedIn={props.userLoggedIn}
+    />
   );
 };
 
