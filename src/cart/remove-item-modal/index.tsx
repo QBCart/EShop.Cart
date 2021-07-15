@@ -9,7 +9,7 @@
 // prettier-ignore
 import React, { FC, useEffect, useRef, Dispatch, SetStateAction } from 'react';
 import { useInventoryItem } from '@qbcart/eshop-inventory-hooks';
-import { useRemoveFromCart, useReportSubtotal } from '@qbcart/eshop-cart-hooks';
+import { useRemoveFromCart } from '@qbcart/eshop-cart-hooks';
 
 import RemoveItemModalStyles from './style.js';
 
@@ -22,7 +22,6 @@ interface Props {
 
 const RemoveItemModal: FC<Props> = (props: Props) => {
   const ref = useRef<HTMLDivElement>(null);
-  const reportSubtotal = useReportSubtotal();
   const removeFromCart = useRemoveFromCart(props.userLoggedIn);
   const [item, setItem] = useInventoryItem(props.showRemoveItemModal);
 
@@ -83,7 +82,6 @@ const RemoveItemModal: FC<Props> = (props: Props) => {
             <div className="modal-footer">
               <button
                 onClick={() => {
-                  reportSubtotal(item.id, 0);
                   removeFromCart(item.id);
                   hideModal();
                 }}
