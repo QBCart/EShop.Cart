@@ -19,15 +19,14 @@ const Subtotal: FC<Props> = (props: Props) => {
   const subtotal = useSubtotal();
   const removeSubtotal = useRemoveSubtotal();
 
-  // useEffect(() => {
-  //   console.log('subtotals render');
-  // });
+  useEffect(() => {
+    console.log('Subtotal rendered');
+  });
 
   useEffect(() => {
     if (subtotal) {
       setSubtotals((subtotals) => {
         subtotals[subtotal.id] = subtotal.amount;
-        // console.log(subtotals)
         return subtotals;
       });
       removeSubtotal(subtotal.id);

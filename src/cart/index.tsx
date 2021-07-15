@@ -23,9 +23,9 @@ const Cart: FC<Props> = (props: Props) => {
   const [showClearCartModal, setShowClearCartModal] = useState(false);
   const [showRemoveItemModal, setShowRemoveItemModal] = useState('');
 
-  // useEffect(() => {
-  //   console.log('cart render');
-  // });
+  useEffect(() => {
+    console.log('Cart rendered');
+  });
 
   return (
     <div>

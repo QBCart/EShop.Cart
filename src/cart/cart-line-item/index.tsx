@@ -51,14 +51,13 @@ const CartLineItem: FC<Props> = (props: Props) => {
     : props.customPriceTextColor;
   const subtotal = (price ?? item?.SalesPrice ?? 0) * props.quantity;
 
-  // useEffect(() => {
-  //   console.log(`cart line item ${props.id} render`);
-  // });
+  useEffect(() => {
+    console.log(`CartLineItem rendered: ${props.id}`);
+  });
 
   useEffect(() => {
     if (item) {
       reportSubtotal(item.id, subtotal);
-      console.log('reportSubtotal: ' + item.id);
     }
   }, [subtotal]);
 
