@@ -24,7 +24,7 @@ document.write(
     userLoggedIn: true,
     username: '',
     isB2C: false,
-    syncInterval: 600000,
+    syncInterval: 20000,
     sliderSettings: null,
     meta: html`
       <meta charset="UTF-8" />
@@ -48,7 +48,7 @@ document.write(
       />
     `,
     scripts: html`
-      <script
+      <!-- <script
         type="module"
         integrity="sha384-ZsG+E+8Q6Yh0v98Nd0SfOT1bOX82TJaNaBS1npTZYuq4oD09c6rDD2R9pXqMvter"
         src="/_snowpack/hmr-client.js"
@@ -57,7 +57,7 @@ document.write(
         type="module"
         integrity="sha384-LH/mFhEGRB4jHedP0nqOoIUwc4VX8eWJxEL+qTGWtroqiLJ2vxX169J0oSBMHL5o"
         src="/_snowpack/hmr-error-overlay.js"
-      ></script>
+      ></script> -->
       <script type="module" defer>
         import 'https://qbcdemo.z13.web.core.windows.net/eshop/app-shell/index.js';
         import 'https://qbcdemo.z13.web.core.windows.net/eshop/sync-component/index.js';
