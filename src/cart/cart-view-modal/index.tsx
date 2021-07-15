@@ -45,7 +45,7 @@ const CartViewModal: FC<Props> = (props: Props) => {
       modal.style.animationName = 'var(--cart-view-modal-show)';
       modal.style.display = 'block';
     }
-  }, [show, ref]);
+  }, [show]);
 
   const hideModal = () => {
     const modal = ref.current!;
