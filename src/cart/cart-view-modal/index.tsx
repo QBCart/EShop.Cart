@@ -13,7 +13,7 @@ import { useCartItems ,useCartViewModal, useRemoveCartViewModal } from '@qbcart/
 
 import CartLineItem from '../cart-line-item/index.js';
 import Subtotal from './subtotal.js';
-import EmptyCart from '../cart-line-item/empty-cart.js';
+import EmptyCart from './empty-cart.js';
 import CartViewModalStyles from './style.js';
 
 interface Props {
