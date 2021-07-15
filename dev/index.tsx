@@ -18,7 +18,7 @@ document.write(
     title: 'Home',
     appDrawerActions: actions,
     imagesStorageUrl:
-      'https://qbcimages4e2rfby2glfmo.z13.web.core.windows.net/',
+      'https://qbcimagesmns4oocsxwl6w.z13.web.core.windows.net/',
     siteUrl: '',
     siteName: 'Vector Tools',
     userLoggedIn: true,
