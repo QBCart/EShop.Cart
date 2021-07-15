@@ -26,7 +26,14 @@ const NotAvailable: FC<Props> = (props: Props) => {
         style={{
           backgroundImage: `url(${props.imagesStorageUrl}images/thumbnail/${props.id})`
         }}
-      ></div>
+      >
+        <div
+          className="cart-row-img"
+          style={{
+            backgroundImage: `url(${props.imagesStorageUrl}images/product-not-available.jpg)`
+          }}
+        ></div>
+      </div>
       <div className="cart-row-data">
         <div className="cart-row-top-data">
           <div className="not-available">
