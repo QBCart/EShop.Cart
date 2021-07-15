@@ -36,13 +36,15 @@ const CartLineItem: FC<Props> = (props: Props) => {
 
   const [item] = useInventoryItem(props.id);
   const [customPrice] = useCustomPricing(props.userLoggedIn, props.id);
-  const price = item?.IsOnSale
-    ? item.OnSalePrice
-      ? customPrice && customPrice < item.OnSalePrice
-        ? customPrice
-        : item.OnSalePrice
+  const price = item
+    ? item?.IsOnSale
+      ? item.OnSalePrice
+        ? customPrice && customPrice < item.OnSalePrice
+          ? customPrice
+          : item.OnSalePrice
+        : customPrice
       : customPrice
-    : customPrice;
+    : undefined;
   const priceColor = item?.IsOnSale
     ? item.OnSalePrice
       ? customPrice && customPrice < item.OnSalePrice
@@ -57,9 +59,7 @@ const CartLineItem: FC<Props> = (props: Props) => {
   });
 
   useEffect(() => {
-    if (item) {
-      reportSubtotal(item.id, subtotal);
-    }
+    reportSubtotal(props.id, subtotal);
   }, [subtotal]);
 
   useEffect(() => {
