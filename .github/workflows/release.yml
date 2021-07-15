@@ -48,14 +48,9 @@ jobs:
       # Setup Node JS #
       #################
       - name: Setup Node JS
-        # Setup .npmrc file to publish to npm
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ env.NODE_VERSION }}
-          registry-url: https://registry.npmjs.org
-          scope: '@qbcart'
-        env:
-          NODE_AUTH_TOKEN: ${{ fromJSON(secrets.PROD_ESM).node }}
+          node-version: ${{ fromJSON(secrets.PROD_ESM).node }}
 
       ################
       # Install Deps #
