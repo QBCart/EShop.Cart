@@ -9,7 +9,7 @@
 // prettier-ignore
 import React, { FC, useEffect, useRef, Dispatch, SetStateAction } from 'react';
 // prettier-ignore
-import { useCartItems ,useCartViewModal, useRemoveCartViewModal } from '@qbcart/eshop-cart-hooks';
+import { useCartItems, useCartViewModal, useRemoveCartViewModal } from '@qbcart/eshop-cart-hooks';
 
 import CartLineItem from '../cart-line-item/index.js';
 import Subtotal from './subtotal.js';
@@ -26,6 +26,8 @@ interface Props {
 }
 
 const CartViewModal: FC<Props> = (props: Props) => {
+  console.log('CartViewModal rendered');
+
   const ref = useRef<HTMLDivElement>(null);
   const show = useCartViewModal();
   const removeCartViewModal = useRemoveCartViewModal();
@@ -34,10 +36,6 @@ const CartViewModal: FC<Props> = (props: Props) => {
     items.length > 0
       ? items.map((item) => item.quantity!).reduce((a, b) => a + b)
       : 0;
-
-  useEffect(() => {
-    console.log('CartViewModal rendered');
-  });
 
   useEffect(() => {
     if (show) {

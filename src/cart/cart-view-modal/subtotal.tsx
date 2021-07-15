@@ -15,13 +15,11 @@ interface Props {
 }
 
 const Subtotal: FC<Props> = (props: Props) => {
+  console.log('Subtotal rendered');
+
   const [subtotals, setSubtotals] = useState<{ [key: string]: number }>({});
   const subtotal = useSubtotal();
   const removeSubtotal = useRemoveSubtotal();
-
-  useEffect(() => {
-    console.log('Subtotal rendered');
-  });
 
   useEffect(() => {
     if (subtotal) {

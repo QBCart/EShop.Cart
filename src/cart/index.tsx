@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source repo.
  */
 
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState } from 'react';
 
 import CartViewModal from './cart-view-modal/index.js';
 import ClearCartModal from './clear-cart-modal/index.js';
@@ -20,12 +20,10 @@ interface Props {
 }
 
 const Cart: FC<Props> = (props: Props) => {
+  console.log('Cart rendered');
+
   const [showClearCartModal, setShowClearCartModal] = useState(false);
   const [showRemoveItemModal, setShowRemoveItemModal] = useState('');
-
-  useEffect(() => {
-    console.log('Cart rendered');
-  });
 
   return (
     <div>

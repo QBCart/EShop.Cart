@@ -28,6 +28,8 @@ interface Props {
 }
 
 const CartLineItem: FC<Props> = (props: Props) => {
+  console.log(`CartLineItem rendered: ${props.id}`);
+
   const reportSubtotal = useReportSubtotal();
   const removeCartViewModal = useRemoveCartViewModal();
   const [inputQuantity, setInputQuantity] = useState(props.quantity.toString());
@@ -53,10 +55,6 @@ const CartLineItem: FC<Props> = (props: Props) => {
       : props.customPriceTextColor
     : props.customPriceTextColor;
   const subtotal = (price ?? item?.SalesPrice ?? 0) * props.quantity;
-
-  useEffect(() => {
-    console.log(`CartLineItem rendered: ${props.id}`);
-  });
 
   useEffect(() => {
     reportSubtotal(props.id, subtotal);
