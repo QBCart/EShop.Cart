@@ -8,7 +8,7 @@
 
 import React, { FC } from 'react';
 
-import CartLineItemStyles from './style.js';
+import CartLineItemStyles from '../cart-line-item/style.js';
 
 interface Props {
   imagesStorageUrl: string;
