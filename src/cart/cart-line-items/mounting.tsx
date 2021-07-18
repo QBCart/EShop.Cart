@@ -12,7 +12,7 @@ import { render } from 'react-dom';
 import CartLineItems from './index.js';
 
 const mountingContainer = document.getElementById(
-  'qbc-eshop-cart-view-modal-footer'
+  'qbc-eshop-cart-view-modal-body'
 ) as HTMLDivElement;
 const companySettings = document.getElementById(
   'qbc-eshop-company-settings'
