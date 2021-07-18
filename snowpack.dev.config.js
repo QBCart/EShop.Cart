@@ -5,8 +5,8 @@
 /** @type {import("snowpack").SnowpackUserConfig } */
 module.exports = {
   mount: {
-    src: { url: '/src', resolve: true, static: false },
-    dev: { url: '/', resolve: true, static: false }
+    dev: { url: '/', resolve: true, static: false },
+    publish_esm: { url: '/publish_esm', resolve: true, static: false }
   },
   plugins: [],
   packageOptions: {
@@ -51,14 +51,5 @@ module.exports = {
       src: '/accessories/adaptors',
       dest: '/index.html'
     }
-  ],
-  // prettier-ignore
-  alias: {
-    'react': 'https://qbcdemo.z13.web.core.windows.net/deps/react.js',
-    'react-dom': 'https://qbcdemo.z13.web.core.windows.net/deps/react-dom.js',
-    'styled-components': 'https://qbcdemo.z13.web.core.windows.net/deps/styled-components.js',
-    '@qbcart/utils': 'https://qbcdemo.z13.web.core.windows.net/utils/index.js',
-    '@qbcart/eshop-inventory-hooks': 'https://qbcdemo.z13.web.core.windows.net/eshop/inventory-hooks/index.js',
-    '@qbcart/eshop-cart-hooks': 'https://qbcdemo.z13.web.core.windows.net/eshop/cart-hooks/index.js'
-  }
+  ]
 };
