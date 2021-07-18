@@ -8,6 +8,7 @@
 
 import './cart/cart-view-modal-trigger/mounting.js';
 import './cart/cart-view-modal/mounting.js';
+import './cart/cart-line-items/mounting.js';
 import './cart/cart-subtotal/mounting.js';
 import './cart/clear-cart-modal/mounting.js';
 import './cart/remove-item-modal/mounting.js';
