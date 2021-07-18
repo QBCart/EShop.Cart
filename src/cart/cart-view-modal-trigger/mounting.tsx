@@ -13,7 +13,7 @@ import CartViewModalTrigger from './index.js';
 
 const topAppBarActions = document.getElementById(
   'qbc-eshop-top-app-bar-actions'
-)!;
+) as HTMLDivElement;
 const mountingDiv = document.createElement('div');
 
 mountingDiv.id = 'qbc-eshop-cart-view-modal-trigger';
