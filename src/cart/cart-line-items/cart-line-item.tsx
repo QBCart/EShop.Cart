@@ -15,7 +15,7 @@ import { useInventoryItem, useCustomPricing } from '@qbcart/eshop-inventory-hook
 import { toUSCurrency } from '@qbcart/utils';
 
 import CartLineItemStyles from './style.js';
-import NotAvailable from './not-available.jsx';
+import NotAvailable from './not-available.js';
 
 interface Props {
   id: string;
