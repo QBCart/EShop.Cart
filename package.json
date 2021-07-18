@@ -23,7 +23,7 @@
   "homepage": "https://github.com/QBCart/EShop.Cart#readme",
   "scripts": {
     "build": "snowpack build",
-    "start": "snowpack dev --config snowpack.dev.config.js",
+    "start": "SNOWPACK_PUBLIC_STREAMING_URL=https://qbcdemo.z13.web.core.windows.net npm run build && snowpack dev --config snowpack.dev.config.js",
     "lint": "eslint src/**/*.tsx",
     "format:check": "prettier --check .",
     "format:fix": "prettier . --write",
