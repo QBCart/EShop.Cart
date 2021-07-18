@@ -20,11 +20,11 @@ document.write(
     imagesStorageUrl:
       'https://qbcimagesmns4oocsxwl6w.z13.web.core.windows.net/',
     siteUrl: '',
-    siteName: 'Vector Tools',
+    siteName: 'EShop Dev Demo',
     userLoggedIn: true,
-    username: '',
+    username: 'Bobbert the Hobbert',
     isB2C: false,
-    syncInterval: 20000,
+    syncInterval: 60000,
     sliderSettings: null,
     meta: html`
       <meta charset="UTF-8" />
