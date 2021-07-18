@@ -23,6 +23,7 @@
   "homepage": "https://github.com/QBCart/EShop.Cart#readme",
   "scripts": {
     "build": "snowpack build",
+    "bundle": "webpack --mode production",
     "start": "snowpack dev --config snowpack.dev.config.js",
     "lint": "eslint src/**/*.tsx",
     "format:check": "prettier --check .",
@@ -42,6 +43,7 @@
     "@types/styled-components": "^5.1.11",
     "@typescript-eslint/eslint-plugin": "^4.28.3",
     "@typescript-eslint/parser": "^4.28.3",
+    "autoprefixer": "^10.3.1",
     "eslint": "^7.31.0",
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
@@ -51,7 +53,9 @@
     "prettier": "^2.3.2",
     "snowpack": "^3.8.2",
     "snowpack-plugin-import-map": "^1.1.4",
-    "typescript": "^4.3.5"
+    "typescript": "^4.3.5",
+    "webpack": "^5.45.1",
+    "webpack-cli": "^4.7.2"
   },
   "husky": {
     "hooks": {
