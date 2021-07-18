@@ -111,15 +111,6 @@ const CartViewModalStyles = styled.div`
     overflow-y: auto;
   }
 
-  .empty-cart-message {
-    display: flex;
-    height: calc(var(--cart-view-modal-height) - 60px);
-    width: 100%;
-    padding: 20px;
-    font-size: 20px;
-    color: rgb(240, 173, 78);
-  }
-
   .modal-footer {
     display: flex;
     justify-content: space-between;
