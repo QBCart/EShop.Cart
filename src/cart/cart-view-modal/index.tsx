@@ -7,10 +7,8 @@
  */
 
 import React, { FC, useEffect, useRef } from 'react';
-import {
-  useCartViewModal,
-  useRemoveCartViewModal
-} from '@qbcart/eshop-cart-hooks';
+// prettier-ignore
+import { useCartViewModal, useRemoveCartViewModal } from '@qbcart/eshop-cart-hooks';
 
 import CartViewModalStyles from './style.js';
 
