@@ -70,7 +70,6 @@ const CartViewModalStyles = styled.div`
     justify-content: space-between;
     width: var(--cart-view-modal-width);
     max-height: var(--cart-view-modal-height);
-    border: 1px solid lightgray;
     border-radius: 4px;
     background-color: white;
   }
@@ -125,8 +124,8 @@ const CartViewModalStyles = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 1px solid lightgray;
     padding: 10px 20px;
+    background-color: #131921;
   }
 
   .modal-footer-subtotal,
@@ -135,6 +134,7 @@ const CartViewModalStyles = styled.div`
     align-items: center;
     font-size: 20px;
     font-weight: 500;
+    color: #daa520;
   }
 
   .modal-footer-subtotal .material-icons {
