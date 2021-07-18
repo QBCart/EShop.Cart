@@ -7,7 +7,7 @@
  */
 
 // prettier-ignore
-import React, { FC, useState, useEffect, Dispatch, SetStateAction } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 // prettier-ignore
 import { useUpdateCart, useRemoveCartViewModal, useReportSubtotal } from '@qbcart/eshop-cart-hooks';
 // prettier-ignore
@@ -15,14 +15,13 @@ import { useInventoryItem, useCustomPricing } from '@qbcart/eshop-inventory-hook
 import { toUSCurrency } from '@qbcart/utils';
 
 import CartLineItemStyles from './style.js';
-import NotAvailable from './not-available.js';
+import NotAvailable from './not-available.jsx';
 
 interface Props {
   id: string;
   quantity: number;
   imagesStorageUrl: string;
   userLoggedIn: boolean;
-  setShowRemoveItemModal: Dispatch<SetStateAction<string>>;
   customPriceTextColor: string;
   onSalePriceTextColor: string;
 }
@@ -145,7 +144,7 @@ const CartLineItem: FC<Props> = (props: Props) => {
           <button
             type="button"
             className="cart-modal-button button-red"
-            onClick={() => props.setShowRemoveItemModal(props.id)}
+            // onClick={() => props.setShowRemoveItemModal(props.id)}
           >
             <span className="material-icons">delete</span>
           </button>

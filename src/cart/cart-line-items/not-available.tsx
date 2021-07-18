@@ -9,7 +9,7 @@
 import React, { FC } from 'react';
 import { useRemoveFromCart } from '@qbcart/eshop-cart-hooks';
 
-import CartLineItemStyles from '../cart-line-item/style.js';
+import CartLineItemStyles from './style.js';
 
 interface Props {
   id: string;
