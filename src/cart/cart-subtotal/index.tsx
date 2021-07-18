@@ -25,7 +25,7 @@ const CartSubtotal: FC = () => {
       });
       removeSubtotal(subtotal.id);
     }
-  }, [subtotal, removeSubtotal]);
+  }, [subtotal]);
 
   return (
     <div className="modal-footer-subtotal">
