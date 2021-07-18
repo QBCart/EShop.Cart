@@ -7,7 +7,7 @@
  */
 
 // prettier-ignore
-import React, { FC, useEffect, useRef, Dispatch, SetStateAction } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 import { useInventoryItem } from '@qbcart/eshop-inventory-hooks';
 import { useRemoveFromCart } from '@qbcart/eshop-cart-hooks';
 
@@ -16,26 +16,34 @@ import RemoveItemModalStyles from './style.js';
 interface Props {
   imagesStorageUrl: string;
   userLoggedIn: boolean;
-  showRemoveItemModal: string;
-  setShowRemoveItemModal: Dispatch<SetStateAction<string>>;
 }
 
 const RemoveItemModal: FC<Props> = (props: Props) => {
   const ref = useRef<HTMLDivElement>(null);
   const removeFromCart = useRemoveFromCart(props.userLoggedIn);
-  const [item, setItem] = useInventoryItem(props.showRemoveItemModal);
+  const [item, setItem] = useInventoryItem('' /*props.showRemoveItemModal*/);
 
-  useEffect(() => {
-    setItem(props.showRemoveItemModal);
-  }, [props.showRemoveItemModal, setItem]);
+  useEffect(
+    () => {
+      // setItem(props.showRemoveItemModal);
+    },
+    [
+      /*props.showRemoveItemModal*/
+    ]
+  );
 
-  useEffect(() => {
-    if (props.showRemoveItemModal) {
-      const modal = ref.current!;
-      modal.style.animationName = 'var(--remove-item-modal-show)';
-      modal.style.display = 'block';
-    }
-  }, [props.showRemoveItemModal, ref]);
+  useEffect(
+    () => {
+      // if (props.showRemoveItemModal) {
+      //   const modal = ref.current!;
+      //   modal.style.animationName = 'var(--remove-item-modal-show)';
+      //   modal.style.display = 'block';
+      // }
+    },
+    [
+      /*props.showRemoveItemModal*/
+    ]
+  );
 
   const hideModal = () => {
     const modal = ref.current!;
@@ -49,9 +57,9 @@ const RemoveItemModal: FC<Props> = (props: Props) => {
     if (modal.classList.contains('qbc-remove-item-modal-visible')) {
       modal.classList.remove('qbc-remove-item-modal-visible');
       modal.style.display = 'none';
-      if (props.showRemoveItemModal) {
-        props.setShowRemoveItemModal('');
-      }
+      // if (props.showRemoveItemModal) {
+      //   props.setShowRemoveItemModal('');
+      // }
     } else {
       modal.classList.add('qbc-remove-item-modal-visible');
     }
