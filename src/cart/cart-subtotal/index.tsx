@@ -10,11 +10,7 @@ import React, { FC, useState, useEffect } from 'react';
 import { useSubtotal, useRemoveSubtotal } from '@qbcart/eshop-cart-hooks';
 import { toUSCurrency } from '@qbcart/utils';
 
-interface Props {
-  numOfItems: number;
-}
-
-const Subtotal: FC<Props> = (props: Props) => {
+const CartSubtotal: FC = () => {
   console.log('Subtotal rendered');
 
   const [subtotals, setSubtotals] = useState<{ [key: string]: number }>({});
@@ -40,10 +36,10 @@ const Subtotal: FC<Props> = (props: Props) => {
           ? Object.values(subtotals).reduce((a, b) => a + b)
           : 0
       )}{' '}
-      ({props.numOfItems} item
-      {props.numOfItems === 1 ? '' : 's'})
+      {/* ({props.numOfItems} item
+      {props.numOfItems === 1 ? '' : 's'}) */}
     </div>
   );
 };
 
-export default Subtotal;
+export default CartSubtotal;
