@@ -9,7 +9,7 @@
 // prettier-ignore
 import React, { FC, useState, useEffect } from 'react';
 // prettier-ignore
-import { useUpdateCart, useRemoveCartViewModal, useReportSubtotal } from '@qbcart/eshop-cart-hooks';
+import { useUpdateCart, useRemoveCartViewModal, useReportSubtotal, useShowRemoveItemModal } from '@qbcart/eshop-cart-hooks';
 // prettier-ignore
 import { useInventoryItem } from '@qbcart/eshop-inventory-hooks';
 import { toUSCurrency } from '@qbcart/utils';
@@ -31,6 +31,7 @@ const CartLineItem: FC<Props> = (props: Props) => {
 
   const reportSubtotal = useReportSubtotal();
   const removeCartViewModal = useRemoveCartViewModal();
+  const showRemoveItemModal = useShowRemoveItemModal();
   const [inputQuantity, setInputQuantity] = useState(props.quantity.toString());
   const [updateReady, setUpdateReady] = useState(false);
   const updateCart = useUpdateCart(props.userLoggedIn);
@@ -143,7 +144,7 @@ const CartLineItem: FC<Props> = (props: Props) => {
           <button
             type="button"
             className="cart-modal-button button-red"
-            // onClick={() => props.setShowRemoveItemModal(props.id)}
+            onClick={() => showRemoveItemModal(props.id)}
           >
             <span className="material-icons">delete</span>
           </button>
