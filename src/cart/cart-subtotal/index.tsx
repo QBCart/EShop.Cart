@@ -13,14 +13,23 @@ import { toUSCurrency } from '@qbcart/utils';
 const CartSubtotal: FC = () => {
   console.log('Subtotal rendered');
 
-  const [subtotals, setSubtotals] = useState<{ [key: string]: number }>({});
+  const [subtotals, setSubtotals] = useState<{
+    [key: string]: { amount: number; quantity: number };
+  }>({});
   const subtotal = useSubtotal();
   const removeSubtotal = useRemoveSubtotal();
+  const numOfItems =
+    Object.keys(subtotals).length > 0
+      ? Object.values(subtotals).reduce((q, { quantity }) => q + quantity, 0)
+      : 0;
 
   useEffect(() => {
     if (subtotal) {
       setSubtotals((subtotals) => {
-        subtotals[subtotal.id] = subtotal.amount;
+        subtotals[subtotal.id] = {
+          amount: subtotal.amount,
+          quantity: subtotal.quantity
+        };
         return subtotals;
       });
       removeSubtotal(subtotal.id);
@@ -33,11 +42,11 @@ const CartSubtotal: FC = () => {
       Subtotal:{' '}
       {toUSCurrency(
         Object.keys(subtotals).length > 0
-          ? Object.values(subtotals).reduce((a, b) => a + b)
+          ? Object.values(subtotals).reduce((a, { amount }) => a + amount, 0)
           : 0
       )}{' '}
-      {/* ({props.numOfItems} item
-      {props.numOfItems === 1 ? '' : 's'}) */}
+      ({numOfItems} item
+      {numOfItems === 1 ? '' : 's'})
     </div>
   );
 };
