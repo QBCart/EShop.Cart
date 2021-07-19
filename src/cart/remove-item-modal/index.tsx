@@ -22,8 +22,7 @@ interface Props {
 const RemoveItemModal: FC<Props> = (props: Props) => {
   const ref = useRef<HTMLDivElement>(null);
   const removeFromCart = useRemoveFromCart(props.userLoggedIn);
-  const itemId = '';
-  useRemoveItemModal();
+  const itemId = useRemoveItemModal();
   const dismissRemoveItemModal = useDismissRemoveItemModal();
   const [item, setItem] = useInventoryItem(itemId);
 

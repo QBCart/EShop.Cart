@@ -20,8 +20,7 @@ interface Props {
 const ClearCartModal: FC<Props> = (props: Props) => {
   const ref = useRef<HTMLDivElement>(null);
   const clearCart = useClearCart(props.userLoggedIn);
-  const show = false;
-  useClearCartModal();
+  const show = useClearCartModal();
   const removeClearCartModal = useRemoveClearCartModal();
 
   useEffect(() => {
