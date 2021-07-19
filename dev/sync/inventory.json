@@ -1288,7 +1288,7 @@
       {
         "BestSellerRank": 1,
         "IsFeatured": 1,
-        "IsOnSale": 1,
+        "IsOnSale": 0,
         "OnSalePrice": 15,
         "FullDesc": "This demonstrates a QBCart-side metadata for a fuller description, which is basically a paragraph version of the sales description kept in QuickBooks. \n\nTesting multi-paragraphs. \n\nIs not respecting multi-line breaks. \n\nThis will eventually need to be addressed.",
         "Images": ["ITEM-8000028F-1269990123", "ITEM-80000EC0-1469555022"],
