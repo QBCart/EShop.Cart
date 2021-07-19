@@ -1,33 +1,5 @@
 {
-  "userCart": {
-    "lastSynced": 98437491,
-    "lastForcedUpdate": 1000,
-    "items": []
-  },
-  "userPricing": {
-    "lastSynced": 98437491,
-    "lastForcedUpdate": 1000,
-    "items": [
-      {
-        "id": "ITEM-8000028F-1269990123",
-        "price": 17,
-        "_ts": 1613309910
-      },
-      {
-        "id": "ITEM-800004E2-1313778339",
-        "price": 18,
-        "_ts": 1606822910
-      },
-      {
-        "id": "ITEM-80000EC0-1469555022",
-        "price": 17.5,
-        "_ts": 1616423235
-      },
-      {
-        "id": "ITEM-80000E5C-1461006981",
-        "price": 18.99,
-        "_ts": 1606822915
-      }
-    ]
-  }
+  "lastSynced": 98437491,
+  "lastForcedUpdate": 1000,
+  "items": []
 }
