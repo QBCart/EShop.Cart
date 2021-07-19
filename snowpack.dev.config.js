@@ -5,8 +5,8 @@
 /** @type {import("snowpack").SnowpackUserConfig } */
 module.exports = {
   mount: {
-    'dev/demo': { url: '/', resolve: true, static: false },
-    'dev/sync': { url: '/', resolve: true, static: false }
+    dev: { url: '/', resolve: true, static: false },
+    publish_esm: { url: '/publish_esm', resolve: true, static: false }
   },
   plugins: [],
   packageOptions: {
@@ -17,15 +17,15 @@ module.exports = {
   routes: [
     {
       src: '/sync/inventory',
-      dest: '/inventory.json'
+      dest: '/sync/inventory.json'
     },
     {
       src: '/sync/user',
-      dest: '/user.json'
+      dest: '/sync/user.json'
     },
     {
       src: '/sync/cart',
-      dest: '/cart.html'
+      dest: '/sync/cart.html'
     },
     {
       src: '/Accessories',
@@ -51,7 +51,5 @@ module.exports = {
       src: '/accessories/adaptors',
       dest: '/index.html'
     }
-  ],
-  // prettier-ignore
-  alias: {}
+  ]
 };

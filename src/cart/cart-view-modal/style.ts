@@ -30,7 +30,6 @@ const CartViewModalStyles = styled.div`
   --cart-view-modal-show: ${CartViewModalShow};
   --cart-view-modal-hide: ${CartViewModalHide};
   --cart-view-modal-width: calc(100vw - 300px);
-  /* --cart-view-modal-height: calc(var(--cart-view-modal-width) * 0.7); */
   --cart-view-modal-height: calc(100vh - 130px);
   --line-height-dynamic-lg: calc(var(--cart-view-modal-width) / 26);
   --line-height-dynamic-md: calc(var(--cart-view-modal-width) / 30);
@@ -71,7 +70,6 @@ const CartViewModalStyles = styled.div`
     justify-content: space-between;
     width: var(--cart-view-modal-width);
     max-height: var(--cart-view-modal-height);
-    border: 1px solid lightgray;
     border-radius: 4px;
     background-color: white;
   }
@@ -113,32 +111,26 @@ const CartViewModalStyles = styled.div`
     overflow-y: auto;
   }
 
-  .empty-cart-message {
-    display: flex;
-    height: calc(var(--cart-view-modal-height) - 60px);
-    width: 100%;
-    padding: 20px;
-    font-size: 20px;
-    color: rgb(240, 173, 78);
-  }
-
   .modal-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 1px solid lightgray;
     padding: 10px 20px;
+    background-color: #131921;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
   }
 
-  .modal-footer-subtotals,
-  .modal-footer-subtotals .material-icons {
+  .modal-footer-subtotal,
+  .modal-footer-subtotal .material-icons {
     display: flex;
     align-items: center;
     font-size: 20px;
-    font-weight: 500;
+    font-weight: 450;
+    color: #daa520;
   }
 
-  .modal-footer-subtotals .material-icons {
+  .modal-footer-subtotal .material-icons {
     display: flex;
     align-items: center;
     font-size: 28px;
@@ -153,12 +145,24 @@ const CartViewModalStyles = styled.div`
   }
 
   .cart-modal-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 30px;
     width: 40px;
     color: white;
     border: none;
     border-radius: 3px;
     margin-left: 5px;
+  }
+
+  .cart-modal-button span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 18px;
+    width: 18px;
+    line-height: 18px;
   }
 
   .cart-modal-button:hover {
@@ -170,7 +174,7 @@ const CartViewModalStyles = styled.div`
   }
 
   .button-red:hover {
-    background-color: rgb(210, 43, 59);
+    background-color: rgb(173, 31, 45);
   }
 
   .button-blue {
@@ -178,15 +182,15 @@ const CartViewModalStyles = styled.div`
   }
 
   .button-blue:hover {
-    background-color: rgb(0, 106, 245);
+    background-color: rgb(0, 88, 204);
   }
 
   .button-green {
-    background-color: rgb(92, 184, 92);
+    background-color: rgb(49, 171, 69);
   }
 
   .button-green:hover {
-    background-color: rgb(82, 174, 82);
+    background-color: rgb(40, 138, 57);
   }
 
   .button-grey {
@@ -194,7 +198,7 @@ const CartViewModalStyles = styled.div`
   }
 
   .button-grey:hover {
-    background-color: rgb(98, 107, 115);
+    background-color: rgb(83, 90, 95);
   }
 
   /* Large devices (desktops, 1200px and up) */
@@ -210,22 +214,22 @@ const CartViewModalStyles = styled.div`
   /* Small to medium devices (portrait phones, 576px and below) */
   @media (max-width: 575.98px) {
     --cart-view-modal-width: calc(100vw - 10px);
-    --cart-view-modal-height: calc(100vh - 62px);
+    --cart-view-modal-height: 85vh;
 
     .modal-wrapper {
       justify-content: center;
-      align-items: flex-end;
+      align-items: flex-start;
     }
 
     .modal-content {
-      margin-bottom: 5px;
+      margin-top: 5px;
     }
 
-    .modal-footer-subtotals {
+    .modal-footer-subtotal {
       width: calc(var(--cart-view-modal-width) - 140px);
       font-size: var(--line-height-dynamic-lg);
     }
-    .modal-footer-subtotals .material-icons {
+    .modal-footer-subtotal .material-icons {
       font-size: calc(var(--line-height-dynamic-lg) * 1.4);
     }
 

@@ -13,7 +13,8 @@ const CartLineItemStyles = styled.div`
   border-bottom: 1px solid lightgray;
   margin: 10px;
 
-  .empty-cart {
+  .empty-cart,
+  .not-available {
     font-size: 20px;
     font-weight: 500;
     margin-top: 90px;
@@ -21,15 +22,15 @@ const CartLineItemStyles = styled.div`
 
   .cart-row-img {
     width: calc((var(--cart-view-modal-width) - 20px) / 3);
-    height: 180px;
-    margin: 10px 0;
+    height: 200px;
+    /* margin: 10px 0; */
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
   }
 
   .cart-row-data {
-    height: 200px;
+    height: 220px;
     width: calc(((var(--cart-view-modal-width) - 20px) / 3) * 2);
     display: flex;
     flex-direction: column;
@@ -69,8 +70,30 @@ const CartLineItemStyles = styled.div`
     background-color: white;
   }
 
-  .cart-row-item-price {
+  .cart-row-item-sku {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     margin-bottom: 10px;
+  }
+
+  .cart-row-item-price {
+    display: flex;
+    margin-bottom: 10px;
+  }
+
+  .retail-price {
+    font-weight: 600;
+    margin-left: 5px;
+  }
+
+  .price-slash {
+    text-decoration: line-through;
+  }
+
+  .product-price {
+    font-weight: 600;
+    margin-left: 10px;
   }
 
   .cart-row-item-quantity {
@@ -102,7 +125,9 @@ const CartLineItemStyles = styled.div`
     cursor: pointer;
   }
 
-  .cart-row-item-total {
+  .cart-row-item-total span {
+    font-weight: 600;
+    margin-left: 5px;
   }
 
   .cart-row-bottom-buttons {
@@ -119,6 +144,11 @@ const CartLineItemStyles = styled.div`
     .truncate-overflow {
       --lh: calc(var(--line-height-dynamic-lg) * 1.15);
     }
+
+    .cart-row-item-sku {
+      font-size: var(--line-height-dynamic-md);
+    }
+
     .cart-row-item-price {
       font-size: var(--line-height-dynamic-md);
     }
@@ -141,7 +171,7 @@ const CartLineItemStyles = styled.div`
     --cart-view-modal-width: calc(100vw - 5px);
     --cart-view-modal-height: calc(100vh - 124px);
 
-    .modal-footer-subtotals {
+    .modal-footer-sutotal {
       width: calc(var(--cart-view-modal-width) - 140px);
     }
 

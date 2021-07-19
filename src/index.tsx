@@ -6,46 +6,9 @@
  * LICENSE file in the root directory of this source repo.
  */
 
-import React from 'react';
-import { render } from 'react-dom';
-
-import Cart from './cart/index.js';
-import CartViewModalTrigger from './cart/cart-view-modal-trigger/index.js';
-
-/**
- * Mounting code for cart.
- */
-const globalMountsContainer = document.getElementById(
-  'qbc-eshop-global-mounts'
-)!;
-const cartMountingDiv = document.createElement('div');
-
-cartMountingDiv.id = 'qbc-eshop-cart';
-globalMountsContainer.appendChild(cartMountingDiv);
-
-render(
-  <Cart
-    imagesStorageUrl={
-      document.getElementById('qbc-eshop-company-settings')!.dataset
-        .imagesStorageUrl!
-    }
-    userLoggedIn={Boolean(document.getElementById('qbc-eshop-user'))}
-  />,
-  cartMountingDiv
-);
-
-/**
- * Mounting code for cart view modal trigger.
- */
-const topAppBarActions = document.getElementById(
-  'qbc-eshop-top-app-bar-actions'
-)!;
-const cartViewModalTriggerMountingDiv = document.createElement('div');
-
-cartViewModalTriggerMountingDiv.id = 'qbc-eshop-cart-view-trigger';
-topAppBarActions.insertAdjacentElement(
-  'beforeend',
-  cartViewModalTriggerMountingDiv
-);
-
-render(<CartViewModalTrigger />, cartViewModalTriggerMountingDiv);
+import './cart/cart-view-modal-trigger/mounting.js';
+import './cart/cart-view-modal/mounting.js';
+import './cart/clear-cart-modal/mounting.js';
+import './cart/remove-item-modal/mounting.js';
+import './cart/cart-line-items/mounting.js';
+import './cart/cart-subtotal/mounting.js';

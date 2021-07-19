@@ -6,39 +6,19 @@
  * LICENSE file in the root directory of this source repo.
  */
 
+import React, { FC, useEffect, useRef } from 'react';
 // prettier-ignore
-import React, { FC, useEffect, useRef, Dispatch, SetStateAction } from 'react';
-// prettier-ignore
-import { useCartItems ,useCartViewModal, useRemoveCartViewModal } from '@qbcart/eshop-cart-hooks';
-import { toUSCurrency } from '@qbcart/utils';
+import { useCartViewModal, useRemoveCartViewModal, useShowClearCartModal } from '@qbcart/eshop-cart-hooks';
 
-import CartLineItem from '../cart-line-item/index.js';
-import EmptyCart from '../cart-line-item/empty-cart.js';
 import CartViewModalStyles from './style.js';
 
-interface Props {
-  imagesStorageUrl: string;
-  userLoggedIn: boolean;
-  setShowClearCartModal: Dispatch<SetStateAction<boolean>>;
-  setShowRemoveItemModal: Dispatch<SetStateAction<string>>;
-}
+const CartViewModal: FC = () => {
+  console.log('CartViewModal rendered');
 
-const CartViewModal: FC<Props> = (props: Props) => {
   const ref = useRef<HTMLDivElement>(null);
   const show = useCartViewModal();
   const removeCartViewModal = useRemoveCartViewModal();
-  const items = useCartItems(props.userLoggedIn);
-
-  const subtotal =
-    items.length > 0
-      ? items
-          .map((item) => item.price! * item.quantity!)
-          .reduce((a, b) => a + b)
-      : 0;
-  const numOfItems =
-    items.length > 0
-      ? items.map((item) => item.quantity!).reduce((a, b) => a + b)
-      : 0;
+  const showClearCartModal = useShowClearCartModal();
 
   useEffect(() => {
     if (show) {
@@ -46,7 +26,7 @@ const CartViewModal: FC<Props> = (props: Props) => {
       modal.style.animationName = 'var(--cart-view-modal-show)';
       modal.style.display = 'block';
     }
-  }, [show, ref]);
+  }, [show]);
 
   const hideModal = () => {
     const modal = ref.current!;
@@ -81,40 +61,19 @@ const CartViewModal: FC<Props> = (props: Props) => {
     >
       <div className="modal-wrapper">
         <div className="modal-content">
-          <div className="modal-body">
-            {items.length > 0 ? (
-              items.map((item) => (
-                <CartLineItem
-                  key={item.id}
-                  id={item.id!}
-                  quantity={item.quantity!}
-                  imagesStorageUrl={props.imagesStorageUrl}
-                  userLoggedIn={props.userLoggedIn}
-                  setShowRemoveItemModal={props.setShowRemoveItemModal}
-                />
-              ))
-            ) : (
-              <EmptyCart imagesStorageUrl={props.imagesStorageUrl} />
-            )}
-          </div>
-          <div className="modal-footer">
-            <div className="modal-footer-subtotals">
-              <span className="material-icons">shopping_cart</span>
-              Subtotal: {toUSCurrency(subtotal)} ({numOfItems} item
-              {numOfItems === 1 ? '' : 's'})
-            </div>
+          <div id="qbc-eshop-cart-view-modal-body" className="modal-body"></div>
+          <div id="qbc-eshop-cart-view-modal-footer" className="modal-footer">
             <div className="modal-footer-buttons">
               <button
                 type="button"
-                disabled={items.length < 1}
+                //disabled={items.length < 1}
                 className="cart-modal-button button-red"
-                onClick={() => props.setShowClearCartModal(true)}
+                onClick={showClearCartModal}
               >
                 <span className="material-icons">delete</span>
               </button>
               <button
                 type="button"
-                disabled={items.length < 1}
                 className="cart-modal-button button-green"
                 onClick={() => navigate('/Checkout')}
               >

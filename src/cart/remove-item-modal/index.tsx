@@ -7,35 +7,33 @@
  */
 
 // prettier-ignore
-import React, { FC, useEffect, useRef, Dispatch, SetStateAction } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 import { useInventoryItem } from '@qbcart/eshop-inventory-hooks';
-import { useRemoveFromCart } from '@qbcart/eshop-cart-hooks';
+// prettier-ignore
+import { useRemoveFromCart, useRemoveItemModal, useDismissRemoveItemModal } from '@qbcart/eshop-cart-hooks';
 
 import RemoveItemModalStyles from './style.js';
 
 interface Props {
   imagesStorageUrl: string;
   userLoggedIn: boolean;
-  showRemoveItemModal: string;
-  setShowRemoveItemModal: Dispatch<SetStateAction<string>>;
 }
 
 const RemoveItemModal: FC<Props> = (props: Props) => {
   const ref = useRef<HTMLDivElement>(null);
   const removeFromCart = useRemoveFromCart(props.userLoggedIn);
-  const [item, setItem] = useInventoryItem(props.showRemoveItemModal);
+  const itemId = useRemoveItemModal();
+  const dismissRemoveItemModal = useDismissRemoveItemModal();
+  const [item, setItem] = useInventoryItem(itemId);
 
   useEffect(() => {
-    setItem(props.showRemoveItemModal);
-  }, [props.showRemoveItemModal, setItem]);
-
-  useEffect(() => {
-    if (props.showRemoveItemModal) {
+    setItem(itemId);
+    if (itemId) {
       const modal = ref.current!;
       modal.style.animationName = 'var(--remove-item-modal-show)';
       modal.style.display = 'block';
     }
-  }, [props.showRemoveItemModal, ref]);
+  }, [itemId]);
 
   const hideModal = () => {
     const modal = ref.current!;
@@ -49,8 +47,8 @@ const RemoveItemModal: FC<Props> = (props: Props) => {
     if (modal.classList.contains('qbc-remove-item-modal-visible')) {
       modal.classList.remove('qbc-remove-item-modal-visible');
       modal.style.display = 'none';
-      if (props.showRemoveItemModal) {
-        props.setShowRemoveItemModal('');
+      if (itemId) {
+        dismissRemoveItemModal(itemId);
       }
     } else {
       modal.classList.add('qbc-remove-item-modal-visible');

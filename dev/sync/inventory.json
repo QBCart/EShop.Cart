@@ -1,6 +1,7 @@
 {
   "banners": {
     "lastSynced": 98437491,
+    "lastForcedUpdate": 1000,
     "items": [
       {
         "id": "ssdkfsdfa",
@@ -54,6 +55,29 @@
   },
   "inventory": {
     "lastSynced": 98437491,
+    "lastForcedUpdate": 1000,
+    "customPricing": [
+      {
+        "id": "ITEM-8000028F-1269990123",
+        "price": 17,
+        "_ts": 1613309910
+      },
+      {
+        "id": "ITEM-800004E2-1313778339",
+        "price": 18,
+        "_ts": 1606822910
+      },
+      {
+        "id": "ITEM-80000EC0-1469555022",
+        "price": 17.5,
+        "_ts": 1616423235
+      },
+      {
+        "id": "ITEM-80000E5C-1461006981",
+        "price": 18.99,
+        "_ts": 1606822915
+      }
+    ],
     "items": [
       {
         "BestSellerRank": 0,
@@ -1263,8 +1287,9 @@
       },
       {
         "BestSellerRank": 1,
-        "IsFeatured": 0,
+        "IsFeatured": 1,
         "IsOnSale": 0,
+        "OnSalePrice": 15,
         "FullDesc": "This demonstrates a QBCart-side metadata for a fuller description, which is basically a paragraph version of the sales description kept in QuickBooks. \n\nTesting multi-paragraphs. \n\nIs not respecting multi-line breaks. \n\nThis will eventually need to be addressed.",
         "Images": ["ITEM-8000028F-1269990123", "ITEM-80000EC0-1469555022"],
         "Specs": [
