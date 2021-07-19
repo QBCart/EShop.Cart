@@ -126,7 +126,7 @@ const CartViewModalStyles = styled.div`
     display: flex;
     align-items: center;
     font-size: 20px;
-    font-weight: 500;
+    font-weight: 450;
     color: #daa520;
   }
 
