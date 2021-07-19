@@ -2,7 +2,7 @@
 
 ### New
 
-- none
+- Now deploys as a bundled esm file.
 
 ### Fixes
 
