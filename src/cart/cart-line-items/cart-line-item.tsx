@@ -56,7 +56,7 @@ const CartLineItem: FC<Props> = (props: Props) => {
   const subtotal = (price ?? item?.SalesPrice ?? 0) * props.quantity;
 
   useEffect(() => {
-    reportSubtotal(props.id, subtotal);
+    reportSubtotal(props.id, subtotal, props.quantity);
   }, [subtotal]);
 
   useEffect(() => {
