@@ -8,7 +8,9 @@
 
 // prettier-ignore
 import React, { FC, useEffect, useRef } from 'react';
-import { useClearCart } from '@qbcart/eshop-cart-hooks';
+import {
+  useClearCart /*, useClearCartModal, useRemoveClearCartModal*/
+} from '@qbcart/eshop-cart-hooks';
 
 import ClearCartModalStyles from './style.js';
 
@@ -19,19 +21,16 @@ interface Props {
 const ClearCartModal: FC<Props> = (props: Props) => {
   const ref = useRef<HTMLDivElement>(null);
   const clearCart = useClearCart(props.userLoggedIn);
+  const show = false; //useClearCartModal();
+  // const removeClearCartModal = useRemoveClearCartModal();
 
-  useEffect(
-    () => {
-      // if (props.showClearCartModal) {
-      //   const modal = ref.current!;
-      //   modal.style.animationName = 'var(--clear-cart-modal-show)';
-      //   modal.style.display = 'block';
-      // }
-    },
-    [
-      /*props.showClearCartModal*/
-    ]
-  );
+  useEffect(() => {
+    if (show) {
+      const modal = ref.current!;
+      modal.style.animationName = 'var(--clear-cart-modal-show)';
+      modal.style.display = 'block';
+    }
+  }, [show]);
 
   const hideModal = () => {
     const modal = ref.current!;
@@ -45,9 +44,9 @@ const ClearCartModal: FC<Props> = (props: Props) => {
     if (modal.classList.contains('qbc-clear-cart-modal-visible')) {
       modal.classList.remove('qbc-clear-cart-modal-visible');
       modal.style.display = 'none';
-      // if (props.showClearCartModal) {
-      //   props.setShowClearCartModal(false);
-      // }
+      if (show) {
+        // removeClearCartModal();
+      }
     } else {
       modal.classList.add('qbc-clear-cart-modal-visible');
     }
