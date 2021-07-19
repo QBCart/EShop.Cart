@@ -1,5 +1,45 @@
 {
   "lastSynced": 98437491,
   "lastForcedUpdate": 1000,
-  "items": []
+  "items": [
+    {
+      "id": "ITEM-80000A97-1394218726",
+      "Discriminator": "CART-ITEM-9944d685-9438-422e-9303-dddd8c9b907a",
+      "Created": "2021-07-13T10:40:54.482Z",
+      "price": 159,
+      "quantity": 3,
+      "sortOrder": 1626172854032,
+      "_rid": "ZYswAIEDtEclAAAAAAAAAA==",
+      "_self": "dbs/ZYswAA==/colls/ZYswAIEDtEc=/docs/ZYswAIEDtEclAAAAAAAAAA==/",
+      "_etag": "\"0c01c86e-0000-0100-0000-60edf89d0000\"",
+      "_attachments": "attachments/",
+      "_ts": 1626208413
+    },
+    {
+      "id": "ITEM-8000028F-1269990123",
+      "Discriminator": "CART-ITEM-9944d685-9438-422e-9303-dddd8c9b907a",
+      "Created": "2021-07-13T10:45:31.144Z",
+      "price": 15,
+      "quantity": 2,
+      "sortOrder": 1626173130955,
+      "_rid": "ZYswAIEDtEcmAAAAAAAAAA==",
+      "_self": "dbs/ZYswAA==/colls/ZYswAIEDtEc=/docs/ZYswAIEDtEcmAAAAAAAAAA==/",
+      "_etag": "\"0c017173-0000-0100-0000-60edf8cb0000\"",
+      "_attachments": "attachments/",
+      "_ts": 1626208459
+    },
+    {
+      "id": "ITEM-80000F84-1478721024",
+      "Discriminator": "CART-ITEM-9944d685-9438-422e-9303-dddd8c9b907a",
+      "Created": "2021-07-13T10:46:45.405Z",
+      "price": 25,
+      "quantity": 1,
+      "sortOrder": 1626173205054,
+      "_rid": "ZYswAIEDtEcnAAAAAAAAAA==",
+      "_self": "dbs/ZYswAA==/colls/ZYswAIEDtEc=/docs/ZYswAIEDtEcnAAAAAAAAAA==/",
+      "_etag": "\"0c01cb6e-0000-0100-0000-60edf89d0000\"",
+      "_attachments": "attachments/",
+      "_ts": 1626208413
+    }
+  ]
 }
