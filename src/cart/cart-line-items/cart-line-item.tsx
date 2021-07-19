@@ -11,7 +11,7 @@ import React, { FC, useState, useEffect } from 'react';
 // prettier-ignore
 import { useUpdateCart, useRemoveCartViewModal, useReportSubtotal } from '@qbcart/eshop-cart-hooks';
 // prettier-ignore
-import { useInventoryItem, useCustomPricing } from '@qbcart/eshop-inventory-hooks';
+import { useInventoryItem } from '@qbcart/eshop-inventory-hooks';
 import { toUSCurrency } from '@qbcart/utils';
 
 import CartLineItemStyles from './style.js';
@@ -36,19 +36,18 @@ const CartLineItem: FC<Props> = (props: Props) => {
   const updateCart = useUpdateCart(props.userLoggedIn);
 
   const [item] = useInventoryItem(props.id);
-  const [customPrice] = useCustomPricing(props.userLoggedIn, props.id);
   const price = item
-    ? item?.IsOnSale
+    ? item.IsOnSale
       ? item.OnSalePrice
-        ? customPrice && customPrice < item.OnSalePrice
-          ? customPrice
+        ? item.CustomerPrice && item.CustomerPrice < item.OnSalePrice
+          ? item.CustomerPrice
           : item.OnSalePrice
-        : customPrice
-      : customPrice
+        : item.CustomerPrice
+      : item.CustomerPrice
     : undefined;
   const priceColor = item?.IsOnSale
     ? item.OnSalePrice
-      ? customPrice && customPrice < item.OnSalePrice
+      ? item.CustomerPrice && item.CustomerPrice < item.OnSalePrice
         ? props.customPriceTextColor
         : props.onSalePriceTextColor
       : props.customPriceTextColor
