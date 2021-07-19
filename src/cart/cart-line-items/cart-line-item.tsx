@@ -127,9 +127,7 @@ const CartLineItem: FC<Props> = (props: Props) => {
           <div className="cart-row-item-total">
             Subtotal:
             <span>
-              {toUSCurrency((price ?? item.SalesPrice) * props.quantity)} (
-              {props.quantity} item
-              {props.quantity > 1 ? 's' : ''})
+              {toUSCurrency((price ?? item.SalesPrice) * props.quantity)}
             </span>
           </div>
         </div>
