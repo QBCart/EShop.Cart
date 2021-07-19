@@ -8,7 +8,7 @@
 
 import React, { FC, useEffect, useRef } from 'react';
 // prettier-ignore
-import { useCartViewModal, useRemoveCartViewModal } from '@qbcart/eshop-cart-hooks';
+import { useCartViewModal, useRemoveCartViewModal, useShowClearCartModal } from '@qbcart/eshop-cart-hooks';
 
 import CartViewModalStyles from './style.js';
 
@@ -18,6 +18,7 @@ const CartViewModal: FC = () => {
   const ref = useRef<HTMLDivElement>(null);
   const show = useCartViewModal();
   const removeCartViewModal = useRemoveCartViewModal();
+  const showClearCartModal = useShowClearCartModal();
 
   useEffect(() => {
     if (show) {
@@ -67,13 +68,12 @@ const CartViewModal: FC = () => {
                 type="button"
                 //disabled={items.length < 1}
                 className="cart-modal-button button-red"
-                // onClick={() => props.setShowClearCartModal(true)}
+                onClick={showClearCartModal}
               >
                 <span className="material-icons">delete</span>
               </button>
               <button
                 type="button"
-                //disabled={items.length < 1}
                 className="cart-modal-button button-green"
                 onClick={() => navigate('/Checkout')}
               >
