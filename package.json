@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@qbcart/eshop-app-shell": "^3.8.0",
-    "@qbcart/eshop-cart-hooks": "^3.0.0",
+    "@qbcart/eshop-cart-hooks": "^3.1.0",
     "@qbcart/eshop-inventory-hooks": "^3.1.0",
     "@qbcart/types": "^3.4.0",
     "@qbcart/utils": "^1.1.0",
