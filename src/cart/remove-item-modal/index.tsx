@@ -9,9 +9,8 @@
 // prettier-ignore
 import React, { FC, useEffect, useRef } from 'react';
 import { useInventoryItem } from '@qbcart/eshop-inventory-hooks';
-import {
-  useRemoveFromCart /* , useRemoveItemModal, useRemoveRemoveItemModal  */
-} from '@qbcart/eshop-cart-hooks';
+// prettier-ignore
+import { useRemoveFromCart, useRemoveItemModal, useDismissRemoveItemModal } from '@qbcart/eshop-cart-hooks';
 
 import RemoveItemModalStyles from './style.js';
 
@@ -23,8 +22,9 @@ interface Props {
 const RemoveItemModal: FC<Props> = (props: Props) => {
   const ref = useRef<HTMLDivElement>(null);
   const removeFromCart = useRemoveFromCart(props.userLoggedIn);
-  const itemId = ''; //useRemoveItemModal();
-  // const removeRemoveItemModal = useRemoveRemoveItemModal();
+  const itemId = '';
+  useRemoveItemModal();
+  const dismissRemoveItemModal = useDismissRemoveItemModal();
   const [item, setItem] = useInventoryItem(itemId);
 
   useEffect(() => {
@@ -49,7 +49,7 @@ const RemoveItemModal: FC<Props> = (props: Props) => {
       modal.classList.remove('qbc-remove-item-modal-visible');
       modal.style.display = 'none';
       if (itemId) {
-        // removeRemoveItemModal(itemId);
+        dismissRemoveItemModal(itemId);
       }
     } else {
       modal.classList.add('qbc-remove-item-modal-visible');
