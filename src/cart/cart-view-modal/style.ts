@@ -117,6 +117,8 @@ const CartViewModalStyles = styled.div`
     align-items: center;
     padding: 10px 20px;
     background-color: #131921;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
   }
 
   .modal-footer-subtotal,
