@@ -8,9 +8,8 @@
 
 // prettier-ignore
 import React, { FC, useEffect, useRef } from 'react';
-import {
-  useClearCart /*, useClearCartModal, useRemoveClearCartModal*/
-} from '@qbcart/eshop-cart-hooks';
+// prettier-ignore
+import { useClearCart, useClearCartModal, useRemoveClearCartModal } from '@qbcart/eshop-cart-hooks';
 
 import ClearCartModalStyles from './style.js';
 
@@ -21,8 +20,9 @@ interface Props {
 const ClearCartModal: FC<Props> = (props: Props) => {
   const ref = useRef<HTMLDivElement>(null);
   const clearCart = useClearCart(props.userLoggedIn);
-  const show = false; //useClearCartModal();
-  // const removeClearCartModal = useRemoveClearCartModal();
+  const show = false;
+  useClearCartModal();
+  const removeClearCartModal = useRemoveClearCartModal();
 
   useEffect(() => {
     if (show) {
@@ -45,7 +45,7 @@ const ClearCartModal: FC<Props> = (props: Props) => {
       modal.classList.remove('qbc-clear-cart-modal-visible');
       modal.style.display = 'none';
       if (show) {
-        // removeClearCartModal();
+        removeClearCartModal();
       }
     } else {
       modal.classList.add('qbc-clear-cart-modal-visible');
