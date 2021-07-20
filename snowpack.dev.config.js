@@ -6,7 +6,7 @@
 module.exports = {
   mount: {
     dev: { url: '/', resolve: true, static: false },
-    publish_esm: { url: '/publish_esm', resolve: true, static: false }
+    src: { url: '/src', resolve: true, static: false }
   },
   plugins: [],
   packageOptions: {
@@ -51,5 +51,14 @@ module.exports = {
       src: '/accessories/adaptors',
       dest: '/index.html'
     }
-  ]
+  ],
+  // prettier-ignore
+  alias: {
+    'react': `${process.env.SNOWPACK_PUBLIC_STREAMING_URL}/deps/react.js`,
+    'react-dom': `${process.env.SNOWPACK_PUBLIC_STREAMING_URL}/deps/react-dom.js`,
+    'styled-components': `${process.env.SNOWPACK_PUBLIC_STREAMING_URL}/deps/styled-components.js`,
+    '@qbcart/eshop-inventory-hooks': `${process.env.SNOWPACK_PUBLIC_STREAMING_URL}/eshop/inventory-hooks/index.js`,
+    '@qbcart/eshop-cart-hooks': `${process.env.SNOWPACK_PUBLIC_STREAMING_URL}/eshop/cart-hooks/index.js`,
+    '@qbcart/utils': `${process.env.SNOWPACK_PUBLIC_STREAMING_URL}/utils/index.js`
+  }
 };
