@@ -32,7 +32,7 @@
     "test:ci": "echo \"All Good\" && exit 0"
   },
   "devDependencies": {
-    "@qbcart/eshop-app-shell": "^3.8.0",
+    "@qbcart/eshop-app-shell": "^3.8.1",
     "@qbcart/eshop-cart-hooks": "^3.1.0",
     "@qbcart/eshop-inventory-hooks": "^3.1.0",
     "@qbcart/types": "^3.4.0",
