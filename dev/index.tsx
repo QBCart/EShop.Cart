@@ -69,7 +69,7 @@ document.write(
         //import 'https://qbcdemo.z13.web.core.windows.net/eshop/category-boxes/index.js';
         //import 'https://qbcdemo.z13.web.core.windows.net/eshop/product-boxes/index.js';
         //import 'https://qbcdemo.z13.web.core.windows.net/eshop/product-modal/index.js';
-        import '/publish_esm/index.js';
+        import '/src/index.js';
       </script>
     `
   })
