@@ -22,9 +22,9 @@
   },
   "homepage": "https://github.com/QBCart/EShop.Cart#readme",
   "scripts": {
-    "start": "npm run build:dev && SNOWPACK_PUBLIC_STREAMING_URL=https://qbcdemo.z13.web.core.windows.net snowpack dev --config snowpack.dev.config.js",
+    "start": "SNOWPACK_PUBLIC_STREAMING_URL=https://qbcdemo.z13.web.core.windows.net npm run dev",
     "build": "tsc && snowpack build",
-    "build:dev": "SNOWPACK_PUBLIC_STREAMING_URL=https://qbcdemo.z13.web.core.windows.net npm run build",
+    "dev": "npm run build && snowpack dev --config snowpack.dev.config.js",
     "lint": "eslint src/**/*.tsx",
     "format:check": "prettier --check .",
     "format:fix": "prettier . --write",
